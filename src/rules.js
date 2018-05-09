@@ -1,9 +1,7 @@
-import regent from 'regent';
-
-// const rules = {
-//     PLAYER_IS_BLOCKED = {
-//         left: '@playerPosition',
-//         fn: 'overlaps',
-//         right: '@obstaclePosition'
-//       }
-// }
+export default {
+    PLAYER_IS_BLOCKED : {
+        left: '@playerState',
+        fn: 'overlaps',
+        right: '@obstacleState'
+      }
+}
