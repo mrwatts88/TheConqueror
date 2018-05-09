@@ -20,7 +20,3 @@ import regent from 'regent';
 //     rules: [isRaining, isWindy, isCold]
 // }
 
-
-
-var c = document.getElementById("myCanvas");
-var ctx = c.getContext("2d");
