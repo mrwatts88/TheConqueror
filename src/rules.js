@@ -1,5 +1,9 @@
 import regent from 'regent';
 
 const rules = {
-    const isStoppedByObstacle = { left:@position, fn: 'overlaps', right: @position} // left obj is player, right is obstacle
+    PLAYER_IS_BLOCKED = {
+        left: '@playerPosition',
+        fn: 'overlaps',
+        right: '@obstaclePosition'
+      }
 }
