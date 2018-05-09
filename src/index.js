@@ -24,8 +24,8 @@ const sketch = p5 => {
         }
 
         obstacles.push({
-            xpos: p5.width / 2,
-            ypos: p5.height / 4,
+            xpos: p5.width / 3 ,
+            ypos: p5.height / 2,
             width: 20,
             height: 20
         });
@@ -46,16 +46,25 @@ const updateGuy = (p5) => {
 
     if (p5.keyIsDown(p5.UP_ARROW)
         && allObjectsAreNotInWay(obstacles, (obstacleState) => {
-            evaluate(PIB, { "playerState": {...playerState, ypos:playerState.ypos-5}, obstacleState },{ overlaps })
+            !evaluate(PIB, { "playerState": {...playerState, ypos:playerState.ypos-5}, obstacleState },{ overlaps })
         })) 
         { 
+            console.log("allObjectsAreNotInWay:"+allObjectsAreNotInWay(obstacles, (obstacleState) => {
+                !evaluate(PIB, { "playerState": {...playerState, ypos:playerState.ypos-5}, obstacleState },{ overlaps })
+            }))
+        
+            console.log("Evaluate Player Is Blocked:"+!evaluate(PIB, { "playerState": {...playerState, ypos:playerState.ypos-5}, 'obstacleState': obstacles[0] },{ overlaps }));
+        
+            playerState.ypos -= 5;
+        }
+        else
+        {
             console.log("allObjectsAreNotInWay:"+allObjectsAreNotInWay(obstacles, (obstacleState) => {
                 evaluate(PIB, { "playerState": {...playerState, ypos:playerState.ypos-5}, obstacleState },{ overlaps })
             }))
         
             console.log("Evaluate Player Is Blocked:"+evaluate(PIB, { "playerState": {...playerState, ypos:playerState.ypos-5}, 'obstacleState': obstacles[0] },{ overlaps }));
-        
-            playerState.ypos -= 5;
+
         }
 
         // THIS WORKS====>
@@ -89,7 +98,7 @@ const drawObstacle = p5 => p5.rect(obstacles[0].xpos, obstacles[0].ypos, 20, 20)
 
 const allObjectsAreNotInWay = (arr, fxn) => {
     for(let a of arr){
-        if(fxn(a)) return false;   
+        if(fxn(a) === true ) return false;   
     }
     return true;
 }
