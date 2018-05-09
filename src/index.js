@@ -25,8 +25,8 @@ const sketch = p5 => {
         }
 
         obstacles.push({
-            xpos: p5.width / 2,
-            ypos: p5.height / 4,
+            xpos: p5.width / 3,
+            ypos: p5.height / 2,
             width: 20,
             height: 20
         });
