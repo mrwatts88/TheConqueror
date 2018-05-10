@@ -7,17 +7,18 @@ import { drawEnemies } from './drawEnemies';
 import { drawHealth } from './drawHealth';
 import { updateGuy } from './updateGuy';
 import { updateEnemies } from './updateEnemies';
-import { BS, SPEED } from './constants';
+import { BS, SPEED, WIDTH_UNITS, HEIGHT_UNITS } from './constants';
 import { resolveHealth } from './resolveHealth';
 
 let player = {};
 let enemies = [];
 let map = [];
 let startCorner = { row: 0, col: 0 };
+let frame = 0;
 
 const sketch = p5 => {
     p5.setup = () => {
-        p5.createCanvas(BS * 30, BS * 20);
+        p5.createCanvas(BS * WIDTH_UNITS, BS * HEIGHT_UNITS);
         map = getTheMap();
         p5.strokeWeight(0);
 
@@ -31,7 +32,7 @@ const sketch = p5 => {
             health: 100,
             color: 'white',
             type: 'player',
-            speed: 2,
+            speed: 16,
             attack: 2
         }
 
@@ -68,12 +69,14 @@ const sketch = p5 => {
         p5.background(0);
         startCorner = drawMap(p5, map, startCorner, player);
         drawGuy(p5, player);
-        updateGuy(p5, player, map, startCorner);
+        updateGuy(p5, player, map, startCorner, frame);
         drawEnemies(p5, enemies);
         updateEnemies(p5, enemies, map, startCorner);
         resolveHealth(player, enemies);
         drawHealth(p5, player);
         drawInventory(p5, player.inventory);
+        ++frame;
+        frame = frame % 4;
     }
 }
 

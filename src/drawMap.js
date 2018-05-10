@@ -1,10 +1,10 @@
 import { BS } from './constants';
 
 export const drawMap = (p5, map, startCorner, player) => {
-    if (p5.height - player.ypos < 30) {
+    if (p5.height - (player.ypos + BS) < 30) {
         player.ypos -= BS;
         startCorner.row++;
-        if (startCorner.row > map.length - 1 - 20) startCorner.row = map.length - 1 - 20;
+        if (startCorner.row > map.length - 20) startCorner.row = map.length - 20;
     }
 
     if (player.ypos < 30) {
@@ -13,10 +13,10 @@ export const drawMap = (p5, map, startCorner, player) => {
         if (startCorner.row < 0) startCorner.row = 0;
     }
 
-    if (p5.width - player.xpos < 30) {
+    if (p5.width - (player.xpos + BS) < 30) {
         player.xpos -= BS;
         startCorner.col++;
-        if (startCorner.col > map[0].length - 1 - 30) startCorner.col = map[0].length - 1 - 30;
+        if (startCorner.col > map[0].length - 30) startCorner.col = map[0].length - 30;
     }
 
     if (player.xpos < 30) {

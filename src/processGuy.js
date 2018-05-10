@@ -9,9 +9,9 @@ export const processGuy = (row, col, player, map, startCorner) => {
 
     let defaultPosition = [
         [{ row: Math.floor(ypos / BS) + startCorner.row, col: Math.floor(xpos / BS) + startCorner.col },
-        { row: Math.floor(ypos / BS) + startCorner.row, col: Math.floor((xpos + BS) / BS) + startCorner.col }],
-        [{ row: Math.floor((ypos + BS) / BS) + startCorner.row, col: Math.floor((xpos + BS) / BS) + startCorner.col },
-        { row: Math.floor((ypos + BS) / BS) + startCorner.row, col: Math.floor(xpos / BS) + startCorner.col }]
+        { row: Math.floor(ypos / BS) + startCorner.row, col: Math.floor((xpos + BS - 1) / BS) + startCorner.col }],
+        [{ row: Math.floor((ypos + BS - 1) / BS) + startCorner.row, col: Math.floor((xpos + BS - 1) / BS) + startCorner.col },
+        { row: Math.floor((ypos + BS - 1) / BS) + startCorner.row, col: Math.floor(xpos / BS) + startCorner.col }]
     ]
     for (let i = 0; i < 2; ++i) {
         for (let j = 0; j < 2; ++j) {
