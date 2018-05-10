@@ -1,2 +1,2 @@
 export const SPEED = 1;
-export const BS = 20;
+export const BS = 16;

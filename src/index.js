@@ -4,9 +4,11 @@ import { drawMap } from './drawMap';
 import { drawInventory } from './drawInventory';
 import { drawGuy } from './drawGuy';
 import { updateGuy } from './updateGuy';
-import { BS } from './constants';
+import { processGuy } from './processGuy';
+import { BS, SPEED } from './constants';
 
 let player = {};
+let enemies = [];
 let map = [];
 
 const sketch = p5 => {
@@ -21,17 +23,75 @@ const sketch = p5 => {
             ypos: p5.height / 2,
             width: BS,
             height: BS,
-            color: 'white'
+            maxHealth: 100,
+            health: 100,
+            color: 'white',
+            type: 'player',
+            speed: 1
         }
+
+        enemies.push({
+            inventory: [],
+            xpos: BS * 12,
+            ypos: BS * 10,
+            width: BS,
+            height: BS,
+            color: 'blue',
+            type: 'enemy',
+            speed: 2
+        })
     }
 
     p5.draw = () => {
         p5.background(0);
         drawMap(p5, map);
-        updateGuy(p5, player, map);
         drawGuy(p5, player);
+        updateGuy(p5, player, map);
+        drawEnemies(p5);
+        updateEnemies(p5, enemies[0], map);
+        resolveHealth(player, enemies);
+        drawHealth(p5);
         drawInventory(p5, player.inventory);
     }
 }
 
+const drawHealth = p5 => {
+    p5.fill('black');
+    p5.rect(16, 4, 102, 8);
+    p5.fill('red');
+    p5.rect(17, 5, 100 * player.health / player.maxHealth, 6);
+}
+
+const drawEnemies = p5 =>
+    enemies.map(ob => {
+        p5.fill(ob.color);
+        p5.rect(ob.xpos, ob.ypos, ob.width, ob.height);
+    })
+
+const resolveHealth = (player, enemies) => {
+    for (let enemy of enemies)
+        if (player.health > 0 && Math.abs(player.ypos - enemy.ypos) < player.height / 2 + enemy.height / 2
+            && Math.abs(player.xpos - enemy.xpos) < player.width / 2 + enemy.width / 2)
+            --player.health;
+}
+
+
+export const updateEnemies = (p5, player, map) => {
+    let dir = Math.random();
+    if (dir < 0.25) {
+        if (processGuy(Math.floor((player.ypos - 1) / BS), undefined, player, map))
+            player.ypos -= SPEED;
+
+    } else if (dir < 0.5) {
+        if (processGuy(Math.floor((player.ypos + 1 + BS) / BS), undefined, player, map))
+            player.ypos += SPEED;
+
+    } else if (dir < 0.75) {
+        if (processGuy(undefined, Math.floor((player.xpos - 1) / BS), player, map))
+            player.xpos -= SPEED;
+
+    } else
+        if (processGuy(undefined, Math.floor((player.xpos + 1 + BS) / BS), player, map))
+            player.xpos += SPEED;
+}
 const P5 = new p5(sketch);
