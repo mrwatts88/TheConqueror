@@ -24,8 +24,8 @@ const sketch = p5 => {
 
         player = {
             inventory: [],
-            xpos: 16 * 12,
-            ypos: 16 * 8,
+            xpos: BS * 12,
+            ypos: BS * 8,
             width: BS,
             height: BS,
             maxHealth: 100,
