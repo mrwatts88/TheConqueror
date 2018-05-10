@@ -3,8 +3,10 @@ import { getTheMap } from './map'
 import { drawMap } from './drawMap';
 import { drawInventory } from './drawInventory';
 import { drawGuy } from './drawGuy';
+import { drawEnemies } from './drawEnemies';
+import { drawHealth } from './drawHealth';
 import { updateGuy } from './updateGuy';
-import { processGuy } from './processGuy';
+import { updateEnemies } from './updateEnemies';
 import { BS, SPEED } from './constants';
 import { SSL_OP_LEGACY_SERVER_CONNECT } from 'constants';
 
@@ -45,6 +47,20 @@ const sketch = p5 => {
             speed: 2,
             attack: 1
         })
+
+        enemies.push({
+            inventory: [],
+            xpos: BS * 5,
+            ypos: BS * 10,
+            width: BS,
+            height: BS,
+            maxHealth: 25,
+            health: 25,
+            color: 'blue',
+            type: 'enemy',
+            speed: 2,
+            attack: 1
+        })
     }
 
     p5.draw = () => {
@@ -52,29 +68,13 @@ const sketch = p5 => {
         drawMap(p5, map);
         drawGuy(p5, player);
         updateGuy(p5, player, map);
-        drawEnemies(p5);
+        drawEnemies(p5, enemies);
         updateEnemies(p5, enemies, map);
         resolveHealth(player, enemies);
-        drawHealth(p5);
+        drawHealth(p5, player);
         drawInventory(p5, player.inventory);
     }
 }
-
-const drawHealth = p5 => {
-    p5.fill('black');
-    p5.rect(16, 4, 102, 8);
-    p5.fill('red');
-    p5.rect(17, 5, 100 * player.health / player.maxHealth, 6);
-}
-
-const drawEnemies = p5 =>
-    enemies.map(ob => {
-        if (ob.health <= 0)
-            o;
-        p5.fill(ob.color);
-        p5.rect(ob.xpos, ob.ypos, ob.width, ob.height);
-        
-    })
 
 const resolveHealth = (player, enemies) => {
     for (let i = enemies.length -1 ; i >= 0; --i)
@@ -87,27 +87,5 @@ const resolveHealth = (player, enemies) => {
                 if (player.health <=0)
                     player.health = player.maxHealth;
             }
-}
-
-
-export const updateEnemies = (p5, enemies, map) => {
-    for(let enemy of enemies ){
-        let dir = Math.random();
-        if (dir < 0.25) {
-            if (processGuy(Math.floor((enemy.ypos - 1) / BS), undefined, enemy, map))
-                enemy.ypos -= SPEED;
-
-        } else if (dir < 0.5) {
-            if (processGuy(Math.floor((enemy.ypos + 1 + BS) / BS), undefined, enemy, map))
-                enemy.ypos += SPEED;
-
-        } else if (dir < 0.75) {
-            if (processGuy(undefined, Math.floor((enemy.xpos - 1) / BS), enemy, map))
-                enemy.xpos -= SPEED;
-
-        } else
-            if (processGuy(undefined, Math.floor((enemy.xpos + 1 + BS) / BS), enemy, map))
-                enemy.xpos += SPEED;
-    }
 }
 const P5 = new p5(sketch);
