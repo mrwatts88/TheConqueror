@@ -41,7 +41,16 @@ const sketch = p5 => {
             color: 'blue',
             type: 'enemy',
             speed: 2
-        })
+        }, {
+                inventory: [],
+                xpos: BS * 16,
+                ypos: BS * 7,
+                width: BS,
+                height: BS,
+                color: 'blue',
+                type: 'enemy',
+                speed: 2
+            })
     }
 
     p5.draw = () => {
@@ -50,7 +59,7 @@ const sketch = p5 => {
         drawGuy(p5, player);
         updateGuy(p5, player, map);
         drawEnemies(p5, enemies);
-        updateEnemies(p5, enemies[0], map);
+        updateEnemies(p5, enemies, map);
         resolveHealth(player, enemies);
         drawHealth(p5, player);
         drawInventory(p5, player.inventory);
