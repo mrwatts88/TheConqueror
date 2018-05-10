@@ -3,5 +3,10 @@ export default {
         left: '@playerState',
         fn: 'overlaps',
         right: '@obstacleState'
+      },
+    PLAYER_CAN_PICK_UP : {
+        left: '@playerState',
+        fn: 'overlaps',
+        right: '@itemState'
       }
 }
