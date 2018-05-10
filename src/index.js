@@ -8,11 +8,12 @@ import { drawHealth } from './drawHealth';
 import { updateGuy } from './updateGuy';
 import { updateEnemies } from './updateEnemies';
 import { BS, SPEED } from './constants';
-import { SSL_OP_LEGACY_SERVER_CONNECT } from 'constants';
+import { resolveHealth } from './resolveHealth';
 
 let player = {};
 let enemies = [];
 let map = [];
+let startCorner = { row: 0, col: 0 };
 
 const sketch = p5 => {
     p5.setup = () => {
@@ -22,15 +23,15 @@ const sketch = p5 => {
 
         player = {
             inventory: [],
-            xpos: p5.width / 2,
-            ypos: p5.height / 2,
+            xpos: 16 * 12,
+            ypos: 16 * 8,
             width: BS,
             height: BS,
             maxHealth: 100,
             health: 100,
             color: 'white',
             type: 'player',
-            speed: 1,
+            speed: 2,
             attack: 2
         }
 
@@ -65,27 +66,15 @@ const sketch = p5 => {
 
     p5.draw = () => {
         p5.background(0);
-        drawMap(p5, map);
+        startCorner = drawMap(p5, map, startCorner, player);
         drawGuy(p5, player);
-        updateGuy(p5, player, map);
+        updateGuy(p5, player, map, startCorner);
         drawEnemies(p5, enemies);
-        updateEnemies(p5, enemies, map);
+        updateEnemies(p5, enemies, map, startCorner);
         resolveHealth(player, enemies);
         drawHealth(p5, player);
         drawInventory(p5, player.inventory);
     }
 }
 
-const resolveHealth = (player, enemies) => {
-    for (let i = enemies.length -1 ; i >= 0; --i)
-        if (player.health > 0 && Math.abs(player.ypos - enemies[i].ypos) < player.height / 2 + enemies[i].height / 2
-            && Math.abs(player.xpos - enemies[i].xpos) < player.width / 2 + enemies[i].width / 2){
-                --enemies[i].health;
-                if (enemies[i].health <=0)
-                    enemies.splice(i,1);
-                --player.health;
-                if (player.health <=0)
-                    player.health = player.maxHealth;
-            }
-}
 const P5 = new p5(sketch);
