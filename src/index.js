@@ -6,6 +6,7 @@ import { drawGuy } from './drawGuy';
 import { updateGuy } from './updateGuy';
 import { processGuy } from './processGuy';
 import { BS, SPEED } from './constants';
+import { SSL_OP_LEGACY_SERVER_CONNECT } from 'constants';
 
 let player = {};
 let enemies = [];
@@ -27,7 +28,8 @@ const sketch = p5 => {
             health: 100,
             color: 'white',
             type: 'player',
-            speed: 1
+            speed: 1,
+            attack: 2
         }
 
         enemies.push({
@@ -36,9 +38,12 @@ const sketch = p5 => {
             ypos: BS * 10,
             width: BS,
             height: BS,
+            maxHealth: 25,
+            health: 25,
             color: 'blue',
             type: 'enemy',
-            speed: 2
+            speed: 2,
+            attack: 1
         })
     }
 
@@ -48,7 +53,7 @@ const sketch = p5 => {
         drawGuy(p5, player);
         updateGuy(p5, player, map);
         drawEnemies(p5);
-        updateEnemies(p5, enemies[0], map);
+        updateEnemies(p5, enemies, map);
         resolveHealth(player, enemies);
         drawHealth(p5);
         drawInventory(p5, player.inventory);
@@ -64,34 +69,45 @@ const drawHealth = p5 => {
 
 const drawEnemies = p5 =>
     enemies.map(ob => {
+        if (ob.health <= 0)
+            o;
         p5.fill(ob.color);
         p5.rect(ob.xpos, ob.ypos, ob.width, ob.height);
+        
     })
 
 const resolveHealth = (player, enemies) => {
-    for (let enemy of enemies)
-        if (player.health > 0 && Math.abs(player.ypos - enemy.ypos) < player.height / 2 + enemy.height / 2
-            && Math.abs(player.xpos - enemy.xpos) < player.width / 2 + enemy.width / 2)
-            --player.health;
+    for (let i = enemies.length -1 ; i >= 0; --i)
+        if (player.health > 0 && Math.abs(player.ypos - enemies[i].ypos) < player.height / 2 + enemies[i].height / 2
+            && Math.abs(player.xpos - enemies[i].xpos) < player.width / 2 + enemies[i].width / 2){
+                --enemies[i].health;
+                if (enemies[i].health <=0)
+                    enemies.splice(i,1);
+                --player.health;
+                if (player.health <=0)
+                    player.health = player.maxHealth;
+            }
 }
 
 
-export const updateEnemies = (p5, player, map) => {
-    let dir = Math.random();
-    if (dir < 0.25) {
-        if (processGuy(Math.floor((player.ypos - 1) / BS), undefined, player, map))
-            player.ypos -= SPEED;
+export const updateEnemies = (p5, enemies, map) => {
+    for(let enemy of enemies ){
+        let dir = Math.random();
+        if (dir < 0.25) {
+            if (processGuy(Math.floor((enemy.ypos - 1) / BS), undefined, enemy, map))
+                enemy.ypos -= SPEED;
 
-    } else if (dir < 0.5) {
-        if (processGuy(Math.floor((player.ypos + 1 + BS) / BS), undefined, player, map))
-            player.ypos += SPEED;
+        } else if (dir < 0.5) {
+            if (processGuy(Math.floor((enemy.ypos + 1 + BS) / BS), undefined, enemy, map))
+                enemy.ypos += SPEED;
 
-    } else if (dir < 0.75) {
-        if (processGuy(undefined, Math.floor((player.xpos - 1) / BS), player, map))
-            player.xpos -= SPEED;
+        } else if (dir < 0.75) {
+            if (processGuy(undefined, Math.floor((enemy.xpos - 1) / BS), enemy, map))
+                enemy.xpos -= SPEED;
 
-    } else
-        if (processGuy(undefined, Math.floor((player.xpos + 1 + BS) / BS), player, map))
-            player.xpos += SPEED;
+        } else
+            if (processGuy(undefined, Math.floor((enemy.xpos + 1 + BS) / BS), enemy, map))
+                enemy.xpos += SPEED;
+    }
 }
 const P5 = new p5(sketch);
