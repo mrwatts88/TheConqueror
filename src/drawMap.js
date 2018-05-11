@@ -15,7 +15,7 @@ export const drawMap = (p5, map, startCorner, player, enemies) => {
         // if (startCorner.row < 0) startCorner.row = 0;
     }
 
-    if (p5.width - (player.xpos + BS) < 2 * BS) {
+    if (p5.width - (player.xpos + BS) < 2 * BS + 160) {
         player.xpos -= BS;
         startCorner.col++;
         enemies.forEach(e => e.xpos -= BS);
@@ -30,7 +30,7 @@ export const drawMap = (p5, map, startCorner, player, enemies) => {
     }
 
     for (let row = startCorner.row; row < startCorner.row + HEIGHT_UNITS; ++row) {
-        for (let col = startCorner.col; col < startCorner.col + WIDTH_UNITS; ++col) {
+        for (let col = startCorner.col; col < startCorner.col + WIDTH_UNITS - 10; ++col) {
             if (map[row][col] === 'w') {
                 p5.fill('green');
                 p5.rect((col - startCorner.col) * BS, (row - startCorner.row) * BS, BS, BS);

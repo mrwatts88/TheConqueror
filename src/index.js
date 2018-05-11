@@ -70,6 +70,9 @@ const sketch = p5 => {
 
     p5.draw = () => {
         p5.background(0);
+        p5.fill('grey');
+        p5.rect(p5.width - 160, 0, 160, p5.height);
+        p5.fill('white');
         startCorner = drawMap(p5, map, startCorner, player, enemies);
         drawGuy(p5, player);
         updateGuy(p5, player, map, startCorner, frame);

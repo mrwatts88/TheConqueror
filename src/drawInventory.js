@@ -1,5 +1,5 @@
 export const drawInventory = (p5, inventory) => {
-    let baseX = p5.width - p5.width / 5.5;
+    let baseX = p5.width - 120;
     let baseY = p5.height / 8;
 
     for (let i = 0; i < inventory.length; ++i) {
