@@ -18,6 +18,7 @@ let frame = 0;
 
 const sketch = p5 => {
     p5.setup = () => {
+        // p5.frameRate(1);
         p5.createCanvas(BS * WIDTH_UNITS, BS * HEIGHT_UNITS);
         map = getTheMap();
         p5.strokeWeight(0);
@@ -44,10 +45,11 @@ const sketch = p5 => {
             height: BS,
             maxHealth: 25,
             health: 25,
-            color: 'blue',
+            color: 'orange',
             type: 'enemy',
-            speed: 2,
-            attack: 1
+            speed: 16,
+            attack: 1,
+            prevDirection: 'left'
         })
 
         enemies.push({
@@ -60,23 +62,24 @@ const sketch = p5 => {
             health: 25,
             color: 'blue',
             type: 'enemy',
-            speed: 2,
-            attack: 1
+            speed: 16,
+            attack: 1,
+            prevDirection: 'left'
         })
     }
 
     p5.draw = () => {
         p5.background(0);
-        startCorner = drawMap(p5, map, startCorner, player);
+        startCorner = drawMap(p5, map, startCorner, player, enemies);
         drawGuy(p5, player);
         updateGuy(p5, player, map, startCorner, frame);
         drawEnemies(p5, enemies);
-        updateEnemies(p5, enemies, map, startCorner);
+        updateEnemies(p5, enemies, map, startCorner, frame);
         resolveHealth(player, enemies);
         drawHealth(p5, player);
         drawInventory(p5, player.inventory);
         ++frame;
-        frame = frame % 4;
+        frame = frame % 100;
     }
 }
 
