@@ -18,7 +18,6 @@ let frame = 0;
 
 const sketch = p5 => {
     p5.setup = () => {
-        // p5.frameRate(1);
         p5.createCanvas(BS * WIDTH_UNITS, BS * HEIGHT_UNITS);
         map = getTheMap();
         p5.strokeWeight(0);
@@ -33,7 +32,7 @@ const sketch = p5 => {
             health: 100,
             color: 'white',
             type: 'player',
-            speed: 16,
+            speed: 2,
             attack: 2
         }
 
@@ -47,7 +46,7 @@ const sketch = p5 => {
             health: 25,
             color: 'orange',
             type: 'enemy',
-            speed: 16,
+            speed: 8,
             attack: 1,
             prevDirection: 'left'
         })
@@ -62,7 +61,7 @@ const sketch = p5 => {
             health: 25,
             color: 'blue',
             type: 'enemy',
-            speed: 16,
+            speed: 4,
             attack: 1,
             prevDirection: 'left'
         })

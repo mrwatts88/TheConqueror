@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "npx webpack",
+    "build": "webpack --config webpack.config.js",
     "watch": "webpack -d --watch"
   },
   "keywords": [],
