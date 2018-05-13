@@ -15,13 +15,13 @@ let enemies = [];
 let map = [];
 let startCorner = { row: 0, col: 0 };
 let frame = 0;
-let images;
-let enemyImages;
+let images, enemyImages, mapImage;
 
 const sketch = p5 => {
     p5.setup = () => {
         images = p5.loadImage("sprites.png");
         enemyImages = p5.loadImage("monsterSprites.png");
+        mapImage = p5.loadImage("map.png");
         p5.createCanvas(BS * WIDTH_UNITS, BS * HEIGHT_UNITS);
         map = getTheMap();
         p5.strokeWeight(1);
@@ -29,7 +29,7 @@ const sketch = p5 => {
 
     p5.draw = () => {
         p5.background(255);
-        startCorner = drawMap(p5, map, startCorner, player, enemies);
+        startCorner = drawMap(p5, map, startCorner, player, enemies, mapImage);
         drawGuy(p5, player[0], images);
         drawEnemies(p5, enemies, enemyImages);
         drawSidebar(p5);

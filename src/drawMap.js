@@ -1,6 +1,6 @@
 import { BS, WIDTH_UNITS, HEIGHT_UNITS } from './constants';
 
-export const drawMap = (p5, map, startCorner, player, enemies) => {
+export const drawMap = (p5, map, startCorner, player, enemies, mapImage) => {
 
     // handle the shifting of the map, so we only draw the visible portion, and shift entities accordingly
     if (player[0].xpos !== undefined) {
@@ -34,16 +34,19 @@ export const drawMap = (p5, map, startCorner, player, enemies) => {
         }
     }
 
+    p5.image(mapImage, 0, 0, p5.width, p5.height, 32 + startCorner.col * BS,
+        32 + startCorner.row * BS, p5.width, p5.height);
+
     // Draw the visible portion of the map.
     for (let row = startCorner.row; row < startCorner.row + HEIGHT_UNITS; ++row) {
         for (let col = startCorner.col; col < startCorner.col + WIDTH_UNITS - 160 / BS; ++col) {
 
-            // Draw walls
-            if (map[row][col] === 'w') {
-                p5.fill('green');
-                p5.rect((col - startCorner.col) * BS, (row - startCorner.row) * BS, BS, BS);
-                p5.fill('white');
-            }
+            // // Draw walls
+            // if (map[row][col] === 'w') {
+            //     p5.fill('green');
+            //     p5.rect((col - startCorner.col) * BS, (row - startCorner.row) * BS, BS, BS);
+            //     p5.fill('white');
+            // }
 
             // Draw items
             if (map[row][col] === 'i') {
