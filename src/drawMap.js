@@ -67,8 +67,8 @@ export const drawMap = (p5, map, startCorner, player, enemies) => {
             if (map[row][col] === 'p') {
                 player[0] = {
                     inventory: [],
-                    xpos: BS * 12,
-                    ypos: BS * 8,
+                    xpos: (col - startCorner.col) * BS,
+                    ypos: (row - startCorner.row) * BS,
                     width: BS,
                     height: BS,
                     maxHealth: 100,
