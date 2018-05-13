@@ -1,7 +1,6 @@
 import { BS, WIDTH_UNITS, HEIGHT_UNITS } from './constants';
 
 export const drawMap = (p5, map, startCorner, player, enemies) => {
-    // console.log(player.xpos);
     if (player[0].xpos !== undefined) {
         if (p5.height - (player[0].ypos + BS) < 2 * BS) {
             player[0].ypos -= BS;
@@ -33,7 +32,7 @@ export const drawMap = (p5, map, startCorner, player, enemies) => {
     }
 
     for (let row = startCorner.row; row < startCorner.row + HEIGHT_UNITS; ++row) {
-        for (let col = startCorner.col; col < startCorner.col + WIDTH_UNITS - 10; ++col) {
+        for (let col = startCorner.col; col < startCorner.col + WIDTH_UNITS - 160 / BS; ++col) {
             if (map[row][col] === 'w') {
                 p5.fill('green');
                 p5.rect((col - startCorner.col) * BS, (row - startCorner.row) * BS, BS, BS);
@@ -77,7 +76,9 @@ export const drawMap = (p5, map, startCorner, player, enemies) => {
                     color: 'pink',
                     type: 'player',
                     speed: 1,
-                    attack: 2
+                    attack: 2,
+                    direction: 'down',
+                    step: 0
                 }
 
                 map[row][col] = '0';
