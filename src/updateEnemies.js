@@ -2,9 +2,9 @@ import { processGuy } from './processGuy';
 import { BS, SPEED } from './constants';
 
 export const updateEnemies = (p5, enemies, map, startCorner, frame) => {
-    if (frame % 7 !== 0) return;
+    if (frame % 1 !== 0) return;
 
-    if (Math.random() < 0.7) {
+    if (Math.random() < 0.97) {
         for (let enemy of enemies) {
             goPrevDirection(enemy, map, startCorner);
         }
@@ -13,14 +13,16 @@ export const updateEnemies = (p5, enemies, map, startCorner, frame) => {
 
     for (let enemy of enemies) {
         let dir = Math.random();
-        if (dir < 0.25)
+        if (dir < 0.2)
             goUp(enemy, map, startCorner);
-        else if (dir < 0.5)
+        else if (dir < 0.4)
             goDown(enemy, map, startCorner);
-        else if (dir < 0.75)
+        else if (dir < 0.6)
             goLeft(enemy, map, startCorner);
-        else
+        else if (dir < 0.8)
             goRight(enemy, map, startCorner);
+        else
+            enemy.prevDirection = 'stay';
     }
 }
 
@@ -55,6 +57,8 @@ const goRight = (enemy, map, startCorner) => {
 
 const goPrevDirection = (enemy, map, startCorner) => {
     switch (enemy.prevDirection) {
+        case 'stay':
+            break;
         case 'up':
             goUp(enemy, map, startCorner)
             break;
