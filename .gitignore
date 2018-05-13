@@ -1,2 +1,3 @@
-dist/main.js
+dist/game-bundle.js
+dist/mapCreator-bundle.js
 node_modules/
