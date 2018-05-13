@@ -2,6 +2,8 @@ import { processGuy } from './processGuy';
 import { BS, SPEED } from './constants';
 
 export const updateGuy = (p5, player, map, startCorner, frame) => {
+    if (player.xpos === undefined) return;
+
     if (frame % 2 !== 0) return;
     if (p5.keyIsDown(p5.UP_ARROW))
         if (processGuy(Math.floor((player.ypos - player.speed) / BS) + startCorner.row, undefined, player, map, startCorner))

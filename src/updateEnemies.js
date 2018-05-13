@@ -3,23 +3,23 @@ import { BS, SPEED } from './constants';
 
 export const updateEnemies = (p5, enemies, map, startCorner, frame) => {
     if (frame % 7 !== 0) return;
-    for (let enemy of enemies) {
-        if (Math.random() < 0.7) {
+
+    if (Math.random() < 0.7) {
+        for (let enemy of enemies) {
             goPrevDirection(enemy, map, startCorner);
-            return;
         }
+        return;
+    }
 
+    for (let enemy of enemies) {
         let dir = Math.random();
-        if (dir < 0.25) {
+        if (dir < 0.25)
             goUp(enemy, map, startCorner);
-
-        } else if (dir < 0.5) {
+        else if (dir < 0.5)
             goDown(enemy, map, startCorner);
-
-        } else if (dir < 0.75) {
+        else if (dir < 0.75)
             goLeft(enemy, map, startCorner);
-
-        } else
+        else
             goRight(enemy, map, startCorner);
     }
 }

@@ -1,4 +1,6 @@
 export const drawInventory = (p5, inventory) => {
+    if (inventory == undefined) return;
+
     let baseX = p5.width - 120;
     let baseY = p5.height / 8;
 

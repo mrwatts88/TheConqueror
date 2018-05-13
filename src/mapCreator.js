@@ -7,11 +7,11 @@ const mapWidth = document.querySelector('#map-width');
 const w = document.querySelector('#w');
 const i = document.querySelector('#i');
 const m = document.querySelector('#m');
-const s = document.querySelector('#s');
+const p = document.querySelector('#p');
 const o = document.querySelector('#o');
 const playBtn = document.querySelector('#play-btn');
 
-let height, width, P5;
+let height, width, P5, startRow, startCol, endRow, endCol;
 let gridArray = [];
 let currentBlockType = 'w';
 
@@ -32,8 +32,8 @@ m.addEventListener('click', e => {
     currentBlockType = 'm';
 })
 
-s.addEventListener('click', e => {
-    currentBlockType = 's';
+p.addEventListener('click', e => {
+    currentBlockType = 'p';
 })
 
 o.addEventListener('click', e => {
@@ -55,9 +55,16 @@ const sketch = p5 => {
         width = mapWidth.value;
         const can = p5.createCanvas(bs * width + 1, bs * height + 1);
         can.mousePressed(() => {
-            let col = Math.floor(p5.mouseX / bs);
-            let row = Math.floor(p5.mouseY / bs);
-            gridArray[row][col] = currentBlockType;
+            startRow = Math.floor(p5.mouseY / bs);
+            startCol = Math.floor(p5.mouseX / bs);
+        })
+
+        can.mouseReleased(() => {
+            endRow = Math.floor(p5.mouseY / bs);
+            endCol = Math.floor(p5.mouseX / bs);
+            for (let j = Math.min(startRow, endRow); j <= Math.max(startRow, endRow); ++j)
+                for (let i = Math.min(startCol, endCol); i <= Math.max(startCol, endCol); ++i)
+                    gridArray[j][i] = currentBlockType;
         })
 
         for (let j = 0; j < height; ++j) {
@@ -79,7 +86,7 @@ const sketch = p5 => {
                 if (gridArray[j][i] === 'w') p5.fill('green');
                 if (gridArray[j][i] === 'i') p5.fill('yellow');
                 if (gridArray[j][i] === 'm') p5.fill('purple');
-                if (gridArray[j][i] === 's') p5.fill('pink');
+                if (gridArray[j][i] === 'p') p5.fill('pink');
                 if (gridArray[j][i] === '0') p5.fill('white');
                 p5.rect(i * bs, j * bs, bs, bs);
                 p5.fill('white');

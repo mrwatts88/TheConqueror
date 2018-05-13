@@ -3,6 +3,8 @@ import { BS } from './constants';
 
 
 export const processGuy = (row, col, player, map, startCorner) => {
+    if (player.xpos == undefined) return;
+
     let { xpos, ypos } = player;
     let cornerBlocks = {};
     let r, c;
