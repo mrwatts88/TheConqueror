@@ -58,7 +58,8 @@ export const drawMap = (p5, map, startCorner, player, enemies) => {
                     type: 'enemy',
                     speed: 1,
                     attack: 1,
-                    prevDirection: 'left'
+                    prevDirection: 'left',
+                    step: 0
                 })
 
                 map[row][col] = '0';

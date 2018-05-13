@@ -31,6 +31,7 @@ const goUp = (enemy, map, startCorner) => {
         enemy.ypos -= enemy.speed;
         enemy.prevDirection = 'up';
     }
+    advanceStep(enemy);
 }
 
 const goDown = (enemy, map, startCorner) => {
@@ -38,6 +39,7 @@ const goDown = (enemy, map, startCorner) => {
         enemy.ypos += enemy.speed;
         enemy.prevDirection = 'down';
     }
+    advanceStep(enemy);
 }
 
 const goLeft = (enemy, map, startCorner) => {
@@ -45,7 +47,7 @@ const goLeft = (enemy, map, startCorner) => {
         enemy.xpos -= enemy.speed;
         enemy.prevDirection = 'left';
     }
-
+    advanceStep(enemy);
 }
 
 const goRight = (enemy, map, startCorner) => {
@@ -53,6 +55,7 @@ const goRight = (enemy, map, startCorner) => {
         enemy.xpos += enemy.speed;
         enemy.prevDirection = 'right';
     }
+    advanceStep(enemy);
 }
 
 const goPrevDirection = (enemy, map, startCorner) => {
@@ -75,4 +78,9 @@ const goPrevDirection = (enemy, map, startCorner) => {
             goRight(enemy, map, startCorner)
             break;
     }
+}
+
+const advanceStep = enemy => {
+    enemy.step += 0.3;
+    if (enemy.step > 3) enemy.step = 0;
 }

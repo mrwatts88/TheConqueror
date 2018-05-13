@@ -1,4 +1,4 @@
-export const drawGuy = (p5, player, images, frame) => {
+export const drawGuy = (p5, player, images) => {
     if (player.xpos === undefined) return;
     p5.fill(player.color);
     // p5.rect(player.xpos, player.ypos, player.width, player.height);

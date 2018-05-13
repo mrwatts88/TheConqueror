@@ -16,10 +16,12 @@ let map = [];
 let startCorner = { row: 0, col: 0 };
 let frame = 0;
 let images;
+let enemyImages;
 
 const sketch = p5 => {
     p5.setup = () => {
         images = p5.loadImage("sprites.png");
+        enemyImages = p5.loadImage("monsterSprites.png");
         p5.createCanvas(BS * WIDTH_UNITS, BS * HEIGHT_UNITS);
         map = getTheMap();
         p5.strokeWeight(0);
@@ -29,8 +31,8 @@ const sketch = p5 => {
         p5.background(255);
         p5.strokeWeight(1);
         startCorner = drawMap(p5, map, startCorner, player, enemies);
-        drawGuy(p5, player[0], images, frame);
-        drawEnemies(p5, enemies);
+        drawGuy(p5, player[0], images);
+        drawEnemies(p5, enemies, enemyImages);
         drawSidebar(p5);
         drawHealth(p5, player[0]);
         drawInventory(p5, player[0].inventory);
