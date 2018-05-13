@@ -1,11 +1,14 @@
 import { BS, WIDTH_UNITS, HEIGHT_UNITS } from './constants';
 
 export const drawMap = (p5, map, startCorner, player, enemies) => {
+
+    // handle the shifting of the map, so we only draw the visible portion, and shift entities accordingly
     if (player[0].xpos !== undefined) {
         if (p5.height - (player[0].ypos + BS) < 2 * BS) {
             player[0].ypos -= BS;
             startCorner.row++;
             enemies.forEach(e => e.ypos -= BS);
+            // Not necessary as long as there is a 2 block wall surrounding the outside of the map
             // if (startCorner.row > map.length - 20) startCorner.row = map.length - 20;
         }
 
@@ -31,20 +34,25 @@ export const drawMap = (p5, map, startCorner, player, enemies) => {
         }
     }
 
+    // Draw the visible portion of the map.
     for (let row = startCorner.row; row < startCorner.row + HEIGHT_UNITS; ++row) {
         for (let col = startCorner.col; col < startCorner.col + WIDTH_UNITS - 160 / BS; ++col) {
+
+            // Draw walls
             if (map[row][col] === 'w') {
                 p5.fill('green');
                 p5.rect((col - startCorner.col) * BS, (row - startCorner.row) * BS, BS, BS);
                 p5.fill('white');
             }
 
+            // Draw items
             if (map[row][col] === 'i') {
                 p5.fill('yellow');
                 p5.rect((col - startCorner.col) * BS, (row - startCorner.row) * BS, BS, BS);
                 p5.fill('white');
             }
 
+            // Draw initial monsters and add them to the enemies array
             if (map[row][col] === 'm') {
                 enemies.push({
                     inventory: [],
@@ -65,6 +73,7 @@ export const drawMap = (p5, map, startCorner, player, enemies) => {
                 map[row][col] = '0';
             }
 
+            // Draw player at initial position and add to the player array.
             if (map[row][col] === 'p') {
                 player[0] = {
                     inventory: [],
@@ -87,5 +96,5 @@ export const drawMap = (p5, map, startCorner, player, enemies) => {
         }
     }
 
-    return startCorner;
+    return startCorner; // Return the indices of the new top-left corner of the visible map
 }

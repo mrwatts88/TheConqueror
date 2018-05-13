@@ -13,4 +13,6 @@ export const drawInventory = (p5, inventory) => {
         p5.fill(ob.color);
         p5.rect(xPosition, yPosition, ob.width, ob.height);
     }
+
+    p5.fill(255);
 }

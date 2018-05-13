@@ -49,6 +49,8 @@ const playGame = () => {
     window.location.href = 'index.html';
 }
 
+
+// TODO: stop looping, only need to update the canvas after a click
 const sketch = p5 => {
     p5.setup = () => {
         height = mapHeight.value;

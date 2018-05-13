@@ -1,11 +1,13 @@
 export const drawEnemies = (p5, enemies, images) => enemies.forEach(ob => {
     p5.fill(ob.color);
     // p5.rect(ob.xpos, ob.ypos, ob.width, ob.height);
+
+    // location of sprite within sprite sheet (images)
     let x = 6 * 32 + 32 * (Math.floor(ob.step));
     let y = 4 * 32;
+
     switch (ob.prevDirection) {
         case 'down':
-            y += 0;
             break;
         case 'left':
             y += 32;
@@ -16,11 +18,9 @@ export const drawEnemies = (p5, enemies, images) => enemies.forEach(ob => {
         case 'up':
             y += 96;
             break;
-        default:
-            y += 0;
-            break;
     }
 
+    // draw sprite to canvas
     p5.image(
         images,
         ob.xpos,
@@ -33,5 +33,5 @@ export const drawEnemies = (p5, enemies, images) => enemies.forEach(ob => {
         32,
     )
 
-    p5.fill('white');
+    p5.fill(255);
 })

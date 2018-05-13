@@ -24,12 +24,11 @@ const sketch = p5 => {
         enemyImages = p5.loadImage("monsterSprites.png");
         p5.createCanvas(BS * WIDTH_UNITS, BS * HEIGHT_UNITS);
         map = getTheMap();
-        p5.strokeWeight(0);
+        p5.strokeWeight(1);
     }
 
     p5.draw = () => {
         p5.background(255);
-        p5.strokeWeight(1);
         startCorner = drawMap(p5, map, startCorner, player, enemies);
         drawGuy(p5, player[0], images);
         drawEnemies(p5, enemies, enemyImages);

@@ -90,7 +90,7 @@ eval("var g;\r\n\r\n// This works in non-strict mode\r\ng = (function() {\r\n\tr
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"SPEED\", function() { return SPEED; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"BS\", function() { return BS; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"WIDTH_UNITS\", function() { return WIDTH_UNITS; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"HEIGHT_UNITS\", function() { return HEIGHT_UNITS; });\nconst SPEED = 1;\nconst BS = 32;\nconst WIDTH_UNITS = 30;\nconst HEIGHT_UNITS = 20;\n\n//# sourceURL=webpack:///./src/constants.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"SPEED\", function() { return SPEED; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"BS\", function() { return BS; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"WIDTH_UNITS\", function() { return WIDTH_UNITS; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"HEIGHT_UNITS\", function() { return HEIGHT_UNITS; });\nconst SPEED = 1; // not being used??? each entity has a speed property\nconst BS = 32; // unit size\nconst WIDTH_UNITS = 30; // width of canvas in units\nconst HEIGHT_UNITS = 20;\n\n//# sourceURL=webpack:///./src/constants.js?");
 
 /***/ }),
 

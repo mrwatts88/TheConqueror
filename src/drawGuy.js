@@ -2,24 +2,22 @@ export const drawGuy = (p5, player, images) => {
     if (player.xpos === undefined) return;
     p5.fill(player.color);
     // p5.rect(player.xpos, player.ypos, player.width, player.height);
+
+    // location of sprite within sprite sheet (images)
     let x = 32 * (Math.floor(player.step));
-    let y;
+    let y = 0;
+
     switch (player.direction) {
-        case 'up':
-            y = 96;
-            break;
         case 'down':
-            y = 0;
             break;
         case 'left':
-            y = 32;
+            y += 32;
             break;
         case 'right':
-            y = 64;
+            y += 64;
             break;
-        default:
-            x = 0;
-            y = 0;
+        case 'up':
+            y += 96;
             break;
     }
 
@@ -34,5 +32,6 @@ export const drawGuy = (p5, player, images) => {
         32,
         32,
     )
+
     p5.fill('white');
 }
