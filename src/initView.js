@@ -1,6 +1,6 @@
 import { BS, WIDTH_UNITS, HEIGHT_UNITS } from './constants';
 
-export const initEntities = (map, player) => {
+export const initView = (map, player) => {
     let pRow = 0;
     let pCol = 0;
     for (let row = 0; row < map.length; ++row) {
