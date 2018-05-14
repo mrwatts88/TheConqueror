@@ -34,9 +34,6 @@ export const drawMap = (p5, map, startCorner, player, enemies, mapImage) => {
         }
     }
 
-    p5.image(mapImage, 0, 0, p5.width, p5.height, 32 + startCorner.col * BS,
-        32 + startCorner.row * BS, p5.width, p5.height);
-
     // Draw the visible portion of the map.
     for (let row = startCorner.row; row < startCorner.row + HEIGHT_UNITS; ++row) {
         for (let col = startCorner.col; col < startCorner.col + WIDTH_UNITS - 160 / BS; ++col) {
@@ -49,11 +46,11 @@ export const drawMap = (p5, map, startCorner, player, enemies, mapImage) => {
             // }
 
             // Draw items
-            if (map[row][col] === 'i') {
-                p5.fill('yellow');
-                p5.rect((col - startCorner.col) * BS, (row - startCorner.row) * BS, BS, BS);
-                p5.fill('white');
-            }
+            // if (map[row][col] === 'i') {
+            //     p5.fill('yellow');
+            //     p5.rect((col - startCorner.col) * BS, (row - startCorner.row) * BS, BS, BS);
+            //     p5.fill('white');
+            // }
 
             // Draw initial monsters and add them to the enemies array
             if (map[row][col] === 'm') {
@@ -75,29 +72,11 @@ export const drawMap = (p5, map, startCorner, player, enemies, mapImage) => {
 
                 map[row][col] = '0';
             }
-
-            // Draw player at initial position and add to the player array.
-            if (map[row][col] === 'p') {
-                player[0] = {
-                    inventory: [],
-                    xpos: (col - startCorner.col) * BS,
-                    ypos: (row - startCorner.row) * BS,
-                    width: BS,
-                    height: BS,
-                    maxHealth: 100,
-                    health: 100,
-                    color: 'pink',
-                    type: 'player',
-                    speed: 1,
-                    attack: 2,
-                    direction: 'down',
-                    step: 0
-                }
-
-                map[row][col] = '0';
-            }
         }
     }
+
+    p5.image(mapImage, 0, 0, p5.width, p5.height, 32 + startCorner.col * BS,
+        32 + startCorner.row * BS, p5.width, p5.height);
 
     return startCorner; // Return the indices of the new top-left corner of the visible map
 }

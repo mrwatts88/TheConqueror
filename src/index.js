@@ -9,13 +9,13 @@ import { getTheMap } from './map'
 import { updateEnemies } from './updateEnemies';
 import { updateGuy } from './updateGuy';
 import { updateHealth } from './updateHealth';
+import { initEntities } from './initEntities';
 
 let player = [{}];
 let enemies = [];
 let map = [];
-let startCorner = { row: 0, col: 0 };
 let frame = 0;
-let images, enemyImages, mapImage;
+let images, enemyImages, mapImage, startCorner;
 
 const sketch = p5 => {
     p5.setup = () => {
@@ -24,6 +24,8 @@ const sketch = p5 => {
         mapImage = p5.loadImage("map.png");
         p5.createCanvas(BS * WIDTH_UNITS, BS * HEIGHT_UNITS);
         map = getTheMap();
+        startCorner = initEntities(map, player);
+        console.log(startCorner);
         p5.strokeWeight(1);
     }
 
