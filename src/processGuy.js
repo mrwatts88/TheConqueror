@@ -26,7 +26,7 @@ export const processGuy = (row, col, player, map, startCorner) => {
             if (block === 'w') return false;
 
             // Add any items that the player will be on to an object (no duplicates)
-            if (block === 'i') {
+            if (block.charAt(0) === 'i') {
                 cornerBlocks[r + ":" + c] = {
                     row: r,
                     col: c,
@@ -39,7 +39,7 @@ export const processGuy = (row, col, player, map, startCorner) => {
     // Pick up all items that the player is on
     for (let key in cornerBlocks) {
         let b = cornerBlocks[key];
-        if (b.type === 'i') pickUp(b.row, b.col, player, map);
+        if (b.type.charAt(0) === 'i') pickUp(b.row, b.col, player, map);
     }
 
     return true; // Return true if the player can move

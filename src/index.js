@@ -16,13 +16,14 @@ let player = [{}];
 let enemies = [];
 let map = [];
 let frame = 0;
-let images, enemyImages, mapImage, startCorner;
+let images, enemyImages, mapImage, itemImage, startCorner;
 
 const sketch = p5 => {
     p5.preload = () => {
         images = p5.loadImage("sprites.png");
         enemyImages = p5.loadImage("monsterSprites.png");
         mapImage = p5.loadImage("map.png");
+        itemImage = p5.loadImage("items.png");
     }
 
     p5.setup = () => {
@@ -33,12 +34,12 @@ const sketch = p5 => {
 
     p5.draw = () => {
         startCorner = shiftView(player, p5, startCorner, enemies, mapImage);
-        drawEntities(p5, map, startCorner, enemies);
+        drawEntities(p5, map, startCorner, enemies, itemImage);
         drawGuy(p5, player[0], images);
         drawEnemies(p5, enemies, enemyImages);
         drawSidebar(p5);
         drawHealth(p5, player[0]);
-        drawInventory(p5, player[0].inventory);
+        drawInventory(p5, player[0].inventory, itemImage);
         drawBorder(p5);
         updateGuy(p5, player[0], map, startCorner, frame);
         updateEnemies(p5, enemies, map, startCorner, frame);
