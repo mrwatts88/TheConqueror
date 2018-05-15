@@ -11,6 +11,7 @@ import { shiftView } from './shiftView';
 import { updateEnemies } from './updateEnemies';
 import { updateGuy } from './updateGuy';
 import { updateHealth } from './updateHealth';
+import { performClickAction } from './performClickAction';
 
 let player = [{}];
 let enemies = [];
@@ -27,10 +28,15 @@ const sketch = p5 => {
     }
 
     p5.setup = () => {
-        p5.createCanvas(BS * WIDTH_UNITS, BS * HEIGHT_UNITS);
+        const can = p5.createCanvas(BS * WIDTH_UNITS, BS * HEIGHT_UNITS);
         map = getTheMap();
         startCorner = initView(map, player);
+
+        can.mousePressed(() => {
+            performClickAction(p5, p5.mouseX, p5.mouseY, player[0]);
+        })
     }
+
 
     p5.draw = () => {
         startCorner = shiftView(player, p5, startCorner, enemies, mapImage);

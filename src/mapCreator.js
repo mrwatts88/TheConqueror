@@ -51,7 +51,7 @@ playBtn.addEventListener('click', e => {
 })
 
 fileChooser.addEventListener('change', e => {
-    let file = event.target.files[0];
+    let file = e.target.files[0];
     let reader = new FileReader();
     reader.onload = event => {
         gridArray = JSON.parse(event.target.result);

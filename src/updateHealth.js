@@ -8,6 +8,6 @@ export const updateHealth = (player, enemies) => {
                 enemies.splice(i, 1);
             --player.health;
             if (player.health <= 0)
-                player.health = player.maxHealth;
+                console.log('game over.');
         }
 }

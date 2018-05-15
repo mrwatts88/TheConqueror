@@ -1,4 +1,4 @@
-import { BS, WIDTH_UNITS, HEIGHT_UNITS } from './constants';
+import { BS, WIDTH_UNITS, HEIGHT_UNITS, itemMap } from './constants';
 
 export const drawEntities = (p5, map, startCorner, enemies, itemImage) => {
     // Draw the visible portion of the map.
@@ -16,7 +16,6 @@ export const drawEntities = (p5, map, startCorner, enemies, itemImage) => {
             if (map[row][col] === 'i') {
                 let randomItem = Object.keys(itemMap)[(Object.keys(itemMap).length * Math.random()) << 0];
                 map[row][col] = randomItem;
-                console.log(randomItem);
             }
 
             if (map[row][col].charAt(0) === 'i') {
@@ -65,33 +64,4 @@ export const drawEntities = (p5, map, startCorner, enemies, itemImage) => {
             }
         }
     }
-}
-
-const itemMap = {
-    'ia': { x: 0, y: 0 },
-    'ib': { x: 1, y: 0 },
-    'ic': { x: 2, y: 0 },
-    'id': { x: 3, y: 0 },
-    'ie': { x: 4, y: 0 },
-    'if': { x: 5, y: 0 },
-    'ig': { x: 6, y: 0 },
-    'ih': { x: 7, y: 0 },
-    'ii': { x: 8, y: 0 },
-    'ij': { x: 9, y: 0 },
-    'ik': { x: 10, y: 0 },
-    'il': { x: 11, y: 0 },
-    'im': { x: 0, y: 1 },
-    'in': { x: 1, y: 1 },
-    'io': { x: 2, y: 1 },
-    'ip': { x: 3, y: 1 },
-    'iq': { x: 4, y: 1 },
-    'ir': { x: 5, y: 1 },
-    'is': { x: 6, y: 1 },
-    'it': { x: 7, y: 1 },
-    'iu': { x: 8, y: 1 },
-    'iv': { x: 9, y: 1 },
-    'iw': { x: 10, y: 1 },
-    'ix': { x: 11, y: 1 },
-    'iy': { x: 0, y: 2 },
-    'iz': { x: 1, y: 2 }
 }
