@@ -39,7 +39,8 @@ const sketch = p5 => {
 
 
     p5.draw = () => {
-        startCorner = shiftView(player, p5, startCorner, enemies, mapImage);
+        p5.background(255);
+        startCorner = shiftView(player, p5, startCorner, enemies, mapImage, map);
         drawEntities(p5, map, startCorner, enemies, itemImage);
         drawGuy(p5, player[0], images);
         drawEnemies(p5, enemies, enemyImages);
