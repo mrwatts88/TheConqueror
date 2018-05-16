@@ -13,10 +13,8 @@ const playBtn = document.querySelector('#play-btn');
 const saveBtn = document.querySelector('#save-btn');
 const fileChooser = document.querySelector('#map-file');
 
-let height, width, P5, startRow, startCol, endRow, endCol;
-let gridArray;
+let height, width, P5, startRow, startCol, endRow, endCol, gridArray, image;
 let currentBlockType = 'w';
-let image;
 
 beginBtn.addEventListener('click', e => {
     if (P5 !== undefined) P5.remove();
@@ -26,29 +24,12 @@ beginBtn.addEventListener('click', e => {
     P5 = new p5(sketch, 'grid');
 })
 
-w.addEventListener('click', e => {
-    currentBlockType = 'w';
-})
-
-i.addEventListener('click', e => {
-    currentBlockType = 'i';
-})
-
-m.addEventListener('click', e => {
-    currentBlockType = 'm';
-})
-
-p.addEventListener('click', e => {
-    currentBlockType = 'p';
-})
-
-o.addEventListener('click', e => {
-    currentBlockType = '0';
-})
-
-playBtn.addEventListener('click', e => {
-    playGame();
-})
+w.addEventListener('click', e => { currentBlockType = 'w'; })
+i.addEventListener('click', e => { currentBlockType = 'i'; })
+m.addEventListener('click', e => { currentBlockType = 'm'; })
+p.addEventListener('click', e => { currentBlockType = 'p'; })
+o.addEventListener('click', e => { currentBlockType = '0'; })
+playBtn.addEventListener('click', e => { playGame(); })
 
 fileChooser.addEventListener('change', e => {
     let file = e.target.files[0];
@@ -80,15 +61,10 @@ const playGame = () => {
     window.location.href = 'index.html';
 }
 
-// TODO: stop looping, only need to update the canvas after a click
 const sketch = p5 => {
-    p5.preload = () => {
-        image = p5.loadImage("map.png");
-    }
+    p5.preload = () => { image = p5.loadImage("map.png"); }
 
     p5.setup = () => {
-        // height = mapHeight.value;
-        // width = mapWidth.value;
         const can = p5.createCanvas(bs * width + 1, bs * height + 1);
 
         can.mousePressed(() => {

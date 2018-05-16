@@ -1,6 +1,9 @@
+import { getState, setState } from './globalState';
 import { BS, WIDTH_UNITS, HEIGHT_UNITS } from './constants';
 
-export const initView = (map, player) => {
+export const initView = () => {
+    let { map, player } = getState();
+
     let pRow = 0;
     let pCol = 0;
     for (let row = 0; row < map.length; ++row) {
@@ -32,5 +35,5 @@ export const initView = (map, player) => {
         }
     }
 
-    return { row: pRow, col: pCol }
+    setState({ startCorner: { row: pRow, col: pCol } });
 }

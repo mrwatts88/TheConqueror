@@ -1,11 +1,12 @@
 import { pickUp } from './pickup';
 import { BS } from './constants';
+import { getState, setState } from './globalState';
 
 // Determine what type of blocks the player will be on after moving
-export const processGuy = (row, col, player, map, startCorner) => {
-    if (player.xpos == undefined) return;
-
-    let { xpos, ypos } = player;
+export const processGuy = (row, col, p) => {
+    let { xpos, ypos } = p;
+    if (xpos == undefined) return;
+    let { map, startCorner } = getState();
     let cornerBlocks = {};
     let r, c;
 
@@ -22,10 +23,10 @@ export const processGuy = (row, col, player, map, startCorner) => {
             if (col == undefined) c = defaultPosition[i][j].col; else c = col;
             let block = map[r][c];
 
-            // Don't move if the player would be on a wall
+            // Don't move if the p would be on a wall
             if (block === 'w') return false;
 
-            // Add any items that the player will be on to an object (no duplicates)
+            // Add any items that the p will be on to an object (no duplicates)
             if (block.charAt(0) === 'i') {
                 cornerBlocks[r + ":" + c] = {
                     row: r,
@@ -36,11 +37,11 @@ export const processGuy = (row, col, player, map, startCorner) => {
         }
     }
 
-    // Pick up all items that the player is on
+    // Pick up all items that the p is on
     for (let key in cornerBlocks) {
         let b = cornerBlocks[key];
-        if (b.type.charAt(0) === 'i') pickUp(b.row, b.col, player, map);
+        if (b.type.charAt(0) === 'i') pickUp(b.row, b.col, p);
     }
 
-    return true; // Return true if the player can move
+    return true; // Return true if the p can move
 }

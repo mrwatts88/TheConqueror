@@ -1,7 +1,8 @@
-export const SPEED = 1; // not being used??? each entity has a speed property
-export const BS = 32; // unit size
+export const BS = 32; // unit size in pixels
 export const WIDTH_UNITS = 30; // width of canvas in units
-export const HEIGHT_UNITS = 18;
+export const HEIGHT_UNITS = 18; // height of canvas in units
+
+// maps values in map grid with location of images within sprite sheet
 export const itemMap = {
     'ia': { x: 0, y: 0 },
     'ib': { x: 1, y: 0 },
