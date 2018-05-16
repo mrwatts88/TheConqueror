@@ -17,7 +17,7 @@ let player = [{}];
 let enemies = [];
 let map = [];
 let frame = 0;
-let images, enemyImages, mapImage, itemImage, startCorner, next;
+let images, enemyImages, mapImage, itemImage, startCorner, next, superMoveY, superMoveX;
 let state = 'PLAY';
 let glideCount = 0;
 
@@ -38,7 +38,6 @@ const sketch = p5 => {
             performClickAction(p5, p5.mouseX, p5.mouseY, player[0]);
         })
     }
-    let superMove;
 
     p5.draw = () => {
         p5.background(255);
@@ -59,35 +58,18 @@ const sketch = p5 => {
                 frame++;
                 frame = frame % 100;
             } else {
-                superMove = startCorner.row - next.row;
+                superMoveY = startCorner.row - next.row;
+                superMoveX = startCorner.col - next.col;
                 state = 'GLIDE';
             }
         } else if (state === 'GLIDE') {
-            let move = startCorner.row - next.row;
-
-            //
+            glide(superMoveY, superMoveX);
             drawBackground(p5, startCorner, mapImage);
-            //
-
-            player[0].ypos += (superMove * BS - 1) / 30;
-            enemies.forEach(e => e.ypos += (superMove * BS - 1) / 30);
-
-            //
             drawGuy(p5, player[0], images);
-            //
-
-
-            startCorner.row -= (HEIGHT_UNITS - 5) / 30;
-
-            if (move <= 0) {
-                startCorner.row = next.row;
-                player[0].ypos -= (superMove * BS - 1) / 30;
-                enemies.forEach(e => e.ypos -= (superMove * BS - 1) / 30);
-                state = 'PLAY';
-            }
         }
     }
 }
+
 const drawBackground = (p5, startCorner, mapImage) => {
     p5.image(mapImage, 0, 0, p5.width, p5.height, 32 + startCorner.col * BS,
         32 + startCorner.row * BS, p5.width, p5.height);
@@ -106,3 +88,55 @@ const drawBorder = p5 => {
 }
 
 const P5 = new p5(sketch, 'grid');
+
+const glide = (superMoveY, superMoveX) => {
+    let moveY = startCorner.row - next.row;
+    let moveX = startCorner.col - next.col;
+    // Glide DOWN
+    if (superMoveY > 0) {
+        player[0].ypos += (superMoveY * BS - 1) / 30;
+        enemies.forEach(e => e.ypos += (superMoveY * BS - 1) / 30);
+        startCorner.row -= superMoveY / 30;
+        if (moveY <= 0) {
+            startCorner.row = next.row;
+            player[0].ypos -= superMoveY * BS / 30 - 1;
+            enemies.forEach(e => e.ypos -= (superMoveY * BS + 1) / 30);
+            state = 'PLAY';
+        }
+    }
+    else if (superMoveY < 0) { // Gilde UP
+        player[0].ypos += (superMoveY * BS - 1) / 30;
+        enemies.forEach(e => e.ypos += (superMoveY * BS - 1) / 30);
+        startCorner.row -= superMoveY / 30;
+        if (moveY >= 0) {
+            startCorner.row = next.row;
+            player[0].ypos -= superMoveY * BS / 30 - 1;
+            enemies.forEach(e => e.ypos -= (superMoveY * BS - 2) / 30);
+            state = 'PLAY';
+        }
+    }
+    // Gilde LEFT
+    if (superMoveX < 0) {
+        player[0].xpos += (superMoveX * BS - 1) / 30;
+        enemies.forEach(e => e.xpos += (superMoveX * BS - 1) / 30);
+        startCorner.col -= superMoveX / 30;
+        if (moveX >= 0) {
+            startCorner.col = next.col;
+            player[0].xpos -= superMoveX * BS / 30 - 1;
+            enemies.forEach(e => e.xpos -= (superMoveX * BS - 1) / 30);
+            state = 'PLAY';
+        }
+    }
+    else if (superMoveX > 0) { // Gilde RIGHT
+        player[0].xpos += (superMoveX * BS - 1) / 30;
+        enemies.forEach(e => e.xpos += (superMoveX * BS - 1) / 30);
+        startCorner.col -= superMoveX / 30;
+        if (moveX <= 0) {
+            startCorner.col = next.col;
+            player[0].xpos -= superMoveX * BS / 30 - 1;
+            enemies.forEach(e => e.xpos -= (superMoveX * BS - 1) / 30);
+            state = 'PLAY';
+        }
+    }
+}
+
