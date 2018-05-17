@@ -4,6 +4,7 @@ export const HEIGHT_UNITS = 18; // height of canvas in units
 
 // maps values in map grid with location of images within sprite sheet
 export const itemMap = {
+    'i': { x: 0, y: 0 },
     'ia': { x: 0, y: 0 },
     'ib': { x: 1, y: 0 },
     'ic': { x: 2, y: 0 },

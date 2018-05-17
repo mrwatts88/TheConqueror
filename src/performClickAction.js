@@ -4,8 +4,8 @@ import { BS } from './constants';
 // Perform the correct action based on what was clicked
 // Currently, only handles removing inventory (3 potions will add 25/100 health)
 export const performClickAction = p5 => {
-    let { player } = getState();
-    let p = player[0];
+    let { players } = getState();
+    let p = players['1'];
     let baseX = p5.width - 150;
     let baseY = p5.height / 8;
     let xpos = p5.mouseX;

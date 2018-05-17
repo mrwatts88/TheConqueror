@@ -1,5 +1,6 @@
 const getState = require('./globalState').getState;
 const setState = require('./globalState').setState;
+
 let BS = 32;
 
 exports.pickUp = (row, col, player, io) => {

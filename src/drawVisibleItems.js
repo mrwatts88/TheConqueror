@@ -1,11 +1,10 @@
 import { getState, setState } from './globalState';
 import { BS, WIDTH_UNITS, HEIGHT_UNITS, itemMap } from './constants';
 
-
 // Draw the items that are in the field of view,
 // and add any monsters that show up in the view
-export const drawEntities = p5 => {
-    let { map, startCorner, enemies, itemImage, env } = getState();
+export const drawVisibleItems = p5 => {
+    let { map, players, enemies, itemImage, env, startCorner, next } = getState();
 
     // Due to scrolling, startCorner.row and col can be non-integers
     // Resolving floating-point rounding issues
@@ -46,27 +45,6 @@ export const drawEntities = p5 => {
                     )
                 }
             }
-
-            // Draw initial monsters and add them to the enemies array
-            // if (map[row][col] === 'm') {
-            //     enemies.push({
-            //         inventory: [],
-            //         xpos: (col - startCorner.col) * BS,
-            //         ypos: (row - startCorner.row) * BS,
-            //         width: BS,
-            //         height: BS,
-            //         maxHealth: 25,
-            //         health: 25,
-            //         color: 'purple',
-            //         type: 'enemy',
-            //         speed: 1,
-            //         attack: 1,
-            //         prevDirection: 'left',
-            //         step: 0
-            //     })
-
-            //     map[row][col] = '0';
-            // }
         }
     }
 }

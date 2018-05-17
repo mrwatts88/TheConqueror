@@ -1,5 +1,5 @@
 let state = {
-    player: [{}],
+    players: {},
     enemies: [],
     map: [],
     images: undefined,

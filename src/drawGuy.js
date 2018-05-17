@@ -1,13 +1,17 @@
 import { getState, setState } from './globalState';
+import { BS } from './constants';
 
 export const drawGuy = p5 => {
-    let { player, images, env } = getState();
-    let p = player[0];
+    let { players, images, env, startCorner, next } = getState();
+    let p = players['1'];
     if (p.xpos === undefined) return;
+
+    let screensLeft = startCorner.col * BS;
+    let screensTop = startCorner.row * BS;
 
     if (env === 'DEBUG') {
         p5.fill(p.color);
-        p5.rect(p.xpos, p.ypos, p.width, p.height);
+        p5.rect(p.xpos - screensLeft, p.ypos - screensTop, p.width, p.height);
         p5.fill('white');
     } else if (env === 'PRODUCTION') {
         // location of sprite within sprite sheet (images)
@@ -23,7 +27,7 @@ export const drawGuy = p5 => {
 
         p5.image(
             images,
-            p.xpos, p.ypos,
+            p.xpos - screensLeft, p.ypos - screensTop,
             p.width, p.height,
             x, y, 32, 32,
         )

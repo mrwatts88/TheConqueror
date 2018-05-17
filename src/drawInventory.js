@@ -2,8 +2,8 @@ import { getState, setState } from './globalState';
 import { BS, itemMap } from './constants';
 
 export const drawInventory = p5 => {
-    let { player, itemImage, env } = getState();
-    let inventory = player[0].inventory;
+    let { players, itemImage, env } = getState();
+    let inventory = players['1'].inventory;
     if (inventory == undefined) return;
 
     let baseX = p5.width - 150;

@@ -2,7 +2,7 @@ import { getState, setState } from './globalState';
 import { BS } from './constants';
 
 export const drawEnemies = p5 => {
-    let { enemies, enemyImages, env, startCorner } = getState();
+    let { enemies, enemyImages, env, players, startCorner, next } = getState();
     for (let ob of enemies) {
         let screensLeft = startCorner.col * BS;
         let screensTop = startCorner.row * BS;
