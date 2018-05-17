@@ -9,6 +9,7 @@ const setState = require('./globalState').setState;
 const updateEnemies = require('./updateEnemies').updateEnemies;
 const updateGuy = require('./updateGuy').updateGuy;
 const initNewPlayer = require('./initNewPlayer').initNewPlayer;
+const updateHealth = require('./updateHealth').updateHealth;
 
 app.use(express.static(path.join(__dirname, '../dist')))
 
@@ -46,9 +47,10 @@ setState({ map });
 // Send updates to all connected clients
 setInterval(() => {
     updateEnemies(io);
+    updateHealth();
     let { enemies, players } = getState();
     io.emit('update', { enemies, players });
-}, 10);
+}, 30);
 
 io.on('connection', socket => {
     initNewPlayer('1');

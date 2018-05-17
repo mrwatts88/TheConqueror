@@ -1,16 +1,12 @@
 import * as p5 from './p5';
-import { BS, SPEED, WIDTH_UNITS, HEIGHT_UNITS } from './constants';
+import { BS, WIDTH_UNITS, HEIGHT_UNITS } from './constants';
 import { drawEnemies } from './drawEnemies';
 import { drawGuy } from './drawGuy';
 import { drawHealth } from './drawHealth';
 import { drawInventory } from './drawInventory';
 import { drawVisibleItems } from './drawVisibleItems';
-import { getTheMap } from './map'
-import { initView } from './initView';
 import { shiftView } from './shiftView';
-import { updateEnemies } from './updateEnemies';
 import { updateGuy } from './updateGuy';
-import { updateHealth } from './updateHealth';
 import { performClickAction } from './performClickAction';
 import { getState, setState } from './globalState';
 import { drawLayout } from './drawLayout';
@@ -52,7 +48,6 @@ const sketch = p5 => {
 
     p5.setup = () => {
         const can = p5.createCanvas(BS * WIDTH_UNITS, BS * HEIGHT_UNITS);
-        // initView();
         can.mousePressed(() => { performClickAction(p5); })
     }
 
@@ -71,7 +66,6 @@ const sketch = p5 => {
                 drawHealth(p5);
                 drawInventory(p5);
                 updateGuy(p5, socket);
-                // updateHealth();
             } else {
                 setState({
                     superMoveY: startCorner.row - next.row,
@@ -84,6 +78,7 @@ const sketch = p5 => {
             drawBackground(p5);
             drawLayout(p5);
             drawHealth(p5);
+            drawInventory(p5);
             drawVisibleItems(p5);
             drawGuy(p5);
             drawEnemies(p5);
