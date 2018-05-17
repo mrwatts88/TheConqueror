@@ -53,14 +53,10 @@ setInterval(() => {
 }, 30);
 
 io.on('connection', socket => {
-    initNewPlayer('1');
+    initNewPlayer(socket.id);
     let { map, enemies, players } = getState();
     socket.emit('firstconnect', { map, enemies, players });
-
-    socket.on('playermove', idAndDir => {
-        updateGuy(idAndDir.id, idAndDir.dir, io);
-    })
-
+    socket.on('playermove', idAndDir => { updateGuy(idAndDir.id, idAndDir.dir, io); });
 });
 
 server.listen(8080);

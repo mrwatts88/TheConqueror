@@ -1,4 +1,5 @@
 let state = {
+    id: undefined,
     players: {},
     enemies: [],
     map: [],

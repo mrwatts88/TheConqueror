@@ -2,8 +2,8 @@ import { getState, setState } from './globalState';
 import { BS } from './constants';
 
 export const drawGuy = p5 => {
-    let { players, images, env, startCorner, next } = getState();
-    let p = players['1'];
+    let { players, images, env, startCorner, next, id } = getState();
+    let p = players[id];
     if (p.xpos === undefined) return;
 
     let screensLeft = startCorner.col * BS;

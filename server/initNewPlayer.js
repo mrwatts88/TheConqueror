@@ -9,6 +9,7 @@ exports.initNewPlayer = id => {
     let { map, players } = getState();
     let pRow = 0;
     let pCol = 0;
+    let found = false;
 
     for (let row = 0; row < map.length; ++row) {
         for (let col = 0; col < map[0].length; ++col) {
@@ -37,7 +38,10 @@ exports.initNewPlayer = id => {
                 }
 
                 map[row][col] = '0';
+                found = true;
+                break;
             }
         }
+        if (found) break;
     }
 }

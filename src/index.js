@@ -13,19 +13,20 @@ import { drawLayout } from './drawLayout';
 import { glide } from './glide';
 import { defer } from './utils'
 
+const socket = io.connect('http://localhost:8080');
+
 // When the client is first served the page, it will connect to the websocket server
 // The server will then send the map to the client
 // When the map arrives, the sketch will start looping
 let firstMapPromise = defer();
 firstMapPromise.then(data => {
     let { map, enemies, players } = data;
-    let startCorner = players['1'].startCorner;
-    let next = players['1'].next;
-    setState({ map, enemies, players, startCorner, next });
+    let id = socket.id;
+    let startCorner = players[id].startCorner;
+    let next = players[id].next;
+    setState({ map, enemies, players, startCorner, next, id });
     const P5 = new p5(sketch, 'grid');
 })
-
-const socket = io.connect('http://localhost:8080');
 
 // Get map and enemies from server
 socket.on('firstconnect', data => { firstMapPromise.resolve(data); })
