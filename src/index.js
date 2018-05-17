@@ -15,6 +15,28 @@ import { performClickAction } from './performClickAction';
 import { getState, setState } from './globalState';
 import { drawLayout } from './drawLayout';
 import { glide } from './glide';
+import { defer } from './utils'
+
+// When the client is first served the page, it will connect to the websocket server
+// The server will then send the map to the client
+// When the map arrives, the sketch will start looping
+let firstMapPromise = defer();
+firstMapPromise.then(data => {
+    let { map, enemies } = data;
+    setState({ map, enemies });
+    const P5 = new p5(sketch, 'grid');
+})
+
+const socket = io.connect('http://localhost:8080');
+
+// Get map and enemies from server
+socket.on('firstconnect', data => { firstMapPromise.resolve(data); })
+
+// Get enemies from server
+socket.on('enemyupdate', enemies => { setState(enemies); })
+
+// Get map from server
+socket.on('mapupdate', map => { setState(map); })
 
 const sketch = p5 => {
     p5.preload = () => {
@@ -28,7 +50,6 @@ const sketch = p5 => {
 
     p5.setup = () => {
         const can = p5.createCanvas(BS * WIDTH_UNITS, BS * HEIGHT_UNITS);
-        getTheMap();
         initView();
         can.mousePressed(() => { performClickAction(p5); })
     }
@@ -48,7 +69,6 @@ const sketch = p5 => {
                 drawHealth(p5);
                 drawInventory(p5);
                 updateGuy(p5);
-                updateEnemies(p5);
                 updateHealth();
             } else {
                 setState({
@@ -74,5 +94,3 @@ const drawBackground = p5 => {
     p5.image(mapImage, 0, 0, p5.width, p5.height, 32 + startCorner.col * BS,
         32 + startCorner.row * BS, p5.width, p5.height);
 }
-
-const P5 = new p5(sketch, 'grid');

@@ -48,25 +48,25 @@ export const drawEntities = p5 => {
             }
 
             // Draw initial monsters and add them to the enemies array
-            if (map[row][col] === 'm') {
-                enemies.push({
-                    inventory: [],
-                    xpos: (col - startCorner.col) * BS,
-                    ypos: (row - startCorner.row) * BS,
-                    width: BS,
-                    height: BS,
-                    maxHealth: 25,
-                    health: 25,
-                    color: 'purple',
-                    type: 'enemy',
-                    speed: 1,
-                    attack: 1,
-                    prevDirection: 'left',
-                    step: 0
-                })
+            // if (map[row][col] === 'm') {
+            //     enemies.push({
+            //         inventory: [],
+            //         xpos: (col - startCorner.col) * BS,
+            //         ypos: (row - startCorner.row) * BS,
+            //         width: BS,
+            //         height: BS,
+            //         maxHealth: 25,
+            //         health: 25,
+            //         color: 'purple',
+            //         type: 'enemy',
+            //         speed: 1,
+            //         attack: 1,
+            //         prevDirection: 'left',
+            //         step: 0
+            //     })
 
-                map[row][col] = '0';
-            }
+            //     map[row][col] = '0';
+            // }
         }
     }
 }
