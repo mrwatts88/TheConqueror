@@ -3,7 +3,8 @@ const path = require('path');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const getTheMap = require('./map').getTheMap;
+
+const mapUtils = require('./map');
 const getState = require('./globalState').getState;
 const setState = require('./globalState').setState;
 const updateEnemies = require('./updateEnemies').updateEnemies;
@@ -13,7 +14,7 @@ const updateHealth = require('./updateHealth').updateHealth;
 
 app.use(express.static(path.join(__dirname, '../dist')))
 
-let map = getTheMap();
+let map = mapUtils.getTheMap();
 let { enemies } = getState();
 const BS = 32;
 
@@ -50,13 +51,22 @@ setInterval(() => {
     updateHealth();
     let { enemies, players } = getState();
     io.emit('update', { enemies, players });
-}, 30);
+}, 20);
 
 io.on('connection', socket => {
     initNewPlayer(socket.id);
     let { map, enemies, players } = getState();
     socket.emit('firstconnect', { map, enemies, players });
     socket.on('playermove', idAndDir => { updateGuy(idAndDir.id, idAndDir.dir, io); });
+
+    socket.on('disconnect', (reason) => {
+        let { players } = getState();
+        delete players[socket.id];
+        mapUtils.addSpawnPoint();
+        setState({ map });
+    });
 });
 
-server.listen(8080);
+const port = 8080;
+
+server.listen(port, () => console.log(`Server listening on port ${port}`));

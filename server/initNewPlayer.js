@@ -29,7 +29,7 @@ exports.initNewPlayer = id => {
                     health: 100,
                     color: 'pink',
                     type: 'player',
-                    speed: 1,
+                    speed: 2,
                     attack: 2,
                     direction: 'down',
                     step: 0,
