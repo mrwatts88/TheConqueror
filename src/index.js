@@ -1,7 +1,7 @@
 import * as p5 from './p5';
 import { BS, WIDTH_UNITS, HEIGHT_UNITS } from './constants';
 import { drawEnemies } from './drawEnemies';
-import { drawGuy } from './drawGuy';
+import { drawPlayers } from './drawPlayers';
 import { drawHealth } from './drawHealth';
 import { drawInventory } from './drawInventory';
 import { drawVisibleItems } from './drawVisibleItems';
@@ -61,7 +61,7 @@ const sketch = p5 => {
                 p5.background(255);
                 drawBackground(p5);
                 drawVisibleItems(p5);
-                drawGuy(p5);
+                drawPlayers(p5);
                 drawEnemies(p5);
                 drawLayout(p5);
                 drawHealth(p5);
@@ -81,7 +81,7 @@ const sketch = p5 => {
             drawHealth(p5);
             drawInventory(p5);
             drawVisibleItems(p5);
-            drawGuy(p5);
+            drawPlayers(p5);
             drawEnemies(p5);
         }
     }
