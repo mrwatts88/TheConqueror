@@ -1,18 +1,21 @@
 import { getState, setState } from './globalState';
-import { BS, WIDTH_UNITS, HEIGHT_UNITS, itemMap } from './constants';
+import { BS, itemMap } from './constants';
 
 // Draw the items that are in the field of view,
 // and add any monsters that show up in the view
-export const drawVisibleItems = p5 => {
+export const drawVisibleItems = (p5, width, height) => {
     let { map, players, enemies, itemImage, env, startCorner, next } = getState();
 
     // Due to scrolling, startCorner.row and col can be non-integers
     // Resolving floating-point rounding issues
     let scr = Math.floor(Math.abs(startCorner.row));
     let scc = Math.floor(Math.abs(startCorner.col));
+    // console.log(map.length);
 
-    for (let row = scr; row < scr + HEIGHT_UNITS; ++row) {
-        for (let col = scc; col < scc + WIDTH_UNITS - 160 / BS; ++col) {
+    for (let row = scr; row < scr + (height / BS); ++row) {
+        if (row > map.length - 1) continue;
+        for (let col = scc; col < scc - 1 + (width / BS) - 160 / BS; ++col) {
+            if (col > map[0].length - 1) continue;
             if (env === 'DEBUG') {
                 // Draw walls
                 if (map[row][col] === 'w') {
@@ -21,7 +24,6 @@ export const drawVisibleItems = p5 => {
                     p5.fill('white');
                 }
             }
-
             // Draw items
             if (map[row][col] === 'i') {
                 let randomItem = Object.keys(itemMap)[(Object.keys(itemMap).length * Math.random()) << 0];

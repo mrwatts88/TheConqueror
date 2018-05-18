@@ -1,4 +1,6 @@
 check for max players (not enough 'p' in map)
-add a new 'p' when a player leaves (random)
-remove disconnected players from players object
+chat
+fix changing items
 fix play created map functionality for new server architecture
+fix white flash when resizing causes slide
+fix shake after slide

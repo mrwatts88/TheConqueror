@@ -11,8 +11,14 @@ import { performClickAction } from './performClickAction';
 import { getState, setState } from './globalState';
 import { drawLayout } from './drawLayout';
 import { glide } from './glide';
-import { defer } from './utils'
+import { defer } from './utils';
 
+let P5;
+let ro;
+let width = 960;
+let height = 576;
+
+const canvasDiv = document.querySelector('#grid');
 const socket = io.connect('http://localhost:8080');
 
 // When the client is first served the page, it will connect to the websocket server
@@ -25,7 +31,18 @@ firstMapPromise.then(data => {
     let startCorner = players[id].startCorner;
     let next = players[id].next;
     setState({ map, enemies, players, startCorner, next, id });
-    const P5 = new p5(sketch, 'grid');
+    P5 = new p5(sketch, 'grid');
+
+    ro = new ResizeObserver(entries => {
+        for (let entry of entries) {
+            const cr = entry.contentRect;
+            width = cr.width;
+            height = cr.height;
+            P5.resizeCanvas(width, height);
+        }
+    });
+
+    ro.observe(canvasDiv);
 })
 
 // Get map and enemies from server
@@ -48,19 +65,19 @@ const sketch = p5 => {
     }
 
     p5.setup = () => {
-        const can = p5.createCanvas(BS * WIDTH_UNITS, BS * HEIGHT_UNITS);
+        const can = p5.createCanvas(width, height);
+        // const can = p5.createCanvas(BS * WIDTH_UNITS, BS * HEIGHT_UNITS);
         can.mousePressed(() => { performClickAction(p5); })
     }
 
     p5.draw = () => {
         let gameState = getState().state;
         if (gameState === 'PLAY') {
-            shiftView(p5);
+            shiftView(width, height);
             let { players, startCorner, next } = getState();
             if (startCorner.col === next.col && startCorner.row === next.row) {
-                p5.background(255);
                 drawBackground(p5);
-                drawVisibleItems(p5);
+                drawVisibleItems(p5, width, height);
                 drawPlayers(p5);
                 drawEnemies(p5);
                 drawLayout(p5);
@@ -75,14 +92,14 @@ const sketch = p5 => {
                 });
             }
         } else if (gameState === 'GLIDE') {
-            glide();
             drawBackground(p5);
-            drawLayout(p5);
-            drawHealth(p5);
-            drawInventory(p5);
-            drawVisibleItems(p5);
+            glide();
+            drawVisibleItems(p5, width, height);
             drawPlayers(p5);
             drawEnemies(p5);
+            drawLayout(p5);
+            drawInventory(p5);
+            drawHealth(p5);
         }
     }
 }
