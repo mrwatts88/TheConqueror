@@ -28,7 +28,7 @@ const nameText = document.querySelector('#name-text');
 chatSendBtn.addEventListener('click', e => {
     let { players, id } = getState();
     let text = chatTextArea.value;
-
+    chatTextArea.value = "";
     socket.emit('chatmsg', {
         id,
         name: nameText.value,
@@ -36,7 +36,8 @@ chatSendBtn.addEventListener('click', e => {
     });
 })
 
-const socket = io.connect('http://localhost:8080');
+// const socket = io.connect('http://localhost:8080');
+const socket = io.connect('http://184.58.143.70:8080');
 
 // When the client is first served the page, it will connect to the websocket server
 // The server will then send the map to the client
@@ -99,7 +100,6 @@ socket.on('globalchatmsg', nameAndText => {
     msgNode.appendChild(msgTextNode);
 
     chatUl.appendChild(msgNode);
-    chatTextArea.value = "";
 });
 
 const sketch = p5 => {

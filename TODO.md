@@ -1,14 +1,14 @@
 
 Feature TODO:
 [ ] color code in chat
-[ ] add chat pane collapse
-[ ] Add constants in server to file
+[ ] fix potions / health
 [ ] Color coded initials over character
 [ ] Add more item functionality
+[ ] add chat pane collapse
 [ ] Menu screen
 [ ] Character choice
-[ ] Map choice
 ~~~~~~~~~~~~~~~~~~
+[ ] Map choice
 [ ] Teleporting between maps
 [ ] Weapon Schema/ stats/ leveling
 [ ] Npc Store
