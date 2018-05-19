@@ -1,6 +1,6 @@
 const getState = require('./globalState').getState;
-
-let BS = 32;
+const constants = require('./constants').constants;
+const { BS } = constants;
 
 exports.pickUp = (row, col, player, io) => {
     if (player.inventory.length >= 16) return;

@@ -3,6 +3,7 @@ const path = require('path');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+const constants = require('./constants').constants;
 
 const mapUtils = require('./map');
 const getState = require('./globalState').getState;
@@ -16,7 +17,7 @@ app.use(express.static(path.join(__dirname, '../dist')))
 
 let map = mapUtils.getTheMap();
 let { enemies } = getState();
-const BS = 32;
+const { BS } = constants;
 
 for (let row = 0; row < map.length; ++row) {
     for (let col = 0; col < map[0].length; ++col) {

@@ -1,7 +1,8 @@
 const pickUp = require('./pickup').pickUp;
-const BS = 32;
+const constants = require('./constants').constants;
 const getState = require('./globalState').getState;
 const setState = require('./globalState').setState;
+const { BS } = constants;
 
 // Determine what type of blocks the player will be on after moving
 exports.processGuy = (row, col, p, io) => {

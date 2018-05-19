@@ -1,10 +1,8 @@
 const getState = require('./globalState').getState;
 const setState = require('./globalState').setState;
 const mapUtils = require('./map');
-
-let BS = 32;
-let WIDTH_UNITS = 30;
-let HEIGHT_UNITS = 18;
+const constants = require('./constants').constants;
+const { BS, WIDTH_UNITS, HEIGHT_UNITS } = constants;
 
 exports.initNewPlayer = id => {
     mapUtils.addSpawnPoint();

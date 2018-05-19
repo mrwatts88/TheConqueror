@@ -1,7 +1,9 @@
 const processGuy = require('./processGuy').processGuy;
 const getState = require('./globalState').getState;
 const setState = require('./globalState').setState;
-const BS = 32;
+const constants = require('./constants').constants;
+
+const { BS } = constants;
 
 exports.updateEnemies = io => {
     let { enemies, map } = getState();
