@@ -76,8 +76,8 @@ const sketch = p5 => {
                 drawPlayers(p5);
                 drawEnemies(p5);
                 drawLayout(p5);
-                drawHealth(p5);
                 drawInventory(p5);
+                drawHealth(p5);
                 updateGuy(p5, socket);
             } else {
                 setState({
@@ -95,6 +95,7 @@ const sketch = p5 => {
             drawLayout(p5);
             drawInventory(p5);
             drawHealth(p5);
+            updateGuy(p5, socket);
         }
     }
 }
