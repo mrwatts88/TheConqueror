@@ -4,6 +4,7 @@ Feature TODO:
 [ ] add chat pane collapse
 [ ] Menu screen
 [ ] Character choice
+[ ] test co-authoring commits
 ~~~~~~~~~~~~~~~~~~
 [ ] Map choice
 [ ] Teleporting between maps
