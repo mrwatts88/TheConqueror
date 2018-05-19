@@ -1,8 +1,5 @@
 
 Feature TODO:
-[ ] color code in chat
-[ ] fix potions / health
-[ ] Color coded initials over character
 [ ] Add more item functionality
 [ ] add chat pane collapse
 [ ] Menu screen

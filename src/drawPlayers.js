@@ -24,9 +24,14 @@ export const drawPlayers = p5 => {
                 case 'up': y += 96; break;
             }
 
-            //TODO: FIX this algorithm to determin how to center the name. 
-            if (p.name.length > 6) p5.text(p.name, p.xpos - screensLeft - p5.textWidth(p.name) / 3, p.ypos - screensTop);
-            else p5.text(p.name, p.xpos - screensLeft + p5.textWidth(p.name) / 3, p.ypos - screensTop);
+            p5.fill(p.chatColor);
+            p5.rectMode(p5.CENTER);
+            p5.textAlign(p5.CENTER, p5.BOTTOM);
+            p5.textStyle(p5.BOLD);
+            p5.text(p.name, (p.xpos - screensLeft) + BS / 2, p.ypos - screensTop);
+            p5.rectMode(p5.CORNER);
+            p5.textStyle(p5.NORMAL);
+            p5.fill("white");
 
             p5.image(
                 images,

@@ -13,14 +13,17 @@ export const performClickAction = (p5, socket) => {
 
     // We are in inventory area
     if (xpos >= baseX && ypos >= baseY && xpos <= baseX + 4 * (BS + 5) && ypos <= baseY + 4 * (BS + 5)) {
-        let index = getClickedInventoryIndex(xpos, ypos, baseX, baseY);
-        // let item = p.inventory.splice(index, 1);
-        let item = p.inventory[index];
+        // let index = getClickedInventoryIndex(xpos, ypos, baseX, baseY);
+        // // let item = p.inventory.splice(index, 1);
+        // let item = p.inventory[index];
 
         socket.emit('useitem', { id, index });  // TODO: give unique ids to each item
 
-        if (item.type === 'ii' || item.type === 'ij' || item.type === 'ik')
-            p.health = Math.min(p.health + 25, 100);
+        // if (item.type === 'ii' || item.type === 'ij' || item.type === 'ik'){
+
+        //     p.health = Math.min(p.health + 25, 100);
+
+        // }
     }
 }
 

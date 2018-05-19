@@ -79,26 +79,23 @@ socket.on('update', newData => { setState({ ...newData }); }) // Get enemies and
 socket.on('mapupdate', map => { setState(map); }) // Get map from server
 
 // message from chat
-socket.on('globalchatmsg', nameAndText => {
-
+socket.on('globalchatmsg', idNameAndText => {
     // <ul id="chat-ul">
     //     <li>
     //         <b>Matt: </b> How's everyone doing?
     //     </li>
     // </ul>
 
-    let { name, text } = nameAndText;
-
+    let { players } = getState();
+    let { id, name, text } = idNameAndText;
     let nameNode = document.createElement("B");
+    nameNode.style.color = players[id].chatColor;
     let nameTextNode = document.createTextNode(`${name}: `);
     nameNode.appendChild(nameTextNode);
-
     let msgNode = document.createElement("LI");
     msgNode.appendChild(nameNode);
-
     let msgTextNode = document.createTextNode(text);
     msgNode.appendChild(msgTextNode);
-
     chatUl.appendChild(msgNode);
 });
 
