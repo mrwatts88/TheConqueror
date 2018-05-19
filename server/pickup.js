@@ -1,5 +1,4 @@
 const getState = require('./globalState').getState;
-const setState = require('./globalState').setState;
 
 let BS = 32;
 
