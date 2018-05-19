@@ -22,6 +22,7 @@ exports.initNewPlayer = id => {
                 pCol = Math.min(map[0].length - WIDTH_UNITS, Math.max(0, Math.floor(col - WIDTH_UNITS / 2)));
 
                 players[id] = {
+                    name: 'Jeff',
                     inventory: [],
                     xpos: col * BS,
                     ypos: row * BS,

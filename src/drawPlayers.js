@@ -24,6 +24,10 @@ export const drawPlayers = p5 => {
                 case 'up': y += 96; break;
             }
 
+            //TODO: FIX this algorithm to determin how to center the name. 
+            if (p.name.length > 6) p5.text(p.name, p.xpos - screensLeft - p5.textWidth(p.name) / 3, p.ypos - screensTop);
+            else p5.text(p.name, p.xpos - screensLeft + p5.textWidth(p.name) / 3, p.ypos - screensTop);
+
             p5.image(
                 images,
                 p.xpos - screensLeft, p.ypos - screensTop,
