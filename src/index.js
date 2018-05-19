@@ -33,26 +33,22 @@ firstMapPromise.then(data => {
     setState({ map, enemies, players, startCorner, next, id });
     P5 = new p5(sketch, 'grid');
 
+    // Observer to catch canvas resize
     ro = new ResizeObserver(entries => {
         for (let entry of entries) {
             const cr = entry.contentRect;
             width = cr.width;
             height = cr.height;
-            P5.resizeCanvas(width, height);
+            P5.resizeCanvas(width, height - 4);
         }
     });
 
     ro.observe(canvasDiv);
 })
 
-// Get map and enemies from server
-socket.on('firstconnect', data => { firstMapPromise.resolve(data); })
-
-// Get enemies and players from server
-socket.on('update', newData => { setState({ ...newData }); })
-
-// Get map from server
-socket.on('mapupdate', map => { setState(map); })
+socket.on('firstconnect', data => { firstMapPromise.resolve(data); })  // Get map and enemies from server
+socket.on('update', newData => { setState({ ...newData }); }) // Get enemies and players from server
+socket.on('mapupdate', map => { setState(map); }) // Get map from server
 
 const sketch = p5 => {
     p5.preload = () => {
@@ -65,8 +61,7 @@ const sketch = p5 => {
     }
 
     p5.setup = () => {
-        const can = p5.createCanvas(width, height);
-        // const can = p5.createCanvas(BS * WIDTH_UNITS, BS * HEIGHT_UNITS);
+        const can = p5.createCanvas(width, height - 4);
         can.mousePressed(() => { performClickAction(p5); })
     }
 

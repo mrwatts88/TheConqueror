@@ -62,8 +62,6 @@ io.on('connection', socket => {
     socket.on('disconnect', (reason) => {
         let { players } = getState();
         delete players[socket.id];
-        mapUtils.addSpawnPoint();
-        setState({ map });
     });
 });
 

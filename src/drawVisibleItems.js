@@ -10,7 +10,6 @@ export const drawVisibleItems = (p5, width, height) => {
     // Resolving floating-point rounding issues
     let scr = Math.floor(Math.abs(startCorner.row));
     let scc = Math.floor(Math.abs(startCorner.col));
-    // console.log(map.length);
 
     for (let row = scr; row < scr + (height / BS); ++row) {
         if (row > map.length - 1) continue;
