@@ -15,10 +15,11 @@ export const performClickAction = (p5, socket) => {
     if (xpos >= baseX && ypos >= baseY && xpos <= baseX + 4 * (BS + 5) && ypos <= baseY + 4 * (BS + 5)) {
         let index = getClickedInventoryIndex(xpos, ypos, baseX, baseY);
         // let item = p.inventory.splice(index, 1);
+        let item = p.inventory[index];
 
         socket.emit('useitem', { id, index });  // TODO: give unique ids to each item
 
-        if (item[0].type === 'ii' || item[0].type === 'ij' || item[0].type === 'ik')
+        if (item.type === 'ii' || item.type === 'ij' || item.type === 'ik')
             p.health = Math.min(p.health + 25, 100);
     }
 }

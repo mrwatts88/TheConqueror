@@ -66,7 +66,8 @@ io.on('connection', socket => {
 
     socket.on('useitem', (idAndIndex) => {
         let { id, index } = idAndIndex;
-        console.log(id, index);
+        let { players } = getState();
+        let item = players[id].inventory.splice(index, 1);
     });
 });
 
