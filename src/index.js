@@ -19,7 +19,24 @@ let width = 960;
 let height = 576;
 
 const canvasDiv = document.querySelector('#grid');
-const socket = io.connect('http://192.168.86.200:8080');
+const chatUl = document.querySelector('#chat-ul');
+const chatSendBtn = document.querySelector('#chat-send-btn');
+const chatTextArea = document.querySelector('#chat-text-area');
+const chatChatBox = document.querySelector('#chat-chat-box');
+const nameText = document.querySelector('#name-text');
+
+chatSendBtn.addEventListener('click', e => {
+    let { players, id } = getState();
+    let text = chatTextArea.value;
+
+    socket.emit('chatmsg', {
+        id,
+        name: nameText.value,
+        text
+    });
+})
+
+const socket = io.connect('http://localhost:8080');
 
 // When the client is first served the page, it will connect to the websocket server
 // The server will then send the map to the client
@@ -46,9 +63,44 @@ firstMapPromise.then(data => {
     ro.observe(canvasDiv);
 })
 
+// Chat box will always scroll to the bottom when new content is added
+var scrollOb = new MutationObserver(scrollToBottom);
+var config = { childList: true };
+scrollOb.observe(chatUl, config);
+
+function scrollToBottom() {
+    chatChatBox.scrollTop = chatChatBox.scrollHeight;
+}
+
+// Socket listeners
 socket.on('firstconnect', data => { firstMapPromise.resolve(data); })  // Get map and enemies from server
 socket.on('update', newData => { setState({ ...newData }); }) // Get enemies and players from server
 socket.on('mapupdate', map => { setState(map); }) // Get map from server
+
+// message from chat
+socket.on('globalchatmsg', nameAndText => {
+
+    // <ul id="chat-ul">
+    //     <li>
+    //         <b>Matt: </b> How's everyone doing?
+    //     </li>
+    // </ul>
+
+    let { name, text } = nameAndText;
+
+    let nameNode = document.createElement("B");
+    let nameTextNode = document.createTextNode(`${name}: `);
+    nameNode.appendChild(nameTextNode);
+
+    let msgNode = document.createElement("LI");
+    msgNode.appendChild(nameNode);
+
+    let msgTextNode = document.createTextNode(text);
+    msgNode.appendChild(msgTextNode);
+
+    chatUl.appendChild(msgNode);
+    chatTextArea.value = "";
+});
 
 const sketch = p5 => {
     p5.preload = () => {

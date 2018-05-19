@@ -69,6 +69,14 @@ io.on('connection', socket => {
         let { players } = getState();
         let item = players[id].inventory.splice(index, 1);
     });
+
+    socket.on('chatmsg', (idNameAndText) => {
+        let { id, name, text } = idNameAndText;
+        let { players } = getState();
+        if (name !== '') players[id].name = name;
+
+        io.emit('globalchatmsg', { name: players[id].name, text })
+    });
 });
 
 const port = 8080;

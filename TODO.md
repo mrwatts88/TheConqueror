@@ -1,6 +1,7 @@
 
 Feature TODO:
-[ ] Room chat with color code
+[ ] color code in chat
+[ ] add chat pane collapse
 [ ] Add constants in server to file
 [ ] Color coded initials over character
 [ ] Add more item functionality
