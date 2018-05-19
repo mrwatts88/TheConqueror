@@ -24,7 +24,17 @@ const chatSendBtn = document.querySelector('#chat-send-btn');
 const chatTextArea = document.querySelector('#chat-text-area');
 const chatChatBox = document.querySelector('#chat-chat-box');
 const nameText = document.querySelector('#name-text');
+const chatBox = document.querySelector('#chat-box');
+const slideTab = document.querySelector('#slide-tab');
 
+// Handle chat box slide transition
+slideTab.addEventListener('click', () => {
+    if (chatBox.style.right === '0px' || chatBox.style.right === '')
+        chatBox.style.right = '-300px';
+    else chatBox.style.right = '0px';
+})
+
+// Handle chat box messages (Send to server)
 chatSendBtn.addEventListener('click', e => {
     let { players, id } = getState();
     let text = chatTextArea.value;
@@ -65,13 +75,11 @@ firstMapPromise.then(data => {
 })
 
 // Chat box will always scroll to the bottom when new content is added
-var scrollOb = new MutationObserver(scrollToBottom);
+var scrollOb = new MutationObserver(() => {
+    chatChatBox.scrollTop = chatChatBox.scrollHeight;
+});
 var config = { childList: true };
 scrollOb.observe(chatUl, config);
-
-function scrollToBottom() {
-    chatChatBox.scrollTop = chatChatBox.scrollHeight;
-}
 
 // Socket listeners
 socket.on('firstconnect', data => { firstMapPromise.resolve(data); })  // Get map and enemies from server

@@ -1,10 +1,8 @@
 
 Feature TODO:
 [ ] Add more item functionality
-[ ] add chat pane collapse
 [ ] Menu screen
 [ ] Character choice
-[ ] test co-authoring commits
 ~~~~~~~~~~~~~~~~~~
 [ ] Map choice
 [ ] Teleporting between maps
@@ -24,5 +22,3 @@ Bug TODO:
 [ ] Fix white flash when resizing causes slide
 [ ] Fix shake after slide
 [ ] Wrong startCorner when starting to the far left of the map
-
-https://getmdl.io/components/index.html
