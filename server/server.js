@@ -63,6 +63,11 @@ io.on('connection', socket => {
         let { players } = getState();
         delete players[socket.id];
     });
+
+    socket.on('useitem', (idAndIndex) => {
+        let { id, index } = idAndIndex;
+        console.log(id, index);
+    });
 });
 
 const port = 8080;

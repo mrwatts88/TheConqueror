@@ -3,7 +3,7 @@ import { BS } from './constants';
 
 // Perform the correct action based on what was clicked
 // Currently, only handles removing inventory (3 potions will add 25/100 health)
-export const performClickAction = p5 => {
+export const performClickAction = (p5, socket) => {
     let { players, id } = getState();
     let p = players[id];
     let baseX = p5.width - 150;
@@ -13,7 +13,11 @@ export const performClickAction = p5 => {
 
     // We are in inventory area
     if (xpos >= baseX && ypos >= baseY && xpos <= baseX + 4 * (BS + 5) && ypos <= baseY + 4 * (BS + 5)) {
-        let item = p.inventory.splice(getClickedInventoryIndex(xpos, ypos, baseX, baseY), 1);
+        let index = getClickedInventoryIndex(xpos, ypos, baseX, baseY);
+        // let item = p.inventory.splice(index, 1);
+
+        socket.emit('useitem', { id, index });  // TODO: give unique ids to each item
+
         if (item[0].type === 'ii' || item[0].type === 'ij' || item[0].type === 'ik')
             p.health = Math.min(p.health + 25, 100);
     }

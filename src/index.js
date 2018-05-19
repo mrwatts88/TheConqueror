@@ -62,7 +62,7 @@ const sketch = p5 => {
 
     p5.setup = () => {
         const can = p5.createCanvas(width, height - 4);
-        can.mousePressed(() => { performClickAction(p5); })
+        can.mousePressed(() => { performClickAction(p5, socket); })
     }
 
     p5.draw = () => {
