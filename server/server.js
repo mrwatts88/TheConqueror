@@ -68,7 +68,10 @@ io.on('connection', socket => {
     socket.on('useitem', (idAndIndex) => {
         let { id, index } = idAndIndex;
         let { players } = getState();
-        let item = players[id].inventory.splice(index, 1);
+        let p = players[id];
+        let item = p.inventory.splice(index, 1)[0];
+
+        if (item.type === 'ii' || item.type === 'ij' || item.type === 'ik') p.health = Math.min(p.health + 25, p.maxHealth);
     });
 
     socket.on('chatmsg', (idNameAndText) => {
@@ -76,7 +79,7 @@ io.on('connection', socket => {
         let { players } = getState();
         if (name !== '') players[id].name = name;
 
-        io.emit('globalchatmsg', { name: players[id].name, text })
+        io.emit('globalchatmsg', { id, name: players[id].name, text })
     });
 });
 

@@ -28,7 +28,7 @@ exports.initNewPlayer = id => {
                     height: BS,
                     maxHealth: 100,
                     health: 100,
-                    color: 'pink',
+                    chatColor: getRandomColor(),
                     type: 'player',
                     speed: 2,
                     attack: 2,
@@ -45,4 +45,13 @@ exports.initNewPlayer = id => {
         }
         if (found) break;
     }
+}
+
+const getRandomColor = () => {
+    var letters = '0123456789ABCDEF';
+    var chatColor = '#';
+    for (var i = 0; i < 6; i++) {
+        chatColor += letters[Math.floor(Math.random() * 16)];
+    }
+    return chatColor;
 }
