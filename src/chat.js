@@ -18,8 +18,8 @@ export const initChat = socket => {
 
     // Handle chat box messages (Send to server)
     chatSendBtn.addEventListener('click', () => {
-        let { id } = getState()
-        let text = chatTextArea.value
+        const { id } = getState()
+        const text = chatTextArea.value
         chatTextArea.value = ''
         socket.emit('chatmsg', {
             id,
@@ -29,8 +29,8 @@ export const initChat = socket => {
     })
 
     // Chat box will always scroll to the bottom when new content is added
-    let scrollOb = new MutationObserver(() => { chatChatBox.scrollTop = chatChatBox.scrollHeight })
-    let config = { childList: true }
+    const scrollOb = new MutationObserver(() => { chatChatBox.scrollTop = chatChatBox.scrollHeight })
+    const config = { childList: true }
     scrollOb.observe(chatUl, config)
 
     // message from chat
@@ -41,12 +41,12 @@ export const initChat = socket => {
         //     </li>
         // </ul>
 
-        let { players } = getState()
-        let { id, name, text } = idNameAndText
-        let msgNode = document.createElement('LI')
-        let nameNode = document.createElement('B')
-        let nameTextNode = document.createTextNode(`${name}: `)
-        let msgTextNode = document.createTextNode(text)
+        const { players } = getState()
+        const { id, name, text } = idNameAndText
+        const msgNode = document.createElement('LI')
+        const nameNode = document.createElement('B')
+        const nameTextNode = document.createTextNode(`${name}: `)
+        const msgTextNode = document.createTextNode(text)
         nameNode.style.color = players[id].chatColor
         nameNode.appendChild(nameTextNode)
         msgNode.appendChild(nameNode)

@@ -2,12 +2,12 @@ import { getState } from './globalState'
 import { BS } from './constants'
 
 export const drawPlayers = p5 => {
-    let { players, images, env, startCorner } = getState()
-    let screensLeft = startCorner.col * BS
-    let screensTop = startCorner.row * BS
+    const { players, images, env, startCorner } = getState()
+    const screensLeft = startCorner.col * BS
+    const screensTop = startCorner.row * BS
 
-    for (let key in players) {
-        let p = players[key]
+    for (const key in players) {
+        const p = players[key]
         if (env === 'DEBUG') {
             p5.fill(p.color)
             p5.rect(p.xpos - screensLeft, p.ypos - screensTop, p.width, p.height)
@@ -21,10 +21,10 @@ export const drawPlayers = p5 => {
             x += 32 * (Math.floor(p.step))
 
             switch (p.direction) {
-            case 'down': break
-            case 'left': y += 32; break
-            case 'right': y += 64; break
-            case 'up': y += 96; break
+                case 'down': break
+                case 'left': y += 32; break
+                case 'right': y += 64; break
+                case 'up': y += 96; break
             }
 
             p5.fill(p.chatColor)

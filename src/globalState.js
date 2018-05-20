@@ -14,7 +14,7 @@ let state = {
     next: undefined,
     superMoveY: undefined,
     superMoveX: undefined,
-    state: 'STARTMENU',
+    gameState: 'STARTMENU',
     env: 'PRODUCTION',
     graphicsObjects: {
         startBtn: {
@@ -22,7 +22,7 @@ let state = {
             right: p5 => xScale(p5) * 156,
             top: p5 => yScale(p5) * 476,
             bottom: p5 => yScale(p5) * 512,
-            action: () => setState({ state: 'PLAY' })
+            action: () => setState({ gameState: 'PLAY' })
 
         },
         chars: []

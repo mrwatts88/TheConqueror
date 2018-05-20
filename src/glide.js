@@ -1,33 +1,33 @@
 import { getState, setState } from './globalState'
 
 export const glide = () => {
-    let { superMoveY, superMoveX, startCorner, next } = getState()
-    let moveY = startCorner.row - next.row
-    let moveX = startCorner.col - next.col
+    const { superMoveY, superMoveX, startCorner, next } = getState()
+    const moveY = startCorner.row - next.row
+    const moveX = startCorner.col - next.col
 
     if (superMoveY > 0) { // Glide DOWN
         startCorner.row -= superMoveY / 60
         if (moveY < 0) {
             startCorner.row = next.row
-            setState({ state: 'PLAY' })
+            setState({ gameState: 'PLAY' })
         }
     } else if (superMoveY < 0) { // Glide UP
         startCorner.row -= superMoveY / 60
         if (moveY > 0) {
             startCorner.row = next.row
-            setState({ state: 'PLAY' })
+            setState({ gameState: 'PLAY' })
         }
     } if (superMoveX < 0) { // Glide LEFT
         startCorner.col -= superMoveX / 60
         if (moveX > 0) {
             startCorner.col = next.col
-            setState({ state: 'PLAY' })
+            setState({ gameState: 'PLAY' })
         }
     } else if (superMoveX > 0) { // Glide RIGHT
         startCorner.col -= superMoveX / 60
         if (moveX < 0) {
             startCorner.col = next.col
-            setState({ state: 'PLAY' })
+            setState({ gameState: 'PLAY' })
         }
     }
 }

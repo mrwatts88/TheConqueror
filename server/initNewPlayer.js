@@ -7,7 +7,7 @@ const { BS, WIDTH_UNITS, HEIGHT_UNITS } = constants;
 
 module.exports = id => {
     mapUtils.addSpawnPoint();
-    let { map, players } = getState();
+    const { map, players } = getState();
     let pRow = 0;
     let pCol = 0;
     let found = false;

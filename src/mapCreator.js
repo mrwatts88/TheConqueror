@@ -32,8 +32,8 @@ o.addEventListener('click', () => { currentBlockType = '0' })
 playBtn.addEventListener('click', () => { playGame() })
 
 fileChooser.addEventListener('change', e => {
-    let file = e.target.files[0]
-    let reader = new FileReader()
+    const file = e.target.files[0]
+    const reader = new FileReader()
     reader.onload = event => {
         gridArray = JSON.parse(event.target.result)
         if (P5 !== undefined) P5.remove()
@@ -46,8 +46,8 @@ fileChooser.addEventListener('change', e => {
 })
 
 saveBtn.addEventListener('click', () => {
-    let blob = new Blob([JSON.stringify(gridArray)], { type: 'text/plain' })
-    let a = document.createElement('a')
+    const blob = new Blob([JSON.stringify(gridArray)], { type: 'text/plain' })
+    const a = document.createElement('a')
     a.style = 'display: none'
     a.href = window.URL.createObjectURL(blob)
     a.download = 'map.txt'
@@ -84,7 +84,7 @@ const sketch = p5 => {
         if (gridArray === undefined) {
             gridArray = []
             for (let j = 0; j < height; ++j) {
-                let oneRow = []
+                const oneRow = []
                 for (let i = 0; i < width; ++i) {
                     if (i === 0 || i === 1 || i === width - 1 || i === width - 2
                         || j === 0 || j === 1 || j === height - 1 || j === height - 2)

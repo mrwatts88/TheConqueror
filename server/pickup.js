@@ -4,8 +4,8 @@ const { BS } = constants;
 
 module.exports = (row, col, player, io) => {
     if (player.inventory.length >= 16) return;
-    let { map } = getState();
-    let type = map[row][col];
+    const { map } = getState();
+    const type = map[row][col];
 
     map[row][col] = '0';
 

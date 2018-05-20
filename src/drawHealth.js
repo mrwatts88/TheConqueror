@@ -1,8 +1,8 @@
 import { getState } from './globalState'
 
 export const drawHealth = p5 => {
-    let { players, id } = getState()
-    let p = players[id]
+    const { players, id } = getState()
+    const p = players[id]
     if (p === undefined) return
     p5.fill('black')
     p5.rect(p5.width - 131, 4, 102, 8)

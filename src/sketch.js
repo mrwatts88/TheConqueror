@@ -33,17 +33,17 @@ export const initSketch = socket =>
         }
 
         p5.draw = () => {
-            let { startMenuImage, state, images, graphicsObjects } = getState()
-            if (state === 'STARTMENU') {
+            const { startMenuImage, gameState, images, graphicsObjects } = getState()
+            if (gameState === 'STARTMENU') {
                 p5.background('#009955')
                 p5.image(startMenuImage, 0, 0, p5.width, p5.height)
                 drawCharacterGrobs(graphicsObjects, p5, images)
-            } else if (state === 'PLAY' || state === 'GLIDE') {
-                if (state === 'PLAY') shiftView(p5)
-                let { startCorner, next } = getState()
-                if (state === 'PLAY' && (startCorner.col !== next.col || startCorner.row !== next.row))
-                    setState({ superMoveY: startCorner.row - next.row, superMoveX: startCorner.col - next.col, state: 'GLIDE' })
-                if (state === 'GLIDE') glide()
+            } else if (gameState === 'PLAY' || gameState === 'GLIDE') {
+                if (gameState === 'PLAY') shiftView(p5)
+                const { startCorner, next } = getState()
+                if (gameState === 'PLAY' && (startCorner.col !== next.col || startCorner.row !== next.row))
+                    setState({ superMoveY: startCorner.row - next.row, superMoveX: startCorner.col - next.col, gameState: 'GLIDE' })
+                if (gameState === 'GLIDE') glide()
                 drawBackground(p5)
                 drawVisibleItems(p5, p5.width, p5.height)
                 drawPlayers(p5)

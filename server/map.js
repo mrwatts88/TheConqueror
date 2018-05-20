@@ -6,9 +6,9 @@ const theMap = [["w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w"
 exports.getTheMap = () => theMap;
 
 exports.addSpawnPoint = () => {
-    let { map } = getState();
-    let randRow = Math.floor(Math.random() * theMap.length);
-    let randCol = Math.floor(Math.random() * theMap[0].length);
+    const { map } = getState();
+    const randRow = Math.floor(Math.random() * theMap.length);
+    const randCol = Math.floor(Math.random() * theMap[0].length);
 
     for (let row = randRow; row < map.length; ++row)
         for (let col = randCol; col < map[0].length; ++col)

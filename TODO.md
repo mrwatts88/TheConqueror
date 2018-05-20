@@ -1,12 +1,10 @@
 Non-gameplay TODO:
-[ ] Remove any unnecessary import statements
-[ ] Change state.state to state.gameState
-[ ] Change let to const if possible
 [ ] Change cursor to pointer
 [ ] Move player id out of player object
 [ ] Move images out of state
 [ ] Resolve promise on START / onConnect
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[ ] Host on AWS
 [ ] Make inventory an object instead of an array?
 [ ] Lazy-load images
 [ ] Make gameState and env enums
@@ -15,6 +13,7 @@ Non-gameplay TODO:
 [ ] Check for bug when gliding in 2 directions at the same time Walking
 
 TODO:
+[ ] Drop items
 [ ] Player takes enemy's items when enemy dies
 [ ] Delay game start until start button is clicked
 [ ] Additional menu screen functionality (map choice)
@@ -29,6 +28,10 @@ TODO:
 [ ] Chatbot
 
 Bug TODO:
+[ ] "cannot read spriteChoice of undefined"
+[ ] chat pane blocks glide
+[ ] are all sprite steps showing?
+[ ] Div resize handle on MAC is weird
 [ ] Fix play created map functionality for new server architecture
 [ ] Fix white flash when resizing causes slide
 [ ] Fix shake after slide

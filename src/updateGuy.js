@@ -1,7 +1,7 @@
 import { getState } from './globalState'
 
 export const updateGuy = (p5, socket) => {
-    let dir = { 'up': false, 'down': false, 'left ': false, 'right': false }
+    const dir = { 'up': false, 'down': false, 'left ': false, 'right': false }
     if (p5.keyIsDown(p5.UP_ARROW)) dir.up = true
     if (p5.keyIsDown(p5.DOWN_ARROW)) dir.down = true
     if (p5.keyIsDown(p5.LEFT_ARROW)) dir.left = true

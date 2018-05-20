@@ -5,12 +5,12 @@ export const initSocketListeners = (socket) => {
     // When the client is first served the page, it will connect to the websocket server
     // The server will then send the map to the client
     // When the map arrives, the sketch will start looping
-    let firstMapPromise = defer()
+    const firstMapPromise = defer()
     firstMapPromise.then(data => {
-        let { map, enemies, players } = data
-        let id = socket.id
-        let startCorner = players[id].startCorner
-        let next = players[id].next
+        const { map, enemies, players } = data
+        const id = socket.id
+        const startCorner = players[id].startCorner
+        const next = players[id].next
         setState({ map, enemies, players, startCorner, next, id })
     })
 

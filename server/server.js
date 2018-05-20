@@ -15,8 +15,8 @@ const updateHealth = require('./updateHealth');
 
 app.use(express.static(path.join(__dirname, '../dist')))
 
-let map = mapUtils.getTheMap();
-let { enemies } = getState();
+const map = mapUtils.getTheMap();
+const { enemies } = getState();
 const { BS } = constants;
 
 for (let row = 0; row < map.length; ++row) {
@@ -51,40 +51,40 @@ setState({ map });
 setInterval(() => {
     updateEnemies(io);
     updateHealth();
-    let { enemies, players } = getState();
+    const { enemies, players } = getState();
     io.emit('update', { enemies, players });
 }, 20);
 
 io.on('connection', socket => {
     initNewPlayer(socket.id);
-    let { map, enemies, players } = getState();
+    const { map, enemies, players } = getState();
     socket.emit('firstconnect', { map, enemies, players });
 
     socket.on('playermove', idAndDir => { updateGuy(idAndDir.id, idAndDir.dir, io); });
 
     socket.on('disconnect', (reason) => {
-        let { players } = getState();
+        const { players } = getState();
         delete players[socket.id];
     });
 
     socket.on('useitem', (idAndIndex) => {
-        let { id, index } = idAndIndex;
-        let { players } = getState();
-        let p = players[id];
-        let item = p.inventory.splice(index, 1)[0];
+        const { id, index } = idAndIndex;
+        const { players } = getState();
+        const p = players[id];
+        const item = p.inventory.splice(index, 1)[0];
         if (item.type === 'ii' || item.type === 'ij' || item.type === 'ik') p.health = Math.min(p.health + 25, p.maxHealth);
     });
 
     socket.on('chatmsg', (idNameAndText) => {
-        let { id, name, text } = idNameAndText;
-        let { players } = getState();
+        const { id, name, text } = idNameAndText;
+        const { players } = getState();
         if (name !== '') players[id].name = name;
         io.emit('globalchatmsg', { id, name: players[id].name, text })
     });
 
     socket.on('chooseplayer', (idAndSpriteChoice) => {
-        let { id, spriteChoice } = idAndSpriteChoice;
-        let { players } = getState();
+        const { id, spriteChoice } = idAndSpriteChoice;
+        const { players } = getState();
         players[id].spriteChoice = spriteChoice;
     });
 });

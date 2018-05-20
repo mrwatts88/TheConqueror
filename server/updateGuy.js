@@ -6,8 +6,8 @@ const constants = require('./constants');
 const { BS } = constants;
 
 module.exports = (id, dir, io) => {
-    let { players, map } = getState();
-    let p = players[id];
+    const { players, map } = getState();
+    const p = players[id];
 
     if (dir.up) {
         p.direction = 'up';

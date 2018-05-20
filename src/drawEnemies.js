@@ -2,13 +2,13 @@ import { getState } from './globalState'
 import { BS } from './constants'
 
 export const drawEnemies = p5 => {
-    let { enemies, enemyImages, env, startCorner } = getState()
-    let screensLeft = startCorner.col * BS
-    let screensTop = startCorner.row * BS
-    let screensRight = screensLeft + p5.width
-    let screensBottom = screensTop + p5.height
+    const { enemies, enemyImages, env, startCorner } = getState()
+    const screensLeft = startCorner.col * BS
+    const screensTop = startCorner.row * BS
+    const screensRight = screensLeft + p5.width
+    const screensBottom = screensTop + p5.height
 
-    for (let enemy of enemies) {
+    for (const enemy of enemies) {
         if (enemy.xpos + BS <= screensLeft) continue
         if (enemy.xpos > screensRight) continue
         if (enemy.ypos + BS <= screensTop) continue
@@ -27,10 +27,10 @@ export const drawEnemies = p5 => {
             x += 32 * (Math.floor(enemy.step))
 
             switch (enemy.prevDirection) {
-            case 'down': break
-            case 'left': y += 32; break
-            case 'right': y += 64; break
-            case 'up': y += 96; break
+                case 'down': break
+                case 'left': y += 32; break
+                case 'right': y += 64; break
+                case 'up': y += 96; break
             }
 
             // draw sprite to canvas

@@ -6,15 +6,15 @@ const constants = require('./constants');
 const { BS } = constants;
 
 module.exports = io => {
-    let { enemies, map } = getState();
+    const { enemies, map } = getState();
 
     if (Math.random() < 0.97) {
-        for (let enemy of enemies) goPrevDirection(enemy, map, io);
+        for (const enemy of enemies) goPrevDirection(enemy, map, io);
         return;
     }
 
-    for (let enemy of enemies) {
-        let dir = Math.random();
+    for (const enemy of enemies) {
+        const dir = Math.random();
         if (dir < 0.2) goUp(enemy, map, io);
         else if (dir < 0.4) goDown(enemy, map, io);
         else if (dir < 0.6) goLeft(enemy, map, io);
