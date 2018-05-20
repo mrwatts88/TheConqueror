@@ -2,13 +2,13 @@ import { getState, setState } from './globalState';
 import { BS } from './constants';
 
 export const drawEnemies = p5 => {
-    let { enemies, enemyImages, env, players, startCorner, next } = getState();
-    for (let enemy of enemies) {
-        let screensLeft = startCorner.col * BS;
-        let screensTop = startCorner.row * BS;
-        let screensRight = screensLeft + p5.width;
-        let screensBottom = screensTop + p5.height;
+    let { enemies, enemyImages, env, startCorner, next } = getState();
+    let screensLeft = startCorner.col * BS;
+    let screensTop = startCorner.row * BS;
+    let screensRight = screensLeft + p5.width;
+    let screensBottom = screensTop + p5.height;
 
+    for (let enemy of enemies) {
         if (enemy.xpos + BS <= screensLeft) continue;
         if (enemy.xpos > screensRight) continue;
         if (enemy.ypos + BS <= screensTop) continue;
@@ -16,7 +16,7 @@ export const drawEnemies = p5 => {
 
         if (env === 'DEBUG') {
             p5.fill(enemy.color);
-            p5.rect(enemy.xpos, enemy.ypos, enemy.width, enemy.height);
+            p5.rect(enemy.xpos - screensLeft, enemy.ypos - screensTop, enemy.width, enemy.height);
             p5.fill(255);
         } else if (env === 'PRODUCTION') {
             // offset for character

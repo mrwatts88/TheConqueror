@@ -1,7 +1,8 @@
+import { origWidth, origHeight } from './constants';
+
 // defer is a way to resolve a promise outside of the promise definition
 export const defer = () => {
     let res, rej;
-
     const promise = new Promise((resolve, reject) => {
         res = resolve;
         rej = reject;
@@ -9,9 +10,8 @@ export const defer = () => {
 
     promise.resolve = res;
     promise.reject = rej;
-
     return promise;
 }
 
-export const xScale = p5 => p5.width / 900;
-export const yScale = p5 => p5.height / 575;
+export const xScale = p5 => p5.width / origWidth;
+export const yScale = p5 => p5.height / origHeight;

@@ -25,8 +25,8 @@ exports.initNewPlayer = id => {
                     xpos: col * BS,
                     ypos: row * BS,
                     width: BS,
-                    spriteChoice: 5,//Math.floor(Math.random() * 7),
                     height: BS,
+                    spriteChoice: 5,//Math.floor(Math.random() * 7),
                     maxHealth: 100,
                     health: 100,
                     chatColor: getRandomColor(),
@@ -49,10 +49,7 @@ exports.initNewPlayer = id => {
 }
 
 const getRandomColor = () => {
-    var letters = '0123456789ABCDEF';
-    var chatColor = '#';
-    for (var i = 0; i < 6; i++) {
-        chatColor += letters[Math.floor(Math.random() * 16)];
-    }
-    return chatColor;
+    let color = '#';
+    for (var i = 0; i < 6; i++) color += '0123456789ABCDEF'.charAt(Math.floor(Math.random() * 16));
+    return color;
 }
