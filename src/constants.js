@@ -1,6 +1,6 @@
-export const BS = 32; // unit size in pixels
-export const origWidth = 900;
-export const origHeight = 575;
+export const BS = 32 // unit size in pixels
+export const origWidth = 900
+export const origHeight = 575
 
 // maps values in map grid with location of images within sprite sheet
 export const itemMap = {
