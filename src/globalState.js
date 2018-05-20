@@ -6,13 +6,15 @@ let state = {
     images: undefined,
     enemyImages: undefined,
     mapImage: undefined,
+    startMenuImage: undefined,
     itemImage: undefined,
     startCorner: undefined,
     next: undefined,
     superMoveY: undefined,
     superMoveX: undefined,
-    state: 'PLAY',
-    env: 'PRODUCTION'
+    state: 'STARTMENU',
+    env: 'PRODUCTION',
+
 }
 
 export const getState = () => state;

@@ -15,8 +15,8 @@ import { defer } from './utils';
 
 let P5;
 let ro;
-let width = 960;
-let height = 576;
+let width = 900;
+let height = 590;
 
 const canvasDiv = document.querySelector('#grid');
 const chatUl = document.querySelector('#chat-ul');
@@ -67,7 +67,7 @@ firstMapPromise.then(data => {
             const cr = entry.contentRect;
             width = cr.width;
             height = cr.height;
-            P5.resizeCanvas(width, height - 4);
+            P5.resizeCanvas(width, height);
         }
     });
 
@@ -114,17 +114,25 @@ const sketch = p5 => {
             enemyImages: p5.loadImage("monsterSprites.png"),
             mapImage: p5.loadImage("map.png"),
             itemImage: p5.loadImage("items.png"),
+            startMenuImage: p5.loadImage("startMenu.png")
         })
     }
 
     p5.setup = () => {
-        const can = p5.createCanvas(width, height - 4);
+        const can = p5.createCanvas(width, height);
         can.mousePressed(() => { performClickAction(p5, socket); })
+        p5.textAlign(p5.CENTER, p5.CENTER);
     }
 
     p5.draw = () => {
-        let gameState = getState().state;
-        if (gameState === 'PLAY') {
+        let { startMenuImage, state } = getState();
+        if (state === 'STARTMENU') {
+            p5.background('#442151');
+            p5.image(startMenuImage, 0, 0, p5.width, p5.height);
+        } else if (state === 'MENU') {
+            drawBackground(p5);
+        } else if (state === 'PLAY') {
+            console.log(width, height);
             shiftView(width, height);
             let { players, startCorner, next } = getState();
             if (startCorner.col === next.col && startCorner.row === next.row) {
@@ -143,7 +151,7 @@ const sketch = p5 => {
                     state: 'GLIDE'
                 });
             }
-        } else if (gameState === 'GLIDE') {
+        } else if (state === 'GLIDE') {
             drawBackground(p5);
             glide();
             drawVisibleItems(p5, width, height);

@@ -18,6 +18,7 @@ export const shiftView = (width, height) => {
             let wantToMove = (height / BS) - 5;
             let move = Math.min(canMove, wantToMove);
             sC.row += move;
+            console.log('down');
         }
 
         // player going up
