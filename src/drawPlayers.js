@@ -2,7 +2,7 @@ import { getState, setState } from './globalState';
 import { BS } from './constants';
 
 export const drawPlayers = p5 => {
-    let { players, images, env, startCorner, next, id } = getState();
+    let { players, images, env, startCorner, next } = getState();
     let screensLeft = startCorner.col * BS;
     let screensTop = startCorner.row * BS;
 

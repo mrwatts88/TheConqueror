@@ -59,6 +59,7 @@ io.on('connection', socket => {
     initNewPlayer(socket.id);
     let { map, enemies, players } = getState();
     socket.emit('firstconnect', { map, enemies, players });
+
     socket.on('playermove', idAndDir => { updateGuy(idAndDir.id, idAndDir.dir, io); });
 
     socket.on('disconnect', (reason) => {
@@ -71,7 +72,6 @@ io.on('connection', socket => {
         let { players } = getState();
         let p = players[id];
         let item = p.inventory.splice(index, 1)[0];
-
         if (item.type === 'ii' || item.type === 'ij' || item.type === 'ik') p.health = Math.min(p.health + 25, p.maxHealth);
     });
 
@@ -83,15 +83,11 @@ io.on('connection', socket => {
     });
 
     socket.on('chooseplayer', (idAndSpriteChoice) => {
-
         let { id, spriteChoice } = idAndSpriteChoice;
-
-        console.log(id, spriteChoice);
         let { players } = getState();
         players[id].spriteChoice = spriteChoice;
     });
 });
 
 const port = 8080;
-
 server.listen(port, () => console.log(`Server listening on port ${port}`));

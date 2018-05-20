@@ -30,7 +30,4 @@ let state = {
 }
 
 export const getState = () => state;
-
-export const setState = newState => {
-    state = { ...state, ...newState };
-}
+export const setState = newState => { state = { ...state, ...newState } }

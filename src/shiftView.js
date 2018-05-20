@@ -1,13 +1,13 @@
 import { getState, setState } from './globalState';
-import { BS, HEIGHT_UNITS, WIDTH_UNITS } from './constants';
+import { BS } from './constants';
 
 // handle the shifting of the map, so we only draw the visible portion, and shift entities accordingly
-export const shiftView = (width, height) => {
+export const shiftView = p5 => {
+    let { width, height } = p5;
     let { players, map, startCorner, id } = getState();
     let sC = {};
     sC.row = startCorner.row;
     sC.col = startCorner.col;
-
     if (players[id].xpos !== undefined) {
         let screensLeft = startCorner.col * BS;
         let screensTop = startCorner.row * BS;
@@ -18,7 +18,6 @@ export const shiftView = (width, height) => {
             let wantToMove = (height / BS) - 5;
             let move = Math.min(canMove, wantToMove);
             sC.row += move;
-            console.log('down');
         }
 
         // player going up
