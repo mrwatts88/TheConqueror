@@ -10,3 +10,4 @@ initChat(socket)
 let sketch = initSketch(socket)
 let P5 = new p5(sketch, 'grid')
 createResizeObserver(P5)
+
