@@ -46,8 +46,8 @@ chatSendBtn.addEventListener('click', e => {
     });
 })
 
-// const socket = io.connect('http://localhost:8080');
-const socket = io.connect('http://184.58.143.70:8080');
+const socket = io.connect('http://localhost:8080');
+// const socket = io.connect('http://184.58.143.70:8080');
 
 // When the client is first served the page, it will connect to the websocket server
 // The server will then send the map to the client
