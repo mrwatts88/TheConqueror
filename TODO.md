@@ -1,10 +1,11 @@
 Non-gameplay TODO:
+[ ] Refactor!!!
 [ ] Push notifications for player acheivments and inactive player reminders
 [ ] User sign up / log in / Google API Login https://developers.google.com/identity/sign-in/web/sign-in
 
 TODO:
 [ ] Delay game start until start button is clicked
-[ ] Additional menu screen functionality (character choice, map choice)
+[ ] Additional menu screen functionality (map choice)
 [ ] Npc Store / currency.
 [ ] Add more item functionality
 [ ] Teleporting between maps
