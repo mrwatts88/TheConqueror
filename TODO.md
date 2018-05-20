@@ -1,16 +1,18 @@
 Non-gameplay TODO:
-[ ] Check for bug when gliding in 2 directions at the same time
-[ ] Change cursor to pointer
-[ ] Remove any unnecessary imprort statements
-[ ] Change lets to consts if possible
-[ ] Make inventory an object instead of an array?
-[ ] Refactor!!!
+[ ] Remove any unnecessary import statements
 [ ] Change state.state to state.gameState
-[ ] Make gameState and env enums
-[ ] Move images out of state
+[ ] Change let to const if possible
+[ ] Change cursor to pointer
 [ ] Move player id out of player object
-[ ] Push notifications for player acheivments and inactive player reminders
+[ ] Move images out of state
+[ ] Resolve promise on START / onConnect
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[ ] Make inventory an object instead of an array?
+[ ] Lazy-load images
+[ ] Make gameState and env enums
+[ ] Push notifications for player achievements and inactive player reminders
 [ ] User sign up / log in / Google API Login https://developers.google.com/identity/sign-in/web/sign-in
+[ ] Check for bug when gliding in 2 directions at the same time Walking
 
 TODO:
 [ ] Player takes enemy's items when enemy dies

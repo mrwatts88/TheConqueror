@@ -1,7 +1,7 @@
 const getState = require('./globalState').getState;
 const setState = require('./globalState').setState;
 
-exports.updateHealth = () => {
+module.exports = () => {
     let { players, enemies } = getState();
 
     for (let id in players) {

@@ -1,12 +1,12 @@
 import { getState } from './globalState';
 
-const chatBox = document.querySelector('#chat-box');
-const chatSendBtn = document.querySelector('#chat-send-btn');
-const slideTab = document.querySelector('#slide-tab');
-const chatTextArea = document.querySelector('#chat-text-area');
-const nameText = document.querySelector('#name-text');
 const chatUl = document.querySelector('#chat-ul');
+const chatBox = document.querySelector('#chat-box');
+const slideTab = document.querySelector('#slide-tab');
+const nameText = document.querySelector('#name-text');
+const chatSendBtn = document.querySelector('#chat-send-btn');
 const chatChatBox = document.querySelector('#chat-chat-box');
+const chatTextArea = document.querySelector('#chat-text-area');
 
 export const initChat = socket => {
     // Handle chat box slide transition
@@ -28,14 +28,10 @@ export const initChat = socket => {
         });
     })
 
-
     // Chat box will always scroll to the bottom when new content is added
-    let scrollOb = new MutationObserver(() => {
-        chatChatBox.scrollTop = chatChatBox.scrollHeight;
-    });
+    let scrollOb = new MutationObserver(() => { chatChatBox.scrollTop = chatChatBox.scrollHeight; });
     let config = { childList: true };
     scrollOb.observe(chatUl, config);
-
 
     // message from chat
     socket.on('globalchatmsg', idNameAndText => {
@@ -47,13 +43,13 @@ export const initChat = socket => {
 
         let { players } = getState();
         let { id, name, text } = idNameAndText;
-        let nameNode = document.createElement("B");
-        nameNode.style.color = players[id].chatColor;
-        let nameTextNode = document.createTextNode(`${name}: `);
-        nameNode.appendChild(nameTextNode);
         let msgNode = document.createElement("LI");
-        msgNode.appendChild(nameNode);
+        let nameNode = document.createElement("B");
+        let nameTextNode = document.createTextNode(`${name}: `);
         let msgTextNode = document.createTextNode(text);
+        nameNode.style.color = players[id].chatColor;
+        nameNode.appendChild(nameTextNode);
+        msgNode.appendChild(nameNode);
         msgNode.appendChild(msgTextNode);
         chatUl.appendChild(msgNode);
     });

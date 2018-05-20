@@ -13,5 +13,11 @@ export const defer = () => {
     return promise;
 }
 
+export const getRandomColor = () => {
+    let color = '#';
+    for (var i = 0; i < 6; i++) color += '0123456789ABCDEF'.charAt(Math.floor(Math.random() * 16));
+    return color;
+}
+
 export const xScale = p5 => p5.width / origWidth;
 export const yScale = p5 => p5.height / origHeight;

@@ -16,11 +16,12 @@ export const initSketch = socket =>
     p5 => {
         p5.preload = () => {
             setState({
+                startMenuImage: p5.loadImage("startMenu.png"),
                 images: p5.loadImage("sprites1.png"),
                 enemyImages: p5.loadImage("monsterSprites.png"),
                 mapImage: p5.loadImage("map.png"),
                 itemImage: p5.loadImage("items.png"),
-                startMenuImage: p5.loadImage("startMenu.png")
+
             })
         }
 

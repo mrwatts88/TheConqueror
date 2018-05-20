@@ -1,8 +1,8 @@
 const getState = require('./globalState').getState;
-const constants = require('./constants').constants;
+const constants = require('./constants');
 const { BS } = constants;
 
-exports.pickUp = (row, col, player, io) => {
+module.exports = (row, col, player, io) => {
     if (player.inventory.length >= 16) return;
     let { map } = getState();
     let type = map[row][col];
