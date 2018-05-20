@@ -1,6 +1,5 @@
 import { getState } from './globalState'
 import { BS, itemMap } from './constants'
-let x
 
 export const drawInventory = p5 => {
     let { players, id, itemImage, env } = getState()
