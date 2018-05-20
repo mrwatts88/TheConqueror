@@ -5,12 +5,14 @@
   "private": true,
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "watch": "webpack -d --watch --config webpack.config.js"
+    "watch": "webpack -d --watch --config webpack.config.js",
+    "serve": "nodemon ./server/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "nodemon": "^1.17.4",
     "webpack": "^4.8.1",
     "webpack-cli": "^2.1.3"
   },

@@ -40,5 +40,5 @@ exports.updateGuy = (id, dir, io) => {
 
 const advanceStep = p => {
     p.step += 0.3;
-    if (p.step > 4) p.step = 0;
+    if (p.step > 2) p.step = 0;
 }

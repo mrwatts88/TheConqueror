@@ -12,3 +12,6 @@ export const defer = () => {
 
     return promise;
 }
+
+export const xScale = p5 => p5.width / 900;
+export const yScale = p5 => p5.height / 575;

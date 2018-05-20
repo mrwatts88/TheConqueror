@@ -1,21 +1,19 @@
-
-Feature TODO:
-[ ] Add more item functionality
-[ ] Menu screen
-[ ] Character choice
-~~~~~~~~~~~~~~~~~~
-[ ] Map choice
-[ ] Teleporting between maps
-[ ] Weapon Schema/ stats/ leveling
-[ ] Npc Store
-[ ] Play Modes Raid/ PVP / Friendly mode () / Story Mode 
+Non-gameplay TODO:
 [ ] Push notifications for player acheivments and inactive player reminders
 [ ] User sign up / log in / Google API Login https://developers.google.com/identity/sign-in/web/sign-in
-[ ] Add Shortest Path finding for clicking / Machine learning algorithms 
+
+TODO:
+[ ] Delay game start until start button is clicked
+[ ] Additional menu screen functionality (character choice, map choice)
+[ ] Npc Store / currency.
+[ ] Add more item functionality
+[ ] Teleporting between maps
+[ ] Weapon Schema/ stats/ leveling
+[ ] Play Modes Raid/ PVP / Friendly mode / Story Mode 
+[ ] Add Shortest Path finding for move-by-click
 [ ] Machine learning algorithms for monsters
 [ ] Parser filters bad language
-[ ] US EU CHINA AUSTRALIA Servers
-[ ] Instead of a tutorial have a chatbot
+[ ] Chatbot
 
 Bug TODO:
 [ ] Fix play created map functionality for new server architecture

@@ -6,7 +6,7 @@ import { BS, xScale, yScale } from './constants';
 export const performClickAction = (p5, socket) => {
     let xpos = p5.mouseX;
     let ypos = p5.mouseY;
-    let { players, id, state, width, height } = getState();
+    let { players, id, state, width, height, graphicsObjects } = getState();
 
     if (state === 'PLAY') {
         let p = players[id];
@@ -20,7 +20,14 @@ export const performClickAction = (p5, socket) => {
         }
 
     } else if (state === 'STARTMENU')
-        for (const key in graphicsObjects) if (didClick(graphicsObjects[key], p5)) graphicsObjects[key].action();
+        for (const key in graphicsObjects) {
+            if (Array.isArray(graphicsObjects[key])) {
+                for (let obj of graphicsObjects[key])
+                    if (didClick(obj, p5)) obj.action();
+            } else {
+                if (didClick(graphicsObjects[key], p5)) graphicsObjects[key].action();
+            }
+        };
 }
 
 const getClickedInventoryIndex = (xpos, ypos, baseX, baseY) => {
@@ -35,15 +42,15 @@ const didClick = (graphicsObject, p5) => {
     return (mouseX > left(p5) && mouseY > top(p5) && mouseX < right(p5) && mouseY < bottom(p5));
 }
 
-const startGame = () => setState({ state: 'PLAY' })
+// const startGame = () => setState({ state: 'PLAY' })
 
-const graphicsObjects = {
-    startBtn: {
-        left: p5 => xScale(p5) * 81,
-        right: p5 => xScale(p5) * 156,
-        top: p5 => yScale(p5) * 476,
-        bottom: p5 => yScale(p5) * 512,
-        action: () => startGame()
+// const graphicsObjects = {
+//     startBtn: {
+//         left: p5 => xScale(p5) * 81,
+//         right: p5 => xScale(p5) * 156,
+//         top: p5 => yScale(p5) * 476,
+//         bottom: p5 => yScale(p5) * 512,
+//         action: () => startGame()
 
-    }
-}
+//     }
+// }

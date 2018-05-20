@@ -11,7 +11,7 @@ import { performClickAction } from './performClickAction';
 import { getState, setState } from './globalState';
 import { drawLayout } from './drawLayout';
 import { glide } from './glide';
-import { defer } from './utils';
+import { defer, xScale, yScale } from './utils';
 
 let P5;
 let ro;
@@ -110,7 +110,7 @@ socket.on('globalchatmsg', idNameAndText => {
 const sketch = p5 => {
     p5.preload = () => {
         setState({
-            images: p5.loadImage("sprites.png"),
+            images: p5.loadImage("sprites1.png"),
             enemyImages: p5.loadImage("monsterSprites.png"),
             mapImage: p5.loadImage("map.png"),
             itemImage: p5.loadImage("items.png"),
@@ -122,17 +122,43 @@ const sketch = p5 => {
         const can = p5.createCanvas(width, height);
         can.mousePressed(() => { performClickAction(p5, socket); })
         p5.textAlign(p5.CENTER, p5.CENTER);
+        let { graphicsObjects, players, id } = getState();
+        let p = players[id];
+
+        for (let i = 0; i < 7; ++i) {
+            graphicsObjects.chars.push({
+                left: p5 => xScale(p5) * (2 + i) * BS,
+                right: p5 => xScale(p5) * (3 + i) * BS,
+                top: p5 => yScale(p5) * 5 * BS,
+                bottom: p5 => yScale(p5) * 6 * BS,
+                action: () => {
+                    socket.emit('chooseplayer', { id, spriteChoice: i });
+                }
+            });
+        }
     }
 
     p5.draw = () => {
-        let { startMenuImage, state } = getState();
+        let { startMenuImage, state, images, graphicsObjects } = getState();
         if (state === 'STARTMENU') {
             p5.background('#442151');
             p5.image(startMenuImage, 0, 0, p5.width, p5.height);
+
+            for (let i = 0; i < graphicsObjects.chars.length; ++i) {
+                let x = (i % 4) * 32 * 3;
+                let y = Math.floor(i / 4) * 32 * 4;
+                let char = graphicsObjects.chars[i];
+                p5.image(images,
+                    char.left(p5),
+                    char.top(p5),
+                    char.right(p5) - char.left(p5),
+                    char.bottom(p5) - char.top(p5),
+                    x, y, 32, 32
+                );
+            }
         } else if (state === 'MENU') {
             drawBackground(p5);
         } else if (state === 'PLAY') {
-            console.log(width, height);
             shiftView(width, height);
             let { players, startCorner, next } = getState();
             if (startCorner.col === next.col && startCorner.row === next.row) {
@@ -166,7 +192,8 @@ const sketch = p5 => {
 }
 
 const drawBackground = p5 => {
-    let { mapImage, players, startCorner } = getState();
+    let { mapImage, startCorner } = getState();
+
     p5.image(mapImage, 0, 0, p5.width, p5.height, 32 + startCorner.col * BS,
         32 + startCorner.row * BS, p5.width, p5.height);
 }

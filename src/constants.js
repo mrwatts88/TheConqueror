@@ -1,8 +1,6 @@
 export const BS = 32; // unit size in pixels
 export const WIDTH_UNITS = 30; // width of canvas in units
 export const HEIGHT_UNITS = 18; // height of canvas in units
-export const xScale = p5 => p5.width / 900;
-export const yScale = p5 => p5.height / 575;
 
 // maps values in map grid with location of images within sprite sheet
 export const itemMap = {

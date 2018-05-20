@@ -25,6 +25,7 @@ exports.initNewPlayer = id => {
                     xpos: col * BS,
                     ypos: row * BS,
                     width: BS,
+                    spriteChoice: 5,//Math.floor(Math.random() * 7),
                     height: BS,
                     maxHealth: 100,
                     health: 100,

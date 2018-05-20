@@ -36,7 +36,8 @@ for (let row = 0; row < map.length; ++row) {
                 speed: 1,
                 attack: 1,
                 prevDirection: 'left',
-                step: 0
+                step: 0,
+                spriteChoice: Math.floor(Math.random() * 7)
             });
 
             map[row][col] = '0';
@@ -78,8 +79,16 @@ io.on('connection', socket => {
         let { id, name, text } = idNameAndText;
         let { players } = getState();
         if (name !== '') players[id].name = name;
-
         io.emit('globalchatmsg', { id, name: players[id].name, text })
+    });
+
+    socket.on('chooseplayer', (idAndSpriteChoice) => {
+
+        let { id, spriteChoice } = idAndSpriteChoice;
+
+        console.log(id, spriteChoice);
+        let { players } = getState();
+        players[id].spriteChoice = spriteChoice;
     });
 });
 

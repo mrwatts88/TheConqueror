@@ -13,9 +13,12 @@ export const drawPlayers = p5 => {
             p5.rect(p.xpos - screensLeft, p.ypos - screensTop, p.width, p.height);
             p5.fill('white');
         } else if (env === 'PRODUCTION') {
-            // location of sprite within sprite sheet (images)
-            let x = 32 * (Math.floor(p.step));
-            let y = 0;
+            // offset for character
+            let x = (p.spriteChoice % 4) * 32 * 3;
+            let y = Math.floor(p.spriteChoice / 4) * 32 * 4;
+
+            // location of sprite within chosen character's sprites
+            x += 32 * (Math.floor(p.step));
 
             switch (p.direction) {
                 case 'down': break;
@@ -36,8 +39,8 @@ export const drawPlayers = p5 => {
             p5.image(
                 images,
                 p.xpos - screensLeft, p.ypos - screensTop,
-                p.width, p.height,
-                x, y, 32, 32,
+                p.width, p.height, //how big to draw
+                x, y, 32, 32
             )
         }
     }

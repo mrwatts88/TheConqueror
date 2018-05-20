@@ -3,27 +3,30 @@ import { BS } from './constants';
 
 export const drawEnemies = p5 => {
     let { enemies, enemyImages, env, players, startCorner, next } = getState();
-    for (let ob of enemies) {
+    for (let enemy of enemies) {
         let screensLeft = startCorner.col * BS;
         let screensTop = startCorner.row * BS;
         let screensRight = screensLeft + p5.width;
         let screensBottom = screensTop + p5.height;
 
-        if (ob.xpos + BS <= screensLeft) continue;
-        if (ob.xpos > screensRight) continue;
-        if (ob.ypos + BS <= screensTop) continue;
-        if (ob.ypos > screensBottom) continue;
+        if (enemy.xpos + BS <= screensLeft) continue;
+        if (enemy.xpos > screensRight) continue;
+        if (enemy.ypos + BS <= screensTop) continue;
+        if (enemy.ypos > screensBottom) continue;
 
         if (env === 'DEBUG') {
-            p5.fill(ob.color);
-            p5.rect(ob.xpos, ob.ypos, ob.width, ob.height);
+            p5.fill(enemy.color);
+            p5.rect(enemy.xpos, enemy.ypos, enemy.width, enemy.height);
             p5.fill(255);
         } else if (env === 'PRODUCTION') {
-            // location of sprite within sprite sheet (images)
-            let x = 6 * 32 + 32 * (Math.floor(ob.step));
-            let y = 4 * 32;
+            // offset for character
+            let x = (enemy.spriteChoice % 4) * 32 * 3;
+            let y = Math.floor(enemy.spriteChoice / 4) * 32 * 4;
 
-            switch (ob.prevDirection) {
+            // location of sprite within chosen character's sprites
+            x += 32 * (Math.floor(enemy.step));
+
+            switch (enemy.prevDirection) {
                 case 'down': break;
                 case 'left': y += 32; break;
                 case 'right': y += 64; break;
@@ -33,8 +36,8 @@ export const drawEnemies = p5 => {
             // draw sprite to canvas
             p5.image(
                 enemyImages,
-                ob.xpos - screensLeft, ob.ypos - screensTop,
-                ob.width, ob.height,
+                enemy.xpos - screensLeft, enemy.ypos - screensTop,
+                enemy.width, enemy.height,
                 x, y, 32, 32,
             )
         }
