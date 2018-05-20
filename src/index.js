@@ -11,4 +11,8 @@ initSocketListeners(socket);
 initChat(socket);
 let sketch = initSketch(socket);
 let P5 = new p5(sketch, 'grid');
+<<<<<<< HEAD
 createResizeObserver(P5);
+=======
+createResizeObserver(P5);
+>>>>>>> 95493d824de4c3a274fd6959c1d240fc7ecebdd9
