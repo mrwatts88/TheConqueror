@@ -5,13 +5,14 @@ module.exports = {
     },
     "extends": "eslint:recommended",
     "parserOptions": {
-        "sourceType": "module"
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true
+        }
     },
     "rules": {
-        "indent": [
-            "error",
-            4
-        ],
+        "indent": ["error", 4],
         "linebreak-style": [
             "error",
             "unix"

@@ -1,11 +1,11 @@
-const processGuy = require('./processGuy').processGuy;
+const processGuy = require('./processGuy');
 const getState = require('./globalState').getState;
 const setState = require('./globalState').setState;
-const constants = require('./constants').constants;
+const constants = require('./constants');
 
 const { BS } = constants;
 
-exports.updateGuy = (id, dir, io) => {
+module.exports = (id, dir, io) => {
     let { players, map } = getState();
     let p = players[id];
 

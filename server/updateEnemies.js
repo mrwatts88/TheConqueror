@@ -1,11 +1,11 @@
-const processGuy = require('./processGuy').processGuy;
+const processGuy = require('./processGuy');
 const getState = require('./globalState').getState;
 const setState = require('./globalState').setState;
-const constants = require('./constants').constants;
+const constants = require('./constants');
 
 const { BS } = constants;
 
-exports.updateEnemies = io => {
+module.exports = io => {
     let { enemies, map } = getState();
 
     if (Math.random() < 0.97) {

@@ -1,10 +1,11 @@
 const getState = require('./globalState').getState;
 const setState = require('./globalState').setState;
 const mapUtils = require('./map');
-const constants = require('./constants').constants;
+const utils = require('./utils');
+const constants = require('./constants');
 const { BS, WIDTH_UNITS, HEIGHT_UNITS } = constants;
 
-exports.initNewPlayer = id => {
+module.exports = id => {
     mapUtils.addSpawnPoint();
     let { map, players } = getState();
     let pRow = 0;
@@ -29,7 +30,7 @@ exports.initNewPlayer = id => {
                     spriteChoice: 5,//Math.floor(Math.random() * 7),
                     maxHealth: 100,
                     health: 100,
-                    chatColor: getRandomColor(),
+                    chatColor: utils.getRandomColor(),
                     type: 'player',
                     speed: 2,
                     attack: 2,
@@ -46,10 +47,4 @@ exports.initNewPlayer = id => {
         }
         if (found) break;
     }
-}
-
-const getRandomColor = () => {
-    let color = '#';
-    for (var i = 0; i < 6; i++) color += '0123456789ABCDEF'.charAt(Math.floor(Math.random() * 16));
-    return color;
 }

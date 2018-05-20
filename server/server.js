@@ -3,15 +3,15 @@ const path = require('path');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const constants = require('./constants').constants;
+const constants = require('./constants');
 
 const mapUtils = require('./map');
 const getState = require('./globalState').getState;
 const setState = require('./globalState').setState;
-const updateEnemies = require('./updateEnemies').updateEnemies;
-const updateGuy = require('./updateGuy').updateGuy;
-const initNewPlayer = require('./initNewPlayer').initNewPlayer;
-const updateHealth = require('./updateHealth').updateHealth;
+const updateEnemies = require('./updateEnemies');
+const updateGuy = require('./updateGuy');
+const initNewPlayer = require('./initNewPlayer');
+const updateHealth = require('./updateHealth');
 
 app.use(express.static(path.join(__dirname, '../dist')))
 

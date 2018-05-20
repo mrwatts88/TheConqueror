@@ -1,11 +1,11 @@
-const pickUp = require('./pickup').pickUp;
-const constants = require('./constants').constants;
+const pickUp = require('./pickup');
+const constants = require('./constants');
 const getState = require('./globalState').getState;
 const setState = require('./globalState').setState;
 const { BS } = constants;
 
 // Determine what type of blocks the player will be on after moving
-exports.processGuy = (row, col, p, io) => {
+module.exports = (row, col, p, io) => {
     let { xpos, ypos } = p;
     if (xpos == undefined) return;
     let { map } = getState();

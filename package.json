@@ -6,8 +6,13 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "watch": "webpack -d --watch --config webpack.config.js",
-    "serve": "nodemon ./server/server.js"
+    "serve": "nodemon ./server/server.js",
+    "lint": "./node_modules/.bin/eslint --quiet ./src/*.js",
+    "fix": " ./node_modules/.bin/eslint --quiet --fix ./src/*.js"
   },
+  "pre-push": [
+    "fix"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
