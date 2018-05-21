@@ -13,6 +13,10 @@
             box-sizing: border-box;
         }
 
+        .pointer {
+            cursor: pointer;
+        }
+
         #chat-box {
             position: absolute;
             right: 0px;
@@ -57,10 +61,10 @@
 </head>
 
 <body style="overflow-x: hidden">
-    <div style="width:900px; height: 590px; resize: both;overflow-x: scroll; overflow-y: hidden;" id="grid"></div>
+    <div class="pointer" style="width:900px; height: 590px; resize: both;overflow-x: scroll; overflow-y: hidden;" id="grid"></div>
     <script src="/socket.io/socket.io.js"></script>
     <div id="chat-box">
-        <div id="slide-tab">
+        <div class="pointer" id="slide-tab">
 
         </div>
         <input style="width: 100%;" placeholder="Enter your name..." type="text" name="name-text" id="name-text">

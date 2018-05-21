@@ -1,16 +1,18 @@
 Non-gameplay TODO:
-[ ] Change cursor to pointer
 [ ] Move player id out of player object
 [ ] Move images out of state
 [ ] Resolve promise on START / onConnect
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[ ] Host on AWS
-[ ] Make inventory an object instead of an array?
-[ ] Lazy-load images
 [ ] Make gameState and env enums
+[ ] Min/Max size for canvas
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[ ] Select Actual name in menu
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[ ] Host on AWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ ] Push notifications for player achievements and inactive player reminders
 [ ] User sign up / log in / Google API Login https://developers.google.com/identity/sign-in/web/sign-in
-[ ] Check for bug when gliding in 2 directions at the same time Walking
+[ ] Lazy-load images
+[ ] Make inventory an object instead of an array?
 
 TODO:
 [ ] Drop items
@@ -28,6 +30,7 @@ TODO:
 [ ] Chatbot
 
 Bug TODO:
+[ ] Check for bug when gliding in 2 directions at the same time Walking
 [ ] "cannot read spriteChoice of undefined"
 [ ] chat pane blocks glide
 [ ] are all sprite steps showing?

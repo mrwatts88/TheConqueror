@@ -27,10 +27,10 @@ export const drawEnemies = p5 => {
             x += 32 * (Math.floor(enemy.step))
 
             switch (enemy.prevDirection) {
-                case 'down': break
-                case 'left': y += 32; break
-                case 'right': y += 64; break
-                case 'up': y += 96; break
+            case 'down': break
+            case 'left': y += 32; break
+            case 'right': y += 64; break
+            case 'up': y += 96; break
             }
 
             // draw sprite to canvas

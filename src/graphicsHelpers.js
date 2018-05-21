@@ -33,7 +33,7 @@ export const drawBackground = p5 => {
 export const createResizeObserver = p5 => {
     // Observer to catch canvas resize
     const ro = new ResizeObserver(entries => {
-        for (const entry of entries) p5.resizeCanvas(entry.contentRect.width, entry.contentRect.height)
+        for (const entry of entries) p5.resizeCanvas(entry.contentRect.width - 10, entry.contentRect.height - 10)
     })
 
     ro.observe(canvasDiv)
