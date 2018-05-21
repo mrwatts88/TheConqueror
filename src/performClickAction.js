@@ -1,4 +1,4 @@
-import { getState } from './globalState'
+import { getState, setState } from './globalState'
 import { BS, GAMESTATE } from './constants'
 
 // Perform the correct action based on what was clicked
@@ -19,13 +19,14 @@ export const performClickAction = (p5, socket) => {
         }
     } else if (gameState === GAMESTATE.STARTMENU) {
         for (const key in graphicsObjects) {
-            if (Array.isArray(graphicsObjects[key])) {
-                for (const obj of graphicsObjects[key]) if (didClick(obj, p5)) obj.action()
-            } else {
-                if (didClick(graphicsObjects[key], p5)) graphicsObjects[key].action()
-            }
+            if (didClick(graphicsObjects[key], p5)) superAction(graphicsObjects[key])
         }
     }
+}
+
+const superAction = grob => {
+    setState({ activeGrob: grob })
+    grob.action()
 }
 
 const getClickedInventoryIndex = (xpos, ypos, baseX, baseY) => {

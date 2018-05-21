@@ -7,8 +7,8 @@ export const initState = socket => {
     state = {
         id: undefined,
         spriteChoice: 0,
-        name: 'fred',
-        textEdit: false,
+        name: '',
+        activeGrob: {},
         players: {},
         enemies: [],
         map: [],
@@ -27,10 +27,9 @@ export const initState = socket => {
                 bottom: p5 => yScale(p5) * 512,
                 action: () => {
                     const { name, spriteChoice, mapChoice } = getState()
-                    socket.emit('startgame', { name, spriteChoice, mapChoice })
+                    if (name !== '') socket.emit('startgame', { name, spriteChoice, mapChoice })
                 }
-            },
-            chars: []
+            }
         }
     }
 }

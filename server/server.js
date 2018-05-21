@@ -56,11 +56,15 @@ setInterval(() => {
 }, 20);
 
 io.on('connection', socket => {
+    initNewPlayer(socket.id);
     socket.on('playermove', idAndDir => { updateGuy(idAndDir.id, idAndDir.dir, io); });
 
-    socket.on('startgame', (playerData) => {
-        initNewPlayer(socket.id, playerData);
+    socket.on('startgame', (data) => {
         const { map, enemies, players } = getState();
+        const { name, spriteChoice, mapChoice } = data;
+        players[socket.id].name = name;
+        players[socket.id].spriteChoice = spriteChoice;
+        players[socket.id].mapChoice = mapChoice;
         socket.emit('initialdata', { map, enemies, players });
     })
 
@@ -80,7 +84,7 @@ io.on('connection', socket => {
     socket.on('chatmsg', (idNameAndText) => {
         const { id, name, text } = idNameAndText;
         const { players } = getState();
-        if (name !== '') players[id].name = name;
+        if (name !== '' || name !== 'Guest') players[id].name = name;
         io.emit('globalchatmsg', { id, name: players[id].name, text })
     });
 
@@ -93,3 +97,4 @@ io.on('connection', socket => {
 
 const port = 8080;
 server.listen(port, () => console.log(`Server listening on port ${port}`));
+

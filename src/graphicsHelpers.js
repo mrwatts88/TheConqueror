@@ -6,22 +6,25 @@ const canvasDiv = document.querySelector('#grid')
 
 export const createCharacterGrobs = (graphicsObjects) => {
     for (let i = 0; i < 7; ++i) {
-        graphicsObjects.chars.push({
+        graphicsObjects['char' + i] = {
             left: p5 => xScale(p5) * (2 + i) * BS,
             right: p5 => xScale(p5) * (3 + i) * BS,
             top: p5 => yScale(p5) * 5 * BS,
             bottom: p5 => yScale(p5) * 6 * BS,
             action: () => setState({ spriteChoice: i })
-        })
+        }
     }
 }
 
 export const drawCharacterGrobs = (graphicsObjects, p5, images) => {
-    for (let i = 0; i < graphicsObjects.chars.length; ++i) {
+    let i = 0
+    for (let key in graphicsObjects) {
+        if (key.substring(0, 4) != 'char') continue
         const x = (i % 4) * 32 * 3
         const y = Math.floor(i / 4) * 32 * 4
-        const char = graphicsObjects.chars[i]
+        const char = graphicsObjects[key]
         p5.image(images, char.left(p5), char.top(p5), char.right(p5) - char.left(p5), char.bottom(p5) - char.top(p5), x, y, 32, 32)
+        ++i
     }
 }
 

@@ -35,7 +35,7 @@ export const initSketch = socket => p5 => {
             right: p5 => xScale(p5) * 291,
             top: p5 => yScale(p5) * 98,
             bottom: p5 => yScale(p5) * 111,
-            action: () => setState({ name: '', textEdit: true })
+            action: () => setState({ name: '' })
         }
 
         graphicsObjects['map1'] = {
@@ -48,8 +48,8 @@ export const initSketch = socket => p5 => {
     }
 
     p5.keyTyped = () => {
-        let { textEdit, name } = getState()
-        if (textEdit) setState({ name: name + p5.key })
+        let { graphicsObjects, activeGrob, name } = getState()
+        if (graphicsObjects['nameBox'] === activeGrob) setState({ name: name + p5.key })
     }
 
     p5.draw = () => {
