@@ -1,5 +1,4 @@
 import { setState } from './globalState'
-import { defer } from './utils'
 
 export const initSocketListeners = (socket) => {
 

@@ -1,6 +1,6 @@
 import { xScale, yScale } from './utils'
 
-let state = {};
+let state = {}
 
 export const initState = socket => {
     state = {
@@ -29,7 +29,7 @@ export const initState = socket => {
                 top: p5 => yScale(p5) * 476,
                 bottom: p5 => yScale(p5) * 512,
                 action: () => {
-                    const { name, spriteChoice, mapChoice } = getState();
+                    const { name, spriteChoice, mapChoice } = getState()
                     socket.emit('startgame', { name, spriteChoice, mapChoice })
                 }
             },
