@@ -1,4 +1,4 @@
-import { getState } from './globalState'
+import { getState, setState } from './globalState'
 import { BS } from './constants'
 import { xScale, yScale } from './utils'
 
@@ -11,7 +11,7 @@ export const createCharacterGrobs = (graphicsObjects) => {
             right: p5 => xScale(p5) * (3 + i) * BS,
             top: p5 => yScale(p5) * 5 * BS,
             bottom: p5 => yScale(p5) * 6 * BS,
-            action: (id, socket) => socket.emit('chooseplayer', { id, spriteChoice: i })
+            action: () => setState({ spriteChoice: i })
         })
     }
 }

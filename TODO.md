@@ -1,7 +1,5 @@
 Non-gameplay TODO:
-[ ] Move player id out of player object
 [ ] Move images out of state
-[ ] Resolve promise on START / onConnect
 [ ] Make gameState and env enums
 [ ] Min/Max size for canvas
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

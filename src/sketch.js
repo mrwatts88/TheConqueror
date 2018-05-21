@@ -21,7 +21,6 @@ export const initSketch = socket =>
                 enemyImages: p5.loadImage('monsterSprites.png'),
                 mapImage: p5.loadImage('map.png'),
                 itemImage: p5.loadImage('items.png'),
-
             })
         }
 

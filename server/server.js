@@ -56,11 +56,13 @@ setInterval(() => {
 }, 20);
 
 io.on('connection', socket => {
-    initNewPlayer(socket.id);
-    const { map, enemies, players } = getState();
-    socket.emit('firstconnect', { map, enemies, players });
-
     socket.on('playermove', idAndDir => { updateGuy(idAndDir.id, idAndDir.dir, io); });
+
+    socket.on('startgame', (playerData) => {
+        initNewPlayer(socket.id, playerData);
+        const { map, enemies, players } = getState();
+        socket.emit('initialdata', { map, enemies, players });
+    })
 
     socket.on('disconnect', (reason) => {
         const { players } = getState();

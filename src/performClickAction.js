@@ -18,7 +18,7 @@ export const performClickAction = (p5, socket) => {
     } else if (gameState === 'STARTMENU') {
         for (const key in graphicsObjects) {
             if (Array.isArray(graphicsObjects[key])) {
-                for (const obj of graphicsObjects[key]) if (didClick(obj, p5)) obj.action(id, socket)
+                for (const obj of graphicsObjects[key]) if (didClick(obj, p5)) obj.action()
             } else {
                 if (didClick(graphicsObjects[key], p5)) graphicsObjects[key].action()
             }

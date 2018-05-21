@@ -5,12 +5,13 @@ const utils = require('./utils');
 const constants = require('./constants');
 const { BS, WIDTH_UNITS, HEIGHT_UNITS } = constants;
 
-module.exports = id => {
+module.exports = (id, playerData) => {
     mapUtils.addSpawnPoint();
     const { map, players } = getState();
     let pRow = 0;
     let pCol = 0;
     let found = false;
+    const { name, spriteChoice, mapChoice } = playerData;
 
     for (let row = 0; row < map.length; ++row) {
         for (let col = 0; col < map[0].length; ++col) {
@@ -21,13 +22,14 @@ module.exports = id => {
                 pCol = Math.min(map[0].length - WIDTH_UNITS, Math.max(0, Math.floor(col - WIDTH_UNITS / 2)));
 
                 players[id] = {
-                    name: 'Jeff',
-                    inventory: [],
-                    xpos: col * BS,
-                    ypos: row * BS,
+                    name,
                     width: BS,
                     height: BS,
-                    spriteChoice: 5,//Math.floor(Math.random() * 7),
+                    spriteChoice,
+                    mapChoice,
+                    xpos: col * BS,
+                    ypos: row * BS,
+                    inventory: [],
                     maxHealth: 100,
                     health: 100,
                     chatColor: utils.getRandomColor(),
