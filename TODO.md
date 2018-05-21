@@ -8,7 +8,6 @@ Non-gameplay TODO:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ ] Push notifications for player achievements and inactive player reminders
 [ ] User sign up / log in / Google API Login https://developers.google.com/identity/sign-in/web/sign-in
-[ ] Lazy-load images
 [ ] Make inventory an object instead of an array?
 
 TODO:

@@ -39,12 +39,12 @@ export const createResizeObserver = p5 => {
     ro.observe(canvasDiv)
 }
 
-export const lazyLoad = (p5, images) => new Promise((res, rej) => {
+export const lazyLoad = (p5, images) => new Promise(res => {
     p5.loadImage('items.png', img => {
-        images.itemImage = img;
+        images.itemImage = img
         p5.loadImage('monsterSprites.png', img2 => {
-            images.enemyImage = img2;
-            res();
+            images.enemyImage = img2
+            res()
         })
     })
-});
+})

@@ -21,10 +21,10 @@ export const drawPlayers = (p5, image) => {
             x += 32 * (Math.floor(p.step))
 
             switch (p.direction) {
-                case 'down': break
-                case 'left': y += 32; break
-                case 'right': y += 64; break
-                case 'up': y += 96; break
+            case 'down': break
+            case 'left': y += 32; break
+            case 'right': y += 64; break
+            case 'up': y += 96; break
             }
 
             p5.fill(p.chatColor)
