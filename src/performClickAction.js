@@ -5,7 +5,7 @@ import { BS, GAMESTATE } from './constants'
 export const performClickAction = (p5, socket) => {
     const xpos = p5.mouseX
     const ypos = p5.mouseY
-    const { id, gameState, graphicsObjects, players } = getState()
+    const { id, gameState, startMenuGrobs, playGrobs, players } = getState()
     const p = players[id]
 
     if (gameState === GAMESTATE.PLAY) {
@@ -17,10 +17,10 @@ export const performClickAction = (p5, socket) => {
             const index = getClickedInventoryIndex(xpos, ypos, baseX, baseY)
             if (p.inventory[index] !== undefined) socket.emit('useitem', { id, index })
         }
+
+        for (const key in playGrobs) if (didClick(playGrobs[key], p5)) superAction(playGrobs[key])
     } else if (gameState === GAMESTATE.STARTMENU) {
-        for (const key in graphicsObjects) {
-            if (didClick(graphicsObjects[key], p5)) superAction(graphicsObjects[key])
-        }
+        for (const key in startMenuGrobs) if (didClick(startMenuGrobs[key], p5)) superAction(startMenuGrobs[key])
     }
 }
 

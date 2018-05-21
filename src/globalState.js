@@ -19,7 +19,16 @@ export const initState = socket => {
         superMoveX: undefined,
         gameState: GAMESTATE.STARTMENU,
         env: ENV.PRODUCTION,
-        graphicsObjects: {
+        playGrobs: {
+            mainMenuBtn: {
+                left: p5 => xScale(p5) * 750,
+                right: p5 => xScale(p5) * 885,
+                top: p5 => yScale(p5) * 510,
+                bottom: p5 => yScale(p5) * 555,
+                action: () => { setState({ gameState: GAMESTATE.STARTMENU }) }
+            }
+        },
+        startMenuGrobs: {
             startBtn: {
                 left: p5 => xScale(p5) * 81,
                 right: p5 => xScale(p5) * 156,

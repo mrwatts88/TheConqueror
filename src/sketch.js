@@ -14,7 +14,7 @@ import { xScale, yScale } from './utils'
 import { createCharacterGrobs, drawCharacterGrobs, drawBackground, lazyLoad } from './graphicsHelpers'
 
 const { GLIDE, STARTMENU, PLAY, LOADING } = GAMESTATE
-const images = { startMenuImage: null, mapImage: null, playerImage: null, itemImage: null, enemyImage: null }
+const images = { startMenuImage: null, mapImage: null, playerImage: null, itemImage: null, enemyImage: null, buttonsImage: null }
 
 export const initSketch = socket => p5 => {
     p5.preload = () => {
@@ -28,9 +28,10 @@ export const initSketch = socket => p5 => {
         can.mousePressed(() => performClickAction(p5, socket))
         p5.textAlign(p5.LEFT, p5.TOP)
         p5.textSize(16)
-        let { graphicsObjects } = getState()
-        createCharacterGrobs(graphicsObjects, p5)
-        graphicsObjects['nameBox'] = {
+        p5.fill('white')
+        let { startMenuGrobs } = getState()
+        createCharacterGrobs(startMenuGrobs, p5)
+        startMenuGrobs['nameBox'] = {
             left: p5 => xScale(p5) * 151,
             right: p5 => xScale(p5) * 291,
             top: p5 => yScale(p5) * 98,
@@ -38,7 +39,7 @@ export const initSketch = socket => p5 => {
             action: () => setState({ name: '' })
         }
 
-        graphicsObjects['map1'] = {
+        startMenuGrobs['map1'] = {
             left: p5 => xScale(p5) * 450,
             right: p5 => xScale(p5) * 850,
             top: p5 => yScale(p5) * 125,
@@ -48,25 +49,26 @@ export const initSketch = socket => p5 => {
     }
 
     p5.keyTyped = () => {
-        let { graphicsObjects, activeGrob, name } = getState()
-        if (graphicsObjects['nameBox'] === activeGrob) setState({ name: name + p5.key })
+        let { startMenuGrobs, activeGrob, name } = getState()
+        if (startMenuGrobs['nameBox'] === activeGrob) setState({ name: name + p5.key })
     }
 
     p5.draw = () => {
-        const { gameState, graphicsObjects, name } = getState()
+        const { gameState, startMenuGrobs, name } = getState()
         if (gameState === LOADING) lazyLoad(p5, images).then(() => setState({ gameState: PLAY }))
         else if (gameState === STARTMENU) {
             if (p5.mouseX > p5.width || p5.mouseX < 0 || p5.mouseY > p5.height || p5.mouseY < 0) setState({ activeGrob: {} })
             p5.background('#009955')
             p5.image(images.startMenuImage, 0, 0, p5.width, p5.height)
-            drawCharacterGrobs(graphicsObjects, p5, images.playerImage)
+            drawCharacterGrobs(p5, images.playerImage)
 
-            let left1 = graphicsObjects.nameBox.left
-            let top1 = graphicsObjects.nameBox.top
+            // draw map grob
+            let left1 = startMenuGrobs.nameBox.left
+            let top1 = startMenuGrobs.nameBox.top
             p5.text(name, left1(p5), top1(p5))
             if (p5.frameCount % 60 < 30) p5.text('|', left1(p5) + p5.textWidth(name), top1(p5) - 2)
 
-            let { left, right, top, bottom } = graphicsObjects.map1
+            let { left, right, top, bottom } = startMenuGrobs.map1
             p5.image(
                 images.mapImage,
                 left(p5),
@@ -77,6 +79,8 @@ export const initSketch = socket => p5 => {
                 2 * (right(p5) - left(p5)),
                 2 * (bottom(p5) - top(p5))
             )
+            // todo: extract
+            ///
 
         }
         else if (gameState === PLAY || gameState === GLIDE) {
@@ -93,7 +97,7 @@ export const initSketch = socket => p5 => {
             drawVisibleItems(p5, images.itemImage)
             drawPlayers(p5, images.playerImage)
             drawEnemies(p5, images.enemyImage)
-            drawLayout(p5)
+            drawLayout(p5, images.buttonsImage)
             drawInventory(p5, images.itemImage)
             drawHealth(p5)
             updateGuy(p5, socket)

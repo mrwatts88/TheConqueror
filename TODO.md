@@ -1,7 +1,6 @@
 TODO:
-[ ] Remove name from input box when out of canvas.
-[ ] Nav back to menu
-[ ] Add color select to menu
+[ ] backspace in name textbox
+[ ] Extract drawGrob function to menu
 [ ] Drop items
 [ ] Player takes enemy's items when enemy dies
 [ ] Add more item functionality
@@ -15,9 +14,8 @@ TODO:
 [ ] Make inventory an object instead of an array?
 [ ] Teleporting between maps
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[ ] Play Modes Raid/ PVP / Friendly mode / Story Mode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[ ] Add Shortest Path finding for move-by-click
+[ ] Add Shortest Path finding formove-by-click
 [ ] Machine learning algorithms for monsters
 [ ] Parser filters bad language
 [ ] Chatbot
@@ -36,3 +34,7 @@ Ideas:
     Sword Play
     Room Capacity
     Keys/puzzles 
+
+
+CopyRight:
+    Medieval Buttons Are bad!!!!
