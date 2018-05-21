@@ -1,22 +1,16 @@
-Non-gameplay TODO:
-[ ] Min/Max size for canvas
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[ ] Select Actual name in menu
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TODO:
+[ ] Map choice on menu
+[ ] Add color select to menu
+[ ] Drop items
 [ ] Host on AWS
+[ ] Player takes enemy's items when enemy dies
+[ ] Add more item functionality
+[ ] Min/Max size for canvas
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ ] Push notifications for player achievements and inactive player reminders
 [ ] User sign up / log in / Google API Login https://developers.google.com/identity/sign-in/web/sign-in
 [ ] Make inventory an object instead of an array?
-
-TODO:
-[ ] Better random colors
-[ ] Drop items
-[ ] Player takes enemy's items when enemy dies
-[ ] Delay game start until start button is clicked
-[ ] Additional menu screen functionality (map choice)
 [ ] Npc Store / currency.
-[ ] Add more item functionality
 [ ] Teleporting between maps
 [ ] Weapon Schema/ stats/ leveling
 [ ] Play Modes Raid/ PVP / Friendly mode / Story Mode 

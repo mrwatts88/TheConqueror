@@ -3,6 +3,7 @@ import { BS, GAMESTATE } from './constants'
 
 // Perform the correct action based on what was clicked
 export const performClickAction = (p5, socket) => {
+
     const xpos = p5.mouseX
     const ypos = p5.mouseY
     const { id, gameState, graphicsObjects, players } = getState()

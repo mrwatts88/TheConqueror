@@ -8,6 +8,7 @@ export const initState = socket => {
         id: undefined,
         spriteChoice: 0,
         name: 'fred',
+        textEdit: false,
         players: {},
         enemies: [],
         map: [],

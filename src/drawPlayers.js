@@ -27,13 +27,14 @@ export const drawPlayers = (p5, image) => {
                 case 'up': y += 96; break
             }
 
+            p5.push();
             p5.fill(p.chatColor)
             p5.rectMode(p5.CENTER)
             p5.textAlign(p5.CENTER, p5.BOTTOM)
             p5.textStyle(p5.BOLD)
+            p5.textSize(10)
             p5.text(p.name, (p.xpos - screensLeft) + BS / 2, p.ypos - screensTop)
-            p5.rectMode(p5.CORNER)
-            p5.textStyle(p5.NORMAL)
+            p5.pop()
             p5.fill('white')
 
             p5.image(
