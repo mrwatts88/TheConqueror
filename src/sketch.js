@@ -37,6 +37,14 @@ export const initSketch = socket => p5 => {
             bottom: p5 => yScale(p5) * 111,
             action: () => setState({ name: '', textEdit: true })
         }
+
+        graphicsObjects['map1'] = {
+            left: p5 => xScale(p5) * 450,
+            right: p5 => xScale(p5) * 850,
+            top: p5 => yScale(p5) * 125,
+            bottom: p5 => yScale(p5) * 285,
+            action: () => setState({ mapChoice: 1 })
+        }
     }
 
     p5.keyTyped = () => {
@@ -51,9 +59,24 @@ export const initSketch = socket => p5 => {
             p5.background('#009955')
             p5.image(images.startMenuImage, 0, 0, p5.width, p5.height)
             drawCharacterGrobs(graphicsObjects, p5, images.playerImage)
-            p5.text(name, graphicsObjects.nameBox.left(p5), graphicsObjects.nameBox.top(p5))
-            if (p5.frameCount % 60 < 30)
-                p5.text('|', graphicsObjects.nameBox.left(p5) + p5.textWidth(name), graphicsObjects.nameBox.top(p5) - 2)
+
+            let left1 = graphicsObjects.nameBox.left
+            let top1 = graphicsObjects.nameBox.top
+            p5.text(name, left1(p5), top1(p5))
+            if (p5.frameCount % 60 < 30) p5.text('|', left1(p5) + p5.textWidth(name), top1(p5) - 2)
+
+            let { left, right, top, bottom } = graphicsObjects.map1
+            p5.image(
+                images.mapImage,
+                left(p5),
+                top(p5),
+                right(p5) - left(p5),
+                bottom(p5) - top(p5),
+                200, 465,
+                2 * (right(p5) - left(p5)),
+                2 * (bottom(p5) - top(p5))
+            )
+
         }
         else if (gameState === PLAY || gameState === GLIDE) {
             if (gameState === PLAY) shiftView(p5)
