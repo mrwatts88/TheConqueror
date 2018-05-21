@@ -8,7 +8,7 @@ export const shiftView = p5 => {
     const sC = {}
     sC.row = startCorner.row
     sC.col = startCorner.col
-    if (players[id].xpos !== undefined) {
+    if (players[id] !== undefined) {
         const screensLeft = startCorner.col * BS
         const screensTop = startCorner.row * BS
 

@@ -2,6 +2,19 @@ export const BS = 32 // unit size in pixels
 export const origWidth = 900
 export const origHeight = 575
 
+export const GAMESTATE = {
+    STARTMENU: 0,
+    LOADING: 1,
+    PLAY: 2,
+    GLIDE: 3
+}
+
+export const ENV = {
+    PRODUCTION: 0,
+    DEVELOPMENT: 1
+}
+
+
 // maps values in map grid with location of images within sprite sheet
 export const itemMap = {
     'i': { x: 0, y: 0 },

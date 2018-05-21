@@ -1,5 +1,4 @@
 Non-gameplay TODO:
-[ ] Make gameState and env enums
 [ ] Min/Max size for canvas
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ ] Select Actual name in menu
@@ -11,6 +10,7 @@ Non-gameplay TODO:
 [ ] Make inventory an object instead of an array?
 
 TODO:
+[ ] Better random colors
 [ ] Drop items
 [ ] Player takes enemy's items when enemy dies
 [ ] Delay game start until start button is clicked
@@ -26,12 +26,7 @@ TODO:
 [ ] Chatbot
 
 Bug TODO:
-[ ] Check for bug when gliding in 2 directions at the same time Walking
-[ ] "cannot read spriteChoice of undefined"
-[ ] chat pane blocks glide
 [ ] are all sprite steps showing?
-[ ] Div resize handle on MAC is weird
 [ ] Fix play created map functionality for new server architecture
-[ ] Fix white flash when resizing causes slide
-[ ] Fix shake after slide
+[ ] Check for bug when gliding in 2 directions at the same time Walking
 [ ] Wrong startCorner when starting to the far left of the map

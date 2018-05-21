@@ -1,5 +1,5 @@
 import { getState } from './globalState'
-import { BS } from './constants'
+import { BS, GAMESTATE, ENV } from './constants'
 
 export const drawPlayers = (p5, image) => {
     const { players, env, startCorner } = getState()
@@ -8,11 +8,11 @@ export const drawPlayers = (p5, image) => {
 
     for (const key in players) {
         const p = players[key]
-        if (env === 'DEBUG') {
+        if (env === ENV.DEBUG) {
             p5.fill(p.color)
             p5.rect(p.xpos - screensLeft, p.ypos - screensTop, p.width, p.height)
             p5.fill('white')
-        } else if (env === 'PRODUCTION') {
+        } else if (env === ENV.PRODUCTION) {
             // offset for character
             let x = (p.spriteChoice % 4) * 32 * 3
             let y = Math.floor(p.spriteChoice / 4) * 32 * 4
@@ -21,10 +21,10 @@ export const drawPlayers = (p5, image) => {
             x += 32 * (Math.floor(p.step))
 
             switch (p.direction) {
-            case 'down': break
-            case 'left': y += 32; break
-            case 'right': y += 64; break
-            case 'up': y += 96; break
+                case 'down': break
+                case 'left': y += 32; break
+                case 'right': y += 64; break
+                case 'up': y += 96; break
             }
 
             p5.fill(p.chatColor)

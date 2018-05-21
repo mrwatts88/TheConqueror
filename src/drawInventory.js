@@ -1,5 +1,5 @@
 import { getState } from './globalState'
-import { BS, itemMap } from './constants'
+import { BS, itemMap, GAMESTATE, ENV } from './constants'
 
 export const drawInventory = (p5, itemImage) => {
     const { players, id, env } = getState()
@@ -15,11 +15,11 @@ export const drawInventory = (p5, itemImage) => {
         const xPosition = baseX + col * (BS + 5)
         const yPosition = baseY + row * (BS + 5)
 
-        if (env === 'DEBUG') {
+        if (env === ENV.DEBUG) {
             p5.fill(obj.color)
             p5.rect(xPosition, yPosition, obj.width, obj.height)
             p5.fill(255)
-        } else if (env === 'PRODUCTION') {
+        } else if (env === ENV.PRODUCTION) {
             // 2D indices of object in sprite sheet
             const x = itemMap[obj.type].x
             const y = itemMap[obj.type].y

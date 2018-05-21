@@ -1,4 +1,4 @@
-import { origWidth, origHeight } from './constants'
+import { origWidth, origHeight, GAMESTATE } from './constants'
 import { drawEnemies } from './drawEnemies'
 import { drawPlayers } from './drawPlayers'
 import { drawHealth } from './drawHealth'
@@ -12,7 +12,8 @@ import { drawLayout } from './drawLayout'
 import { glide } from './glide'
 import { createCharacterGrobs, drawCharacterGrobs, drawBackground, lazyLoad } from './graphicsHelpers'
 
-let images = { startMenuImage: null, mapImage: null, playerImage: null, itemImage: null, enemyImage: null }
+const { GLIDE, STARTMENU, PLAY, LOADING } = GAMESTATE
+const images = { startMenuImage: null, mapImage: null, playerImage: null, itemImage: null, enemyImage: null }
 
 export const initSketch = socket => p5 => {
     p5.preload = () => {
@@ -30,17 +31,21 @@ export const initSketch = socket => p5 => {
 
     p5.draw = () => {
         const { gameState, graphicsObjects } = getState()
-        if (gameState === 'LOADING') lazyLoad(p5, images).then(() => setState({ gameState: 'PLAY' }))
-        else if (gameState === 'STARTMENU') {
+        if (gameState === LOADING) lazyLoad(p5, images).then(() => setState({ gameState: PLAY }))
+        else if (gameState === STARTMENU) {
             p5.background('#009955')
             p5.image(images.startMenuImage, 0, 0, p5.width, p5.height)
             drawCharacterGrobs(graphicsObjects, p5, images.playerImage)
-        } else if (gameState === 'PLAY' || gameState === 'GLIDE') {
-            if (gameState === 'PLAY') shiftView(p5)
+        } else if (gameState === PLAY || gameState === GLIDE) {
+            if (gameState === PLAY) shiftView(p5)
             const { startCorner, next } = getState()
-            if (gameState === 'PLAY' && (startCorner.col !== next.col || startCorner.row !== next.row))
-                setState({ superMoveY: startCorner.row - next.row, superMoveX: startCorner.col - next.col, gameState: 'GLIDE' })
-            if (gameState === 'GLIDE') glide()
+            if (gameState === PLAY && (startCorner.col !== next.col || startCorner.row !== next.row))
+                setState({
+                    superMoveY: startCorner.row - next.row,
+                    superMoveX: startCorner.col - next.col,
+                    gameState: GLIDE
+                })
+            if (gameState === GLIDE) glide()
             drawBackground(p5, images.mapImage)
             drawVisibleItems(p5, images.itemImage)
             drawPlayers(p5, images.playerImage)

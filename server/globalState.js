@@ -1,3 +1,5 @@
+const C = require('./constants');
+
 let state = {
     players: {},
     enemies: [],
@@ -6,8 +8,8 @@ let state = {
     next: undefined,
     superMoveY: undefined,
     superMoveX: undefined,
-    state: 'PLAY',
-    env: 'PRODUCTION'
+    state: C.GAMESTATE.STARTMENU,
+    env: C.ENV.PRODUCTION
 }
 
 exports.getState = () => state;

@@ -1,4 +1,5 @@
 import { xScale, yScale } from './utils'
+import { GAMESTATE, ENV } from './constants';
 
 let state = {}
 
@@ -15,8 +16,8 @@ export const initState = socket => {
         next: undefined,
         superMoveY: undefined,
         superMoveX: undefined,
-        gameState: 'STARTMENU',
-        env: 'PRODUCTION',
+        gameState: GAMESTATE.STARTMENU,
+        env: ENV.PRODUCTION,
         graphicsObjects: {
             startBtn: {
                 left: p5 => xScale(p5) * 81,
