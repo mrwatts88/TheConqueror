@@ -3,8 +3,8 @@ import { BS, itemMap } from './constants'
 
 // Draw the items that are in the field of view,
 // and add any monsters that show up in the view
-export const drawVisibleItems = p5 => {
-    const { map, itemImage, env, startCorner } = getState()
+export const drawVisibleItems = (p5, image) => {
+    const { map, env, startCorner } = getState()
 
     // Due to scrolling, startCorner.row and col can be non-integers
     // Resolving floating-point rounding issues
@@ -39,7 +39,7 @@ export const drawVisibleItems = p5 => {
                     const x = itemMap[map[row][col]].x
                     const y = itemMap[map[row][col]].y
 
-                    p5.image(itemImage,
+                    p5.image(image,
                         (col - startCorner.col) * BS,
                         (row - startCorner.row) * BS,
                         BS, BS, x * BS, y * BS, BS, BS

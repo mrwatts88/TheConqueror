@@ -1,5 +1,4 @@
 Non-gameplay TODO:
-[ ] Move images out of state
 [ ] Make gameState and env enums
 [ ] Min/Max size for canvas
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

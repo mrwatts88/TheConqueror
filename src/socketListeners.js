@@ -1,6 +1,6 @@
 import { setState } from './globalState'
 
-export const initSocketListeners = (socket) => {
+export const initSocketListeners = socket => {
 
     // Get map enemies, and players from server
     socket.on('initialdata', data => {
@@ -8,7 +8,7 @@ export const initSocketListeners = (socket) => {
         const id = socket.id
         const startCorner = players[id].startCorner
         const next = players[id].next
-        setState({ map, enemies, players, startCorner, next, id, gameState: 'PLAY' })
+        setState({ map, enemies, players, startCorner, next, id, gameState: 'LOADING' })
     })
     socket.on('update', newData => { setState({ ...newData }) }) // Get enemies and players from server
     socket.on('mapupdate', map => { setState(map) }) // Get map from server

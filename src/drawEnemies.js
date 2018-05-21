@@ -1,8 +1,8 @@
 import { getState } from './globalState'
 import { BS } from './constants'
 
-export const drawEnemies = p5 => {
-    const { enemies, enemyImages, env, startCorner } = getState()
+export const drawEnemies = (p5, image) => {
+    const { enemies, env, startCorner } = getState()
     const screensLeft = startCorner.col * BS
     const screensTop = startCorner.row * BS
     const screensRight = screensLeft + p5.width
@@ -27,15 +27,15 @@ export const drawEnemies = p5 => {
             x += 32 * (Math.floor(enemy.step))
 
             switch (enemy.prevDirection) {
-            case 'down': break
-            case 'left': y += 32; break
-            case 'right': y += 64; break
-            case 'up': y += 96; break
+                case 'down': break
+                case 'left': y += 32; break
+                case 'right': y += 64; break
+                case 'up': y += 96; break
             }
 
             // draw sprite to canvas
             p5.image(
-                enemyImages,
+                image,
                 enemy.xpos - screensLeft, enemy.ypos - screensTop,
                 enemy.width, enemy.height,
                 x, y, 32, 32

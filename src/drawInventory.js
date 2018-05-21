@@ -1,8 +1,8 @@
 import { getState } from './globalState'
 import { BS, itemMap } from './constants'
 
-export const drawInventory = p5 => {
-    const { players, id, itemImage, env } = getState()
+export const drawInventory = (p5, itemImage) => {
+    const { players, id, env } = getState()
     const inventory = players[id].inventory
     const baseX = p5.width - 150
     const baseY = p5.height / 8

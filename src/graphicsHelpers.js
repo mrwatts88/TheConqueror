@@ -25,8 +25,8 @@ export const drawCharacterGrobs = (graphicsObjects, p5, images) => {
     }
 }
 
-export const drawBackground = p5 => {
-    const { mapImage, startCorner } = getState()
+export const drawBackground = (p5, mapImage) => {
+    const { startCorner } = getState()
     p5.image(mapImage, 0, 0, p5.width, p5.height, (1 + startCorner.col) * BS, (1 + startCorner.row) * BS, p5.width, p5.height)
 }
 
@@ -38,3 +38,13 @@ export const createResizeObserver = p5 => {
 
     ro.observe(canvasDiv)
 }
+
+export const lazyLoad = (p5, images) => new Promise((res, rej) => {
+    p5.loadImage('items.png', img => {
+        images.itemImage = img;
+        p5.loadImage('monsterSprites.png', img2 => {
+            images.enemyImage = img2;
+            res();
+        })
+    })
+});
