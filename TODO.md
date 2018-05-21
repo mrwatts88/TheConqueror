@@ -1,5 +1,5 @@
 TODO:
-[ ] Remove name from input box 
+[ ] Remove name from input box when out of canvas.
 [ ] Nav back to menu
 [ ] Add color select to menu
 [ ] Drop items
@@ -15,11 +15,13 @@ TODO:
 [ ] Make inventory an object instead of an array?
 [ ] Teleporting between maps
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[ ] Play Modes Raid/ PVP / Friendly mode / Story Mode 
+[ ] Play Modes Raid/ PVP / Friendly mode / Story Mode
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ ] Add Shortest Path finding for move-by-click
 [ ] Machine learning algorithms for monsters
 [ ] Parser filters bad language
 [ ] Chatbot
+[ ] Collision algorithms
 
 Bug TODO:
 [ ] Fix speed based on network

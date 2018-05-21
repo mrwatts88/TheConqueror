@@ -53,9 +53,10 @@ export const initSketch = socket => p5 => {
     }
 
     p5.draw = () => {
-        const { gameState, graphicsObjects, name } = getState()
+        const { gameState, graphicsObjects, name, activeGrob } = getState()
         if (gameState === LOADING) lazyLoad(p5, images).then(() => setState({ gameState: PLAY }))
         else if (gameState === STARTMENU) {
+            if (p5.mouseX > p5.width || p5.mouseX < 0 || p5.mouseY > p5.height || p5.mouseY < 0) setState({ activeGrob: {} })
             p5.background('#009955')
             p5.image(images.startMenuImage, 0, 0, p5.width, p5.height)
             drawCharacterGrobs(graphicsObjects, p5, images.playerImage)
