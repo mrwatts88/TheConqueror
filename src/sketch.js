@@ -28,7 +28,7 @@ export const initSketch = socket => p5 => {
         can.mousePressed(() => performClickAction(p5, socket))
         p5.textAlign(p5.LEFT, p5.TOP)
         p5.textSize(16)
-        let { graphicsObjects } = getState();
+        let { graphicsObjects } = getState()
         createCharacterGrobs(graphicsObjects, p5)
         graphicsObjects['nameBox'] = {
             left: p5 => xScale(p5) * 151,
@@ -45,7 +45,7 @@ export const initSketch = socket => p5 => {
     }
 
     p5.draw = () => {
-        const { gameState, graphicsObjects, name, textEdit } = getState()
+        const { gameState, graphicsObjects, name } = getState()
         if (gameState === LOADING) lazyLoad(p5, images).then(() => setState({ gameState: PLAY }))
         else if (gameState === STARTMENU) {
             p5.background('#009955')

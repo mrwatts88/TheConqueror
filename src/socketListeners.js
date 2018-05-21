@@ -1,5 +1,5 @@
 import { setState } from './globalState'
-import { GAMESTATE } from './constants';
+import { GAMESTATE } from './constants'
 
 export const initSocketListeners = socket => {
 

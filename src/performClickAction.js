@@ -7,7 +7,7 @@ export const performClickAction = (p5, socket) => {
     const xpos = p5.mouseX
     const ypos = p5.mouseY
     const { id, gameState, graphicsObjects, players } = getState()
-    const p = players[id];
+    const p = players[id]
 
     if (gameState === GAMESTATE.PLAY) {
         const baseX = p5.width - 150

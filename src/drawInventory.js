@@ -1,5 +1,5 @@
 import { getState } from './globalState'
-import { BS, itemMap, GAMESTATE, ENV } from './constants'
+import { BS, itemMap, ENV } from './constants'
 
 export const drawInventory = (p5, itemImage) => {
     const { players, id, env } = getState()

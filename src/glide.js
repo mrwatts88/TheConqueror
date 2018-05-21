@@ -1,7 +1,7 @@
 import { getState, setState } from './globalState'
-import { GAMESTATE } from './constants';
+import { GAMESTATE } from './constants'
 
-const { PLAY } = GAMESTATE;
+const { PLAY } = GAMESTATE
 
 export const glide = () => {
     const { superMoveY, superMoveX, startCorner, next } = getState()

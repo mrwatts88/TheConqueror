@@ -1,5 +1,5 @@
 import { xScale, yScale } from './utils'
-import { GAMESTATE, ENV } from './constants';
+import { GAMESTATE, ENV } from './constants'
 
 let state = {}
 

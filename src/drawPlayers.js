@@ -1,5 +1,5 @@
 import { getState } from './globalState'
-import { BS, GAMESTATE, ENV } from './constants'
+import { BS, ENV } from './constants'
 
 export const drawPlayers = (p5, image) => {
     const { players, env, startCorner } = getState()
@@ -27,7 +27,7 @@ export const drawPlayers = (p5, image) => {
                 case 'up': y += 96; break
             }
 
-            p5.push();
+            p5.push()
             p5.fill(p.chatColor)
             p5.rectMode(p5.CENTER)
             p5.textAlign(p5.CENTER, p5.BOTTOM)
