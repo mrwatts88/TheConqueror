@@ -29,6 +29,20 @@ export const initState = socket => {
                     setState({ gameState: GAMESTATE.STARTMENU })
                 },
             },
+            nameBox: {
+                left: p5 => xScale(p5) * 151,
+                right: p5 => xScale(p5) * 291,
+                top: p5 => yScale(p5) * 98,
+                bottom: p5 => yScale(p5) * 111,
+                action: () => setState({ name: '' }),
+            },
+            map1: {
+                left: p5 => xScale(p5) * 450,
+                right: p5 => xScale(p5) * 850,
+                top: p5 => yScale(p5) * 125,
+                bottom: p5 => yScale(p5) * 285,
+                action: () => setState({ mapChoice: 1 }),
+            },
         },
         startMenuGrobs: {
             startBtn: {

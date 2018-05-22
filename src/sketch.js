@@ -16,6 +16,8 @@ import {
     drawCharacterGrobs,
     drawBackground,
     lazyLoad,
+    drawGrob,
+    drawNameText,
 } from './graphicsHelpers'
 
 const { GLIDE, STARTMENU, PLAY, LOADING } = GAMESTATE
@@ -43,21 +45,6 @@ export const initSketch = socket => p5 => {
         p5.fill('white')
         let { startMenuGrobs } = getState()
         createCharacterGrobs(startMenuGrobs, p5)
-        startMenuGrobs['nameBox'] = {
-            left: p5 => xScale(p5) * 151,
-            right: p5 => xScale(p5) * 291,
-            top: p5 => yScale(p5) * 98,
-            bottom: p5 => yScale(p5) * 111,
-            action: () => setState({ name: '' }),
-        }
-
-        startMenuGrobs['map1'] = {
-            left: p5 => xScale(p5) * 450,
-            right: p5 => xScale(p5) * 850,
-            top: p5 => yScale(p5) * 125,
-            bottom: p5 => yScale(p5) * 285,
-            action: () => setState({ mapChoice: 1 }),
-        }
     }
 
     p5.keyTyped = () => {
@@ -71,6 +58,7 @@ export const initSketch = socket => p5 => {
         if (gameState === LOADING)
             lazyLoad(p5, images).then(() => setState({ gameState: PLAY }))
         else if (gameState === STARTMENU) {
+            // Unset any active grobs if mouse leaves the canvas
             if (
                 p5.mouseX > p5.width ||
                 p5.mouseX < 0 ||
@@ -78,31 +66,12 @@ export const initSketch = socket => p5 => {
                 p5.mouseY < 0
             )
                 setState({ activeGrob: {} })
+
             p5.background('#009955')
             p5.image(images.startMenuImage, 0, 0, p5.width, p5.height)
             drawCharacterGrobs(p5, images.playerImage)
-
-            // draw map grob
-            let left1 = startMenuGrobs.nameBox.left
-            let top1 = startMenuGrobs.nameBox.top
-            p5.text(name, left1(p5), top1(p5))
-            if (p5.frameCount % 60 < 30)
-                p5.text('|', left1(p5) + p5.textWidth(name), top1(p5) - 2)
-
-            let { left, right, top, bottom } = startMenuGrobs.map1
-            p5.image(
-                images.mapImage,
-                left(p5),
-                top(p5),
-                right(p5) - left(p5),
-                bottom(p5) - top(p5),
-                200,
-                465,
-                2 * (right(p5) - left(p5)),
-                2 * (bottom(p5) - top(p5))
-            )
-            // todo: extract
-            ///
+            drawNameText(p5, startMenuGrobs.nameBox, name)
+            drawGrob(p5, startMenuGrobs.map1, images.mapImage, 200, 465, 2, 2)
         } else if (gameState === PLAY || gameState === GLIDE) {
             if (gameState === PLAY) shiftView(p5)
             const { startCorner, next } = getState()

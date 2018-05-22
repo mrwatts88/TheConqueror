@@ -24,17 +24,7 @@ export const drawCharacterGrobs = (p5, images) => {
         const x = (i % 4) * 32 * 3
         const y = Math.floor(i / 4) * 32 * 4
         const char = startMenuGrobs[key]
-        p5.image(
-            images,
-            char.left(p5),
-            char.top(p5),
-            char.right(p5) - char.left(p5),
-            char.bottom(p5) - char.top(p5),
-            x,
-            y,
-            32,
-            32
-        )
+        drawGrob(p5, char, images, x, y, 1, 1)
         ++i
     }
 }
@@ -80,3 +70,24 @@ export const lazyLoad = (p5, images) =>
             })
         })
     })
+
+export const drawGrob = (p5, grob, image, x, y, xScale, yScale) => {
+    p5.image(
+        image,
+        grob.left(p5),
+        grob.top(p5),
+        grob.right(p5) - grob.left(p5),
+        grob.bottom(p5) - grob.top(p5),
+        x,
+        y,
+        xScale * (grob.right(p5) - grob.left(p5)),
+        yScale * (grob.bottom(p5) - grob.top(p5))
+    )
+}
+
+export const drawNameText = (p5, nameBox, name) => {
+    const { left, top } = nameBox
+    p5.text(name, left(p5), top(p5))
+    if (p5.frameCount % 60 < 30)
+        p5.text('|', left(p5) + p5.textWidth(name), top(p5) - 2)
+}

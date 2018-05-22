@@ -1,4 +1,5 @@
 import { getState } from './globalState'
+import { drawGrob } from './graphicsHelpers'
 
 const drawSidebar = p5 => {
     p5.fill('grey')
@@ -12,27 +13,16 @@ const drawBorder = p5 => {
     p5.fill('white')
 }
 
-const drawMenuBtn = (p5, buttonsImage) => {
-    const {
-        playGrobs: {
-            mainMenuBtn: { left, right, top, bottom },
-        },
-    } = getState()
-    p5.image(
-        buttonsImage,
-        left(p5),
-        top(p5),
-        right(p5) - left(p5),
-        bottom(p5) - top(p5),
-        235,
-        75,
-        1.5 * (right(p5) - left(p5)),
-        1.5 * (bottom(p5) - top(p5))
-    )
-}
-
 export const drawLayout = (p5, buttonsImage) => {
     drawSidebar(p5)
     drawBorder(p5)
-    drawMenuBtn(p5, buttonsImage)
+    drawGrob(
+        p5,
+        getState().playGrobs.mainMenuBtn,
+        buttonsImage,
+        235,
+        75,
+        1.5,
+        1.5
+    )
 }
