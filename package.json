@@ -9,9 +9,7 @@
         "serve": "babel-watch server/server.js",
         "lint": " ./node_modules/.bin/eslint --quiet --fix ./src/*.js"
     },
-    "pre-push": [
-        "fix"
-    ],
+    "pre-push": ["lint"],
     "keywords": [],
     "author": "",
     "license": "ISC",
