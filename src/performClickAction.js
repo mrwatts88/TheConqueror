@@ -1,11 +1,11 @@
-import { getState } from './globalState'
+import { getState, setState } from './globalState'
 import { BS, GAMESTATE } from './constants'
 
 // Perform the correct action based on what was clicked
 export const performClickAction = (p5, socket) => {
     const xpos = p5.mouseX
     const ypos = p5.mouseY
-    const { id, gameState, graphicsObjects, players } = getState()
+    const { id, gameState, startMenuGrobs, playGrobs, players } = getState()
     const p = players[id]
 
     if (gameState === GAMESTATE.PLAY) {
@@ -23,17 +23,19 @@ export const performClickAction = (p5, socket) => {
             if (p.inventory[index] !== undefined)
                 socket.emit('useitem', { id, index })
         }
+
+        for (const key in playGrobs)
+            if (didClick(playGrobs[key], p5)) superAction(playGrobs[key])
     } else if (gameState === GAMESTATE.STARTMENU) {
-        for (const key in graphicsObjects) {
-            if (Array.isArray(graphicsObjects[key])) {
-                for (const obj of graphicsObjects[key])
-                    if (didClick(obj, p5)) obj.action()
-            } else {
-                if (didClick(graphicsObjects[key], p5))
-                    graphicsObjects[key].action()
-            }
-        }
+        for (const key in startMenuGrobs)
+            if (didClick(startMenuGrobs[key], p5))
+                superAction(startMenuGrobs[key])
     }
+}
+
+const superAction = grob => {
+    setState({ activeGrob: grob })
+    grob.action()
 }
 
 const getClickedInventoryIndex = (xpos, ypos, baseX, baseY) => {

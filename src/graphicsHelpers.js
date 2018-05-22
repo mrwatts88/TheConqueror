@@ -4,23 +4,26 @@ import { xScale, yScale } from './utils'
 
 const canvasDiv = document.querySelector('#grid')
 
-export const createCharacterGrobs = graphicsObjects => {
+export const createCharacterGrobs = startMenuGrobs => {
     for (let i = 0; i < 7; ++i) {
-        graphicsObjects.chars.push({
+        startMenuGrobs['char' + i] = {
             left: p5 => xScale(p5) * (2 + i) * BS,
             right: p5 => xScale(p5) * (3 + i) * BS,
             top: p5 => yScale(p5) * 5 * BS,
             bottom: p5 => yScale(p5) * 6 * BS,
             action: () => setState({ spriteChoice: i }),
-        })
+        }
     }
 }
 
-export const drawCharacterGrobs = (graphicsObjects, p5, images) => {
-    for (let i = 0; i < graphicsObjects.chars.length; ++i) {
+export const drawCharacterGrobs = (p5, images) => {
+    let { startMenuGrobs } = getState()
+    let i = 0
+    for (let key in startMenuGrobs) {
+        if (key.substring(0, 4) != 'char') continue
         const x = (i % 4) * 32 * 3
         const y = Math.floor(i / 4) * 32 * 4
-        const char = graphicsObjects.chars[i]
+        const char = startMenuGrobs[key]
         p5.image(
             images,
             char.left(p5),
@@ -32,6 +35,7 @@ export const drawCharacterGrobs = (graphicsObjects, p5, images) => {
             32,
             32
         )
+        ++i
     }
 }
 
@@ -69,7 +73,10 @@ export const lazyLoad = (p5, images) =>
             images.itemImage = img
             p5.loadImage('monsterSprites.png', img2 => {
                 images.enemyImage = img2
-                res()
+                p5.loadImage('buttons.png', img3 => {
+                    images.buttonsImage = img3
+                    res()
+                })
             })
         })
     })

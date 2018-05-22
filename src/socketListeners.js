@@ -1,11 +1,11 @@
-import { setState } from './globalState'
+import { setState, getState } from './globalState'
 import { GAMESTATE } from './constants'
 
 export const initSocketListeners = socket => {
     // Get map enemies, and players from server
     socket.on('initialdata', data => {
+        const { id } = getState()
         const { map, enemies, players } = data
-        const id = socket.id
         const startCorner = players[id].startCorner
         const next = players[id].next
         setState({
@@ -14,7 +14,6 @@ export const initSocketListeners = socket => {
             players,
             startCorner,
             next,
-            id,
             gameState: GAMESTATE.LOADING,
         })
     })

@@ -3,7 +3,6 @@ import { getState } from './globalState'
 const chatUl = document.querySelector('#chat-ul')
 const chatBox = document.querySelector('#chat-box')
 const slideTab = document.querySelector('#slide-tab')
-const nameText = document.querySelector('#name-text')
 const chatSendBtn = document.querySelector('#chat-send-btn')
 const chatChatBox = document.querySelector('#chat-chat-box')
 const chatTextArea = document.querySelector('#chat-text-area')
@@ -18,12 +17,12 @@ export const initChat = socket => {
 
     // Handle chat box messages (Send to server)
     chatSendBtn.addEventListener('click', () => {
-        const { id } = getState()
+        const { id, players } = getState()
         const text = chatTextArea.value
         chatTextArea.value = ''
         socket.emit('chatmsg', {
             id,
-            name: nameText.value,
+            name: players[id].name,
             text,
         })
     })

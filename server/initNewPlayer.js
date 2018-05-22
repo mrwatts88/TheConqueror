@@ -5,13 +5,12 @@ const utils = require('./utils')
 const constants = require('./constants')
 const { BS, WIDTH_UNITS, HEIGHT_UNITS } = constants
 
-module.exports = (id, playerData) => {
+module.exports = id => {
     mapUtils.addSpawnPoint()
     const { map, players } = getState()
     let pRow = 0
     let pCol = 0
     let found = false
-    const { name, spriteChoice, mapChoice } = playerData
 
     for (let row = 0; row < map.length; ++row) {
         for (let col = 0; col < map[0].length; ++col) {
@@ -28,11 +27,11 @@ module.exports = (id, playerData) => {
                 )
 
                 players[id] = {
-                    name,
+                    name: 'Guest',
                     width: BS,
                     height: BS,
-                    spriteChoice,
-                    mapChoice,
+                    spriteChoice: 0,
+                    mapChoice: 0,
                     xpos: col * BS,
                     ypos: row * BS,
                     inventory: [],

@@ -1,12 +1,12 @@
 TODO:
-[ ] Remove name from input box 
-[ ] Nav back to menu
-[ ] Add color select to menu
+[ ] backspace in name textbox
+[ ] Extract drawGrob function to menu
 [ ] Drop items
 [ ] Player takes enemy's items when enemy dies
 [ ] Add more item functionality
 [ ] Host on AWS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+```
 [ ] Npc Store / currency
 [ ] Weapon Schema/ stats/ leveling
 [ ] Min/Max size for canvas
@@ -14,12 +14,14 @@ TODO:
 [ ] Push notifications for player achievements and inactive player reminders
 [ ] Make inventory an object instead of an array?
 [ ] Teleporting between maps
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[ ] Play Modes Raid/ PVP / Friendly mode / Story Mode 
-[ ] Add Shortest Path finding for move-by-click
+```
+
+```
+[ ] Add Shortest Path finding formove-by-click
 [ ] Machine learning algorithms for monsters
 [ ] Parser filters bad language
 [ ] Chatbot
+[ ] Collision algorithms
 
 Bug TODO:
 [ ] Fix speed based on network
@@ -33,4 +35,9 @@ Ideas:
     Skillset
     Sword Play
     Room Capacity
-    Keys/puzzles 
+    Keys/puzzles
+
+
+CopyRight:
+    Medieval Buttons Are bad!!!!
+```

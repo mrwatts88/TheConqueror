@@ -7,8 +7,8 @@ export const initState = socket => {
     state = {
         id: undefined,
         spriteChoice: 0,
-        name: 'fred',
-        textEdit: false,
+        name: '',
+        activeGrob: {},
         players: {},
         enemies: [],
         map: [],
@@ -19,7 +19,18 @@ export const initState = socket => {
         superMoveX: undefined,
         gameState: GAMESTATE.STARTMENU,
         env: ENV.PRODUCTION,
-        graphicsObjects: {
+        playGrobs: {
+            mainMenuBtn: {
+                left: p5 => xScale(p5) * 750,
+                right: p5 => xScale(p5) * 885,
+                top: p5 => yScale(p5) * 510,
+                bottom: p5 => yScale(p5) * 555,
+                action: () => {
+                    setState({ gameState: GAMESTATE.STARTMENU })
+                },
+            },
+        },
+        startMenuGrobs: {
             startBtn: {
                 left: p5 => xScale(p5) * 81,
                 right: p5 => xScale(p5) * 156,
@@ -27,10 +38,14 @@ export const initState = socket => {
                 bottom: p5 => yScale(p5) * 512,
                 action: () => {
                     const { name, spriteChoice, mapChoice } = getState()
-                    socket.emit('startgame', { name, spriteChoice, mapChoice })
+                    if (name !== '')
+                        socket.emit('startgame', {
+                            name,
+                            spriteChoice,
+                            mapChoice,
+                        })
                 },
             },
-            chars: [],
         },
     }
 }
