@@ -10,7 +10,6 @@ import { performClickAction } from './performClickAction'
 import { getState, setState } from './globalState'
 import { drawLayout } from './drawLayout'
 import { glide } from './glide'
-import { xScale, yScale } from './utils'
 import {
     createCharacterGrobs,
     drawCharacterGrobs,
