@@ -16,7 +16,12 @@ export const drawEnemies = (p5, image) => {
 
         if (env === ENV.DEBUG) {
             p5.fill(enemy.color)
-            p5.rect(enemy.xpos - screensLeft, enemy.ypos - screensTop, enemy.width, enemy.height)
+            p5.rect(
+                enemy.xpos - screensLeft,
+                enemy.ypos - screensTop,
+                enemy.width,
+                enemy.height
+            )
             p5.fill(255)
         } else if (env === ENV.PRODUCTION) {
             // offset for character
@@ -24,21 +29,33 @@ export const drawEnemies = (p5, image) => {
             let y = Math.floor(enemy.spriteChoice / 4) * 32 * 4
 
             // location of sprite within chosen character's sprites
-            x += 32 * (Math.floor(enemy.step))
+            x += 32 * Math.floor(enemy.step)
 
             switch (enemy.prevDirection) {
-            case 'down': break
-            case 'left': y += 32; break
-            case 'right': y += 64; break
-            case 'up': y += 96; break
+            case 'down':
+                break
+            case 'left':
+                y += 32
+                break
+            case 'right':
+                y += 64
+                break
+            case 'up':
+                y += 96
+                break
             }
 
             // draw sprite to canvas
             p5.image(
                 image,
-                enemy.xpos - screensLeft, enemy.ypos - screensTop,
-                enemy.width, enemy.height,
-                x, y, 32, 32
+                enemy.xpos - screensLeft,
+                enemy.ypos - screensTop,
+                enemy.width,
+                enemy.height,
+                x,
+                y,
+                32,
+                32
             )
         }
     }

@@ -11,10 +11,21 @@ import { getState, setState } from './globalState'
 import { drawLayout } from './drawLayout'
 import { glide } from './glide'
 import { xScale, yScale } from './utils'
-import { createCharacterGrobs, drawCharacterGrobs, drawBackground, lazyLoad } from './graphicsHelpers'
+import {
+    createCharacterGrobs,
+    drawCharacterGrobs,
+    drawBackground,
+    lazyLoad,
+} from './graphicsHelpers'
 
 const { GLIDE, STARTMENU, PLAY, LOADING } = GAMESTATE
-const images = { startMenuImage: null, mapImage: null, playerImage: null, itemImage: null, enemyImage: null }
+const images = {
+    startMenuImage: null,
+    mapImage: null,
+    playerImage: null,
+    itemImage: null,
+    enemyImage: null,
+}
 
 export const initSketch = socket => p5 => {
     p5.preload = () => {
@@ -35,7 +46,7 @@ export const initSketch = socket => p5 => {
             right: p5 => xScale(p5) * 291,
             top: p5 => yScale(p5) * 98,
             bottom: p5 => yScale(p5) * 111,
-            action: () => setState({ name: '', textEdit: true })
+            action: () => setState({ name: '', textEdit: true }),
         }
 
         graphicsObjects['map1'] = {
@@ -43,7 +54,7 @@ export const initSketch = socket => p5 => {
             right: p5 => xScale(p5) * 850,
             top: p5 => yScale(p5) * 125,
             bottom: p5 => yScale(p5) * 285,
-            action: () => setState({ mapChoice: 1 })
+            action: () => setState({ mapChoice: 1 }),
         }
     }
 
@@ -54,7 +65,8 @@ export const initSketch = socket => p5 => {
 
     p5.draw = () => {
         const { gameState, graphicsObjects, name } = getState()
-        if (gameState === LOADING) lazyLoad(p5, images).then(() => setState({ gameState: PLAY }))
+        if (gameState === LOADING)
+            lazyLoad(p5, images).then(() => setState({ gameState: PLAY }))
         else if (gameState === STARTMENU) {
             p5.background('#009955')
             p5.image(images.startMenuImage, 0, 0, p5.width, p5.height)
@@ -63,7 +75,8 @@ export const initSketch = socket => p5 => {
             let left1 = graphicsObjects.nameBox.left
             let top1 = graphicsObjects.nameBox.top
             p5.text(name, left1(p5), top1(p5))
-            if (p5.frameCount % 60 < 30) p5.text('|', left1(p5) + p5.textWidth(name), top1(p5) - 2)
+            if (p5.frameCount % 60 < 30)
+                p5.text('|', left1(p5) + p5.textWidth(name), top1(p5) - 2)
 
             let { left, right, top, bottom } = graphicsObjects.map1
             p5.image(
@@ -72,20 +85,22 @@ export const initSketch = socket => p5 => {
                 top(p5),
                 right(p5) - left(p5),
                 bottom(p5) - top(p5),
-                200, 465,
+                200,
+                465,
                 2 * (right(p5) - left(p5)),
                 2 * (bottom(p5) - top(p5))
             )
-
-        }
-        else if (gameState === PLAY || gameState === GLIDE) {
+        } else if (gameState === PLAY || gameState === GLIDE) {
             if (gameState === PLAY) shiftView(p5)
             const { startCorner, next } = getState()
-            if (gameState === PLAY && (startCorner.col !== next.col || startCorner.row !== next.row))
+            if (
+                gameState === PLAY &&
+                (startCorner.col !== next.col || startCorner.row !== next.row)
+            )
                 setState({
                     superMoveY: startCorner.row - next.row,
                     superMoveX: startCorner.col - next.col,
-                    gameState: GLIDE
+                    gameState: GLIDE,
                 })
             if (gameState === GLIDE) glide()
             drawBackground(p5, images.mapImage)

@@ -3,11 +3,11 @@ let state = {
     enemies: [],
     map: [],
     startCorner: undefined,
-    next: undefined
+    next: undefined,
 }
 
-exports.getState = () => state;
+exports.getState = () => state
 
 exports.setState = newState => {
-    state = { ...state, ...newState };
+    state = { ...state, ...newState }
 }

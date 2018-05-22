@@ -25,8 +25,15 @@ export const drawInventory = (p5, itemImage) => {
             const y = itemMap[obj.type].y
 
             p5.image(
-                itemImage, xPosition, yPosition,
-                BS, BS, x * BS, y * BS, BS, BS
+                itemImage,
+                xPosition,
+                yPosition,
+                BS,
+                BS,
+                x * BS,
+                y * BS,
+                BS,
+                BS
             )
         }
     }

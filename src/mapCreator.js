@@ -24,12 +24,24 @@ beginBtn.addEventListener('click', () => {
     P5 = new p5(sketch, 'grid')
 })
 
-w.addEventListener('click', () => { currentBlockType = 'w' })
-i.addEventListener('click', () => { currentBlockType = 'i' })
-m.addEventListener('click', () => { currentBlockType = 'm' })
-p.addEventListener('click', () => { currentBlockType = 'p' })
-o.addEventListener('click', () => { currentBlockType = '0' })
-playBtn.addEventListener('click', () => { playGame() })
+w.addEventListener('click', () => {
+    currentBlockType = 'w'
+})
+i.addEventListener('click', () => {
+    currentBlockType = 'i'
+})
+m.addEventListener('click', () => {
+    currentBlockType = 'm'
+})
+p.addEventListener('click', () => {
+    currentBlockType = 'p'
+})
+o.addEventListener('click', () => {
+    currentBlockType = '0'
+})
+playBtn.addEventListener('click', () => {
+    playGame()
+})
 
 fileChooser.addEventListener('change', e => {
     const file = e.target.files[0]
@@ -62,7 +74,9 @@ const playGame = () => {
 }
 
 const sketch = p5 => {
-    p5.preload = () => { image = p5.loadImage('map.png') }
+    p5.preload = () => {
+        image = p5.loadImage('map.png')
+    }
 
     p5.setup = () => {
         const can = p5.createCanvas(bs * width + 1, bs * height + 1)
@@ -75,8 +89,16 @@ const sketch = p5 => {
         can.mouseReleased(() => {
             endRow = Math.floor(p5.mouseY / bs)
             endCol = Math.floor(p5.mouseX / bs)
-            for (let j = Math.min(startRow, endRow); j <= Math.max(startRow, endRow); ++j)
-                for (let i = Math.min(startCol, endCol); i <= Math.max(startCol, endCol); ++i)
+            for (
+                let j = Math.min(startRow, endRow);
+                j <= Math.max(startRow, endRow);
+                ++j
+            )
+                for (
+                    let i = Math.min(startCol, endCol);
+                    i <= Math.max(startCol, endCol);
+                    ++i
+                )
                     gridArray[j][i] = currentBlockType
             p5.redraw()
         })
@@ -86,8 +108,16 @@ const sketch = p5 => {
             for (let j = 0; j < height; ++j) {
                 const oneRow = []
                 for (let i = 0; i < width; ++i) {
-                    if (i === 0 || i === 1 || i === width - 1 || i === width - 2
-                        || j === 0 || j === 1 || j === height - 1 || j === height - 2)
+                    if (
+                        i === 0 ||
+                        i === 1 ||
+                        i === width - 1 ||
+                        i === width - 2 ||
+                        j === 0 ||
+                        j === 1 ||
+                        j === height - 1 ||
+                        j === height - 2
+                    )
                         oneRow[i] = 'w'
                     else oneRow[i] = '0'
                 }

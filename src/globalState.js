@@ -28,12 +28,14 @@ export const initState = socket => {
                 action: () => {
                     const { name, spriteChoice, mapChoice } = getState()
                     socket.emit('startgame', { name, spriteChoice, mapChoice })
-                }
+                },
             },
-            chars: []
-        }
+            chars: [],
+        },
     }
 }
 
 export const getState = () => state
-export const setState = newState => { state = { ...state, ...newState } }
+export const setState = newState => {
+    state = { ...state, ...newState }
+}

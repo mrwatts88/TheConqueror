@@ -10,7 +10,12 @@ export const drawPlayers = (p5, image) => {
         const p = players[key]
         if (env === ENV.DEBUG) {
             p5.fill(p.color)
-            p5.rect(p.xpos - screensLeft, p.ypos - screensTop, p.width, p.height)
+            p5.rect(
+                p.xpos - screensLeft,
+                p.ypos - screensTop,
+                p.width,
+                p.height
+            )
             p5.fill('white')
         } else if (env === ENV.PRODUCTION) {
             // offset for character
@@ -18,13 +23,20 @@ export const drawPlayers = (p5, image) => {
             let y = Math.floor(p.spriteChoice / 4) * 32 * 4
 
             // location of sprite within chosen character's sprites
-            x += 32 * (Math.floor(p.step))
+            x += 32 * Math.floor(p.step)
 
             switch (p.direction) {
-            case 'down': break
-            case 'left': y += 32; break
-            case 'right': y += 64; break
-            case 'up': y += 96; break
+            case 'down':
+                break
+            case 'left':
+                y += 32
+                break
+            case 'right':
+                y += 64
+                break
+            case 'up':
+                y += 96
+                break
             }
 
             p5.push()
@@ -33,15 +45,20 @@ export const drawPlayers = (p5, image) => {
             p5.textAlign(p5.CENTER, p5.BOTTOM)
             p5.textStyle(p5.BOLD)
             p5.textSize(10)
-            p5.text(p.name, (p.xpos - screensLeft) + BS / 2, p.ypos - screensTop)
+            p5.text(p.name, p.xpos - screensLeft + BS / 2, p.ypos - screensTop)
             p5.pop()
             p5.fill('white')
 
             p5.image(
                 image,
-                p.xpos - screensLeft, p.ypos - screensTop,
-                p.width, p.height, //how big to draw
-                x, y, 32, 32
+                p.xpos - screensLeft,
+                p.ypos - screensTop,
+                p.width,
+                p.height, //how big to draw
+                x,
+                y,
+                32,
+                32
             )
         }
     }

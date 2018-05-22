@@ -24,12 +24,14 @@ export const initChat = socket => {
         socket.emit('chatmsg', {
             id,
             name: nameText.value,
-            text
+            text,
         })
     })
 
     // Chat box will always scroll to the bottom when new content is added
-    const scrollOb = new MutationObserver(() => { chatChatBox.scrollTop = chatChatBox.scrollHeight })
+    const scrollOb = new MutationObserver(() => {
+        chatChatBox.scrollTop = chatChatBox.scrollHeight
+    })
     const config = { childList: true }
     scrollOb.observe(chatUl, config)
 

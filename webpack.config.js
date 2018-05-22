@@ -1,13 +1,13 @@
-const path = require('path');
+const path = require('path')
 
 module.exports = {
-    mode: "development",
+    mode: 'development',
     entry: {
-        game: "./src/index.js",
-        mapCreator: "./src/mapCreator.js"
+        game: './src/index.js',
+        mapCreator: './src/mapCreator.js',
     },
     output: {
-        path: path.resolve(__dirname, "dist"),
-        filename: "[name]-bundle.js"
-    }
-};
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name]-bundle.js',
+    },
+}
