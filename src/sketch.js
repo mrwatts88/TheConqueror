@@ -77,12 +77,13 @@ export const initSketch = socket => p5 => {
             if (
                 gameState === PLAY &&
                 (startCorner.col !== next.col || startCorner.row !== next.row)
-            )
+            ) {
                 setState({
                     superMoveY: startCorner.row - next.row,
                     superMoveX: startCorner.col - next.col,
                     gameState: GLIDE,
                 })
+            }
             if (gameState === GLIDE) glide()
             drawBackground(p5, images.mapImage)
             drawVisibleItems(p5, images.itemImage)
