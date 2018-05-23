@@ -11,22 +11,8 @@ export const createCharacterGrobs = startMenuGrobs => {
             right: p5 => xScale(p5) * (3 + i) * BS,
             top: p5 => yScale(p5) * 5 * BS,
             bottom: p5 => yScale(p5) * 6 * BS,
-            action: () => setState({ spriteChoice: i }),
+            action: () => setState({ spriteChoice: i })
         }
-    }
-}
-
-export const createItemGrobs = startMenuGrobs => {
-    i = 0;
-    for (const key in ITEMS) {
-        startMenuGrobs['item' + i] = {
-            left: p5 => xScale(p5) * (2 + i) * BS,
-            right: p5 => xScale(p5) * (3 + i) * BS,
-            top: p5 => yScale(p5) * 5 * BS,
-            bottom: p5 => yScale(p5) * 6 * BS,
-            action: () => setState({ spriteChoice: i }),
-        }
-        ++i
     }
 }
 
@@ -97,8 +83,14 @@ export const lazyLoad = (p5, images) =>
     })
 
 export const drawGrob = (p5, options) => {
-    const width = options.width !== undefined ? options.width : (options.grob.right(p5) - options.grob.left(p5))
-    const height = options.height !== undefined ? options.height : (options.grob.bottom(p5) - options.grob.top(p5))
+    const width =
+    options.width !== undefined
+        ? options.width
+        : options.grob.right(p5) - options.grob.left(p5)
+    const height =
+    options.height !== undefined
+        ? options.height
+        : options.grob.bottom(p5) - options.grob.top(p5)
 
     p5.image(
         options.image,

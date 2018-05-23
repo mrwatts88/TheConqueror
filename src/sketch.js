@@ -18,7 +18,7 @@ import {
     drawBackground,
     lazyLoad,
     drawGrob,
-    drawNameText,
+    drawNameText
 } from './graphicsHelpers'
 
 const { GLIDE, STARTMENU, PLAY, LOADING } = GAMESTATE
@@ -28,7 +28,7 @@ const images = {
     playerImage: null,
     itemImage: null,
     enemyImage: null,
-    buttonsImage: null,
+    buttonsImage: null
 }
 
 export const initSketch = socket => p5 => {
@@ -39,15 +39,13 @@ export const initSketch = socket => p5 => {
     }
 
     p5.setup = () => {
-
         const can = p5.createCanvas(origWidth, origHeight)
         can.mousePressed(() => performClickAction(p5, socket))
         p5.textAlign(p5.LEFT, p5.TOP)
         p5.textSize(16)
         p5.fill('white')
-        const { startMenuGrobs, itemInfoGrobs } = getState()
+        const { startMenuGrobs } = getState()
         createCharacterGrobs(startMenuGrobs, p5)
-        // createItemGrobs(itemInfoGrobs, p5)
     }
 
     p5.keyPressed = () => {
@@ -59,7 +57,9 @@ export const initSketch = socket => p5 => {
             else {
                 //Letters a-z ~ A-Z
                 if (p5.keyCode >= 65 && p5.keyCode <= 90) {
-                    const charCode = !p5.keyIsDown(p5.SHIFT) ? p5.keyCode + 32 : p5.keyCode
+                    const charCode = !p5.keyIsDown(p5.SHIFT)
+                        ? p5.keyCode + 32
+                        : p5.keyCode
                     setState({ name: name + String.fromCharCode(charCode) })
                 }
 
@@ -70,7 +70,6 @@ export const initSketch = socket => p5 => {
                 //Numbers 1-9 on keypad
                 if (p5.keyCode >= 48 && p5.keyCode <= 57)
                     setState({ name: name + (p5.keyCode - 48).toString() })
-
             }
         }
     }
@@ -83,9 +82,9 @@ export const initSketch = socket => p5 => {
             // Unset any active grobs if mouse leaves the canvas
             if (
                 p5.mouseX > p5.width ||
-                p5.mouseX < 0 ||
-                p5.mouseY > p5.height ||
-                p5.mouseY < 0
+        p5.mouseX < 0 ||
+        p5.mouseY > p5.height ||
+        p5.mouseY < 0
             )
                 setState({ activeGrob: {} })
 
@@ -109,12 +108,12 @@ export const initSketch = socket => p5 => {
             const { startCorner, next } = getState()
             if (
                 gameState === PLAY &&
-                (startCorner.col !== next.col || startCorner.row !== next.row)
+        (startCorner.col !== next.col || startCorner.row !== next.row)
             ) {
                 setState({
                     superMoveY: startCorner.row - next.row,
                     superMoveX: startCorner.col - next.col,
-                    gameState: GLIDE,
+                    gameState: GLIDE
                 })
             }
             if (gameState === GLIDE) glide()
@@ -132,14 +131,12 @@ export const initSketch = socket => p5 => {
         }
     }
 
-
     const drawItemDetail = (p5, currentItem, images) => {
-
-        // outer rect
+    // outer rect
         p5.push()
         p5.rectMode(p5.CENTER)
         p5.fill('rgba(200,200,200, 0.25)')
-        p5.strokeWeight(0);
+        p5.strokeWeight(0)
         p5.rect(p5.width / 2, p5.height / 2, xScale(p5) * 300, yScale(p5) * 200)
         p5.pop()
 
