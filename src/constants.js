@@ -16,7 +16,7 @@ export const ENV = {
 
 // maps values in map grid with location of images within sprite sheet
 export const itemMap = {
-    i: { x: 0, y: 0 },
+    i: { x: 0, y: 0, },
     ia: { x: 0, y: 0 },
     ib: { x: 1, y: 0 },
     ic: { x: 2, y: 0 },
@@ -43,4 +43,12 @@ export const itemMap = {
     ix: { x: 11, y: 1 },
     iy: { x: 0, y: 2 },
     iz: { x: 1, y: 2 },
+}
+
+
+export const ITEMS = {
+    LANTERN: 'ia',
+    TORCH: 'ib',
+    CANDLE: 'ic',
+    ROPE: 'id'
 }

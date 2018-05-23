@@ -16,6 +16,20 @@ export const createCharacterGrobs = startMenuGrobs => {
     }
 }
 
+export const createItemGrobs = startMenuGrobs => {
+    i = 0;
+    for (const key in ITEMS) {
+        startMenuGrobs['item' + i] = {
+            left: p5 => xScale(p5) * (2 + i) * BS,
+            right: p5 => xScale(p5) * (3 + i) * BS,
+            top: p5 => yScale(p5) * 5 * BS,
+            bottom: p5 => yScale(p5) * 6 * BS,
+            action: () => setState({ spriteChoice: i }),
+        }
+        ++i
+    }
+}
+
 export const drawCharacterGrobs = (p5, images) => {
     let { startMenuGrobs } = getState()
     let i = 0
@@ -24,7 +38,18 @@ export const drawCharacterGrobs = (p5, images) => {
         const x = (i % 4) * 32 * 3
         const y = Math.floor(i / 4) * 32 * 4
         const char = startMenuGrobs[key]
-        drawGrob(p5, char, images, x, y, 32, 32)
+        const opts = {
+            image: images,
+            grob: char,
+            width: undefined,
+            height: undefined,
+            spriteX: x,
+            spriteY: y,
+            spriteWidth: 32,
+            spritHeight: 32
+        }
+
+        drawGrob(p5, opts)
         ++i
     }
 }
@@ -71,17 +96,20 @@ export const lazyLoad = (p5, images) =>
         })
     })
 
-export const drawGrob = (p5, grob, image, spriteX, spriteY, spriteWidth, spritHeight) => {
+export const drawGrob = (p5, options) => {
+    const width = options.width !== undefined ? options.width : (options.grob.right(p5) - options.grob.left(p5))
+    const height = options.height !== undefined ? options.height : (options.grob.bottom(p5) - options.grob.top(p5))
+
     p5.image(
-        image,
-        grob.left(p5),
-        grob.top(p5),
-        grob.right(p5) - grob.left(p5),
-        grob.bottom(p5) - grob.top(p5),
-        spriteX,
-        spriteY,
-        spriteWidth,
-        spritHeight
+        options.image,
+        options.grob.left(p5),
+        options.grob.top(p5),
+        width,
+        height,
+        options.spriteX,
+        options.spriteY,
+        options.spriteWidth,
+        options.spritHeight
     )
 }
 

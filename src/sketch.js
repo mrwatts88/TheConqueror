@@ -1,8 +1,9 @@
-import { origWidth, origHeight, GAMESTATE } from './constants'
+import { origWidth, origHeight, GAMESTATE, itemMap, BS } from './constants'
 import { drawEnemies } from './drawEnemies'
 import { drawPlayers } from './drawPlayers'
 import { drawHealth } from './drawHealth'
 import { drawInventory } from './drawInventory'
+import { drawItemInfo } from './drawItemInfo'
 import { drawVisibleItems } from './drawVisibleItems'
 import { shiftView } from './shiftView'
 import { updateGuy } from './updateGuy'
@@ -10,6 +11,7 @@ import { performClickAction } from './performClickAction'
 import { getState, setState } from './globalState'
 import { drawLayout } from './drawLayout'
 import { glide } from './glide'
+import { xScale, yScale } from './utils'
 import {
     createCharacterGrobs,
     drawCharacterGrobs,
@@ -43,8 +45,9 @@ export const initSketch = socket => p5 => {
         p5.textAlign(p5.LEFT, p5.TOP)
         p5.textSize(16)
         p5.fill('white')
-        const { startMenuGrobs } = getState()
+        const { startMenuGrobs, itemInfoGrobs } = getState()
         createCharacterGrobs(startMenuGrobs, p5)
+        // createItemGrobs(itemInfoGrobs, p5)
     }
 
     p5.keyPressed = () => {
@@ -90,7 +93,17 @@ export const initSketch = socket => p5 => {
             p5.image(images.startMenuImage, 0, 0, p5.width, p5.height)
             drawCharacterGrobs(p5, images.playerImage)
             drawNameText(p5, startMenuGrobs.nameBox, name)
-            drawGrob(p5, startMenuGrobs.map1, images.mapImage, 200, 465, 400, 160)
+
+            const opts = {
+                image: images.mapImage,
+                grob: getState().startMenuGrobs.map1,
+                spriteX: 200,
+                spriteY: 465,
+                spriteWidth: 400,
+                spritHeight: 160
+            }
+
+            drawGrob(p5, opts)
         } else if (gameState === PLAY || gameState === GLIDE) {
             if (gameState === PLAY) shiftView(p5)
             const { startCorner, next } = getState()
@@ -98,7 +111,6 @@ export const initSketch = socket => p5 => {
                 gameState === PLAY &&
                 (startCorner.col !== next.col || startCorner.row !== next.row)
             ) {
-
                 setState({
                     superMoveY: startCorner.row - next.row,
                     superMoveX: startCorner.col - next.col,
@@ -112,8 +124,53 @@ export const initSketch = socket => p5 => {
             drawEnemies(p5, images.enemyImage)
             drawLayout(p5, images.buttonsImage)
             drawInventory(p5, images.itemImage)
+            drawItemInfo(p5, images.itemImage)
             drawHealth(p5)
+            const { isDetailShown, currentItem } = getState()
+            if (isDetailShown) drawItemDetail(p5, currentItem, images)
             updateGuy(p5, socket)
         }
+    }
+
+
+    const drawItemDetail = (p5, currentItem, images) => {
+
+        // outer rect
+        p5.push()
+        p5.rectMode(p5.CENTER)
+        p5.fill('rgba(200,200,200, 0.25)')
+        p5.strokeWeight(0);
+        p5.rect(p5.width / 2, p5.height / 2, xScale(p5) * 300, yScale(p5) * 200)
+        p5.pop()
+
+        //close btn
+        const opts = {
+            image: images.buttonsImage,
+            grob: getState().playGrobs.itemCloseBtn,
+            width: 50,
+            height: 50,
+            spriteX: 445,
+            spriteY: 40,
+            spriteWidth: 110,
+            spritHeight: 110
+        }
+
+        drawGrob(p5, opts)
+
+        const { players, id } = getState()
+        const x = itemMap[players[id].inventory[currentItem].type].x
+        const y = itemMap[players[id].inventory[currentItem].type].y
+
+        p5.image(
+            images.itemImage,
+            xScale(p5) * 300,
+            yScale(p5) * 200,
+            2 * BS,
+            2 * BS,
+            x * BS,
+            y * BS,
+            BS,
+            BS
+        )
     }
 }

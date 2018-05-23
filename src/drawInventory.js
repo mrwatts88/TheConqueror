@@ -38,3 +38,4 @@ export const drawInventory = (p5, itemImage) => {
         }
     }
 }
+

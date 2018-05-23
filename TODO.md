@@ -1,6 +1,5 @@
 TODO:
-[ ] backspace in name textbox
-[ ] Extract drawGrob function to menu
+[ ] Item Info
 [ ] Drop items
 [ ] Player takes enemy's items when enemy dies
 [ ] Add more item functionality
@@ -29,6 +28,7 @@ Bug TODO:
 [ ] Fix play created map functionality for new server architecture
 [ ] Check for bug when gliding in 2 directions at the same time Walking
 [ ] Wrong startCorner when starting to the far left of the map
+[ ] Images are overdrawn when you expand the screen. 
 
 
 Ideas:

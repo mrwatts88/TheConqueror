@@ -4,3 +4,4 @@ exports.getRandomColor = () => {
         color += '0123456789ABCDEF'.charAt(Math.floor(Math.random() * 16))
     return color
 }
+
