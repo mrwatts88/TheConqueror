@@ -20,9 +20,9 @@ export const drawLayout = (p5, buttonsImage) => {
         p5,
         getState().playGrobs.mainMenuBtn,
         buttonsImage,
-        235,
-        75,
-        1.5,
-        1.5
+        255,
+        70,
+        175,
+        75
     )
 }

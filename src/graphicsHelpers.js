@@ -24,7 +24,7 @@ export const drawCharacterGrobs = (p5, images) => {
         const x = (i % 4) * 32 * 3
         const y = Math.floor(i / 4) * 32 * 4
         const char = startMenuGrobs[key]
-        drawGrob(p5, char, images, x, y, 1, 1)
+        drawGrob(p5, char, images, x, y, 32, 32)
         ++i
     }
 }
@@ -71,17 +71,17 @@ export const lazyLoad = (p5, images) =>
         })
     })
 
-export const drawGrob = (p5, grob, image, x, y, xScale, yScale) => {
+export const drawGrob = (p5, grob, image, spriteX, spriteY, spriteWidth, spritHeight) => {
     p5.image(
         image,
         grob.left(p5),
         grob.top(p5),
         grob.right(p5) - grob.left(p5),
         grob.bottom(p5) - grob.top(p5),
-        x,
-        y,
-        xScale * (grob.right(p5) - grob.left(p5)),
-        yScale * (grob.bottom(p5) - grob.top(p5))
+        spriteX,
+        spriteY,
+        spriteWidth,
+        spritHeight
     )
 }
 

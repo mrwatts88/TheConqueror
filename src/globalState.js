@@ -21,9 +21,10 @@ export const initState = socket => {
         env: ENV.PRODUCTION,
         playGrobs: {
             mainMenuBtn: {
-                left: p5 => xScale(p5) * 750,
+                // This grobs position methods allow it to remain the same size while scaling its position
+                left: p5 => xScale(p5) * 885 - (885 - 750),
                 right: p5 => xScale(p5) * 885,
-                top: p5 => yScale(p5) * 510,
+                top: p5 => yScale(p5) * 555 - (555 - 510),
                 bottom: p5 => yScale(p5) * 555,
                 action: () => {
                     setState({ gameState: GAMESTATE.STARTMENU })
