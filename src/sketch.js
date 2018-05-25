@@ -18,7 +18,7 @@ import {
     drawBackground,
     lazyLoad,
     drawGrob,
-    drawNameText
+    drawNameText,
 } from './graphicsHelpers'
 
 const { GLIDE, STARTMENU, PLAY, LOADING } = GAMESTATE
@@ -28,7 +28,7 @@ const images = {
     playerImage: null,
     itemImage: null,
     enemyImage: null,
-    buttonsImage: null
+    buttonsImage: null,
 }
 
 export const initSketch = socket => p5 => {
@@ -82,9 +82,9 @@ export const initSketch = socket => p5 => {
             // Unset any active grobs if mouse leaves the canvas
             if (
                 p5.mouseX > p5.width ||
-        p5.mouseX < 0 ||
-        p5.mouseY > p5.height ||
-        p5.mouseY < 0
+                p5.mouseX < 0 ||
+                p5.mouseY > p5.height ||
+                p5.mouseY < 0
             )
                 setState({ activeGrob: {} })
 
@@ -99,7 +99,7 @@ export const initSketch = socket => p5 => {
                 spriteX: 200,
                 spriteY: 465,
                 spriteWidth: 400,
-                spritHeight: 160
+                spritHeight: 160,
             }
 
             drawGrob(p5, opts)
@@ -108,12 +108,12 @@ export const initSketch = socket => p5 => {
             const { startCorner, next } = getState()
             if (
                 gameState === PLAY &&
-        (startCorner.col !== next.col || startCorner.row !== next.row)
+                (startCorner.col !== next.col || startCorner.row !== next.row)
             ) {
                 setState({
                     superMoveY: startCorner.row - next.row,
                     superMoveX: startCorner.col - next.col,
-                    gameState: GLIDE
+                    gameState: GLIDE,
                 })
             }
             if (gameState === GLIDE) glide()
@@ -132,16 +132,17 @@ export const initSketch = socket => p5 => {
     }
 
     const drawItemDetail = (p5, currentItem, images) => {
-    // outer rect
+        // Draw outer rectangle
         p5.push()
         p5.rectMode(p5.CENTER)
-        p5.fill('rgba(200,200,200, 0.25)')
-        p5.strokeWeight(0)
+        p5.fill('rgba(0,0,0, 0.25)')
+        p5.strokeWeight(3)
+        p5.stroke('#FFD700')
         p5.rect(p5.width / 2, p5.height / 2, xScale(p5) * 300, yScale(p5) * 200)
         p5.pop()
 
-        //close btn
-        const opts = {
+        // Draw close btn
+        const closeOpts = {
             image: images.buttonsImage,
             grob: getState().playGrobs.itemCloseBtn,
             width: 50,
@@ -149,14 +150,19 @@ export const initSketch = socket => p5 => {
             spriteX: 445,
             spriteY: 40,
             spriteWidth: 110,
-            spritHeight: 110
+            spritHeight: 110,
         }
 
-        drawGrob(p5, opts)
+        drawGrob(p5, closeOpts)
 
+        // Draw item image
         const { players, id } = getState()
-        const x = itemMap[players[id].inventory[currentItem].type].x
-        const y = itemMap[players[id].inventory[currentItem].type].y
+        const thisPlayer = players[id]
+        const thisItem = thisPlayer.inventory[currentItem]
+        const { type } = thisItem
+        const item = itemMap[type]
+        const x = item.x
+        const y = item.y
 
         p5.image(
             images.itemImage,
@@ -169,5 +175,33 @@ export const initSketch = socket => p5 => {
             BS,
             BS
         )
+
+        //Draw Item Description
+        p5.push()
+        p5.textSize(16)
+        p5.strokeWeight(2)
+        p5.textAlign(p5.LEFT, p5.BOTTOM)
+        p5.text(
+            item.description,
+            xScale(p5) * 320,
+            yScale(p5) * 270,
+            xScale(p5) * 280,
+            yScale(p5) * 70
+        )
+        p5.pop()
+
+        // Draw Use button
+        const useOpts = {
+            image: images.buttonsImage,
+            grob: getState().playGrobs.itemUseBtn,
+            spriteX: 12,
+            spriteY: 280,
+            spriteWidth: 205,
+            spritHeight: 75,
+        }
+
+        drawGrob(p5, useOpts)
+        drawGrob(p5, { ...useOpts, grob: getState().playGrobs.itemGiftBtn })
+        drawGrob(p5, { ...useOpts, grob: getState().playGrobs.itemDropBtn })
     }
 }

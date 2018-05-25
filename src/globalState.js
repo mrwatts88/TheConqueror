@@ -1,5 +1,5 @@
 import { xScale, yScale } from './utils'
-import { GAMESTATE, ENV } from './constants'
+import { GAMESTATE, ENV, itemMap } from './constants'
 
 let state = {}
 
@@ -29,7 +29,7 @@ export const initState = socket => {
                 bottom: p5 => yScale(p5) * 555,
                 action: () => {
                     setState({ gameState: GAMESTATE.STARTMENU })
-                }
+                },
             },
             itemCloseBtn: {
                 left: p5 => p5.width / 2 + 0.5 * xScale(p5) * 300 - 25,
@@ -38,8 +38,49 @@ export const initState = socket => {
                 bottom: p5 => p5.height / 2 - 0.5 * yScale(p5) * 200 + 25,
                 action: () => {
                     setState({ isDetailShown: false })
-                }
-            }
+                },
+            },
+            itemUseBtn: {
+                left: p5 => xScale(p5) * 315,
+                right: p5 => xScale(p5) * 385,
+                top: p5 => yScale(p5) * 345,
+                bottom: p5 => yScale(p5) * 375,
+                action: () => {
+                    const { id, players, currentItem } = getState()
+                    socket.emit('useitem', {
+                        id,
+                        index: currentItem,
+                        item: itemMap[players[id].inventory[currentItem].type],
+                    })
+
+                    setState({ isDetailShown: false })
+                },
+            },
+            itemGiftBtn: {
+                left: p5 => xScale(p5) * 415,
+                right: p5 => xScale(p5) * 485,
+                top: p5 => yScale(p5) * 345,
+                bottom: p5 => yScale(p5) * 375,
+                action: () => {
+                    setState({ isDetailShown: false })
+                },
+            },
+            itemDropBtn: {
+                left: p5 => xScale(p5) * 515,
+                right: p5 => xScale(p5) * 585,
+                top: p5 => yScale(p5) * 345,
+                bottom: p5 => yScale(p5) * 375,
+                action: () => {
+                    const { id, players, currentItem } = getState()
+                    socket.emit('dropitem', {
+                        id,
+                        index: currentItem,
+                        item: itemMap[players[id].inventory[currentItem].type],
+                    })
+
+                    setState({ isDetailShown: false })
+                },
+            },
         },
         startMenuGrobs: {
             startBtn: {
@@ -53,9 +94,9 @@ export const initState = socket => {
                         socket.emit('startgame', {
                             name,
                             spriteChoice,
-                            mapChoice
+                            mapChoice,
                         })
-                }
+                },
             },
 
             nameBox: {
@@ -63,15 +104,15 @@ export const initState = socket => {
                 right: p5 => xScale(p5) * 291,
                 top: p5 => yScale(p5) * 98,
                 bottom: p5 => yScale(p5) * 111,
-                action: () => setState({ name: '' })
+                action: () => setState({ name: '' }),
             },
             map1: {
                 left: p5 => xScale(p5) * 450,
                 right: p5 => xScale(p5) * 850,
                 top: p5 => yScale(p5) * 125,
                 bottom: p5 => yScale(p5) * 285,
-                action: () => setState({ mapChoice: 1 })
-            }
+                action: () => setState({ mapChoice: 1 }),
+            },
         },
 
         itemInfoGrobs: {
@@ -83,9 +124,9 @@ export const initState = socket => {
                 bottom: p5 => yScale(p5) * 150,
                 action: () => {
                     // console.log('item')
-                }
-            }
-        }
+                },
+            },
+        },
     }
 }
 

@@ -15,9 +15,9 @@ export const performClickAction = p5 => {
         // Click is in in inventory area
         if (
             xpos >= baseX &&
-      ypos >= baseY &&
-      xpos <= baseX + 4 * (BS + 5) &&
-      ypos <= baseY + 4 * (BS + 5)
+            ypos >= baseY &&
+            xpos <= baseX + 4 * (BS + 5) &&
+            ypos <= baseY + 4 * (BS + 5)
         ) {
             const index = getClickedInventoryIndex(xpos, ypos, baseX, baseY)
             if (p.inventory[index] !== undefined)
@@ -28,7 +28,8 @@ export const performClickAction = p5 => {
         }
     } else if (gameState === GAMESTATE.STARTMENU) {
         for (const key in startMenuGrobs)
-            if (didClick(startMenuGrobs[key], p5)) superAction(startMenuGrobs[key])
+            if (didClick(startMenuGrobs[key], p5))
+                superAction(startMenuGrobs[key])
     }
 }
 
@@ -48,8 +49,8 @@ const didClick = (graphicsObject, p5) => {
     const { left, right, top, bottom } = graphicsObject
     return (
         mouseX > left(p5) &&
-    mouseY > top(p5) &&
-    mouseX < right(p5) &&
-    mouseY < bottom(p5)
+        mouseY > top(p5) &&
+        mouseX < right(p5) &&
+        mouseY < bottom(p5)
     )
 }

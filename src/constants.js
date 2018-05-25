@@ -16,15 +16,82 @@ export const ENV = {
 
 // maps values in map grid with location of images within sprite sheet
 export const itemMap = {
-    i: { x: 0, y: 0, },
-    ia: { x: 0, y: 0 },
-    ib: { x: 1, y: 0 },
-    ic: { x: 2, y: 0 },
-    id: { x: 3, y: 0 },
-    ie: { x: 4, y: 0 },
-    if: { x: 5, y: 0 },
-    ig: { x: 6, y: 0 },
-    ih: { x: 7, y: 0 },
+    i: { x: 0, y: 0 },
+    ia: {
+        x: 0,
+        y: 0,
+        description: 'A Lantern to light the way. Lasts 5 minutes.',
+        type: 'Consumable',
+        sellPrice: 16,
+        buyPrice: 64,
+        maxStack: 50,
+    },
+    ib: {
+        x: 1,
+        y: 0,
+        description: 'A Torch to light the way. Lasts 2 minutes.',
+        type: 'Consumable',
+        sellPrice: 8,
+        buyPrice: 32,
+        maxStack: 50,
+    },
+    ic: {
+        x: 2,
+        y: 0,
+        description: 'A Candle to light the way. Lasts 1 minutes.',
+        type: 'Consumable',
+        sellPrice: 2,
+        buyPrice: 8,
+        maxStack: 50,
+    },
+    id: {
+        x: 3,
+        y: 0,
+        description: 'Rope to increase durability of an item.',
+        type: 'Consumable',
+        sellPrice: 16,
+        buyPrice: 64,
+        maxStack: 50,
+    },
+    ie: {
+        x: 4,
+        y: 0,
+        description:
+            'Red Tome. When used increases users ranged Fire magic skill',
+        type: 'Consumable',
+        sellPrice: 200,
+        buyPrice: 10240,
+        maxStack: 50,
+    },
+    if: {
+        x: 5,
+        y: 0,
+        description:
+            'Dark Tome. When used increases users ranged Dark magic skill',
+        type: 'Consumable',
+        sellPrice: 200,
+        buyPrice: 10240,
+        maxStack: 50,
+    },
+    ig: {
+        x: 6,
+        y: 0,
+        description:
+            'Green Journal. Return Philips journal to receive your reward in Silver Creak Town.',
+        type: 'Quest',
+        sellPrice: undefined,
+        buyPrice: undefined,
+        maxStack: 50,
+    },
+    ih: {
+        x: 7,
+        y: 0,
+        description: 'Collect 100 Parchment to Craft a Tome of your choice.',
+        type: 'Crafting',
+        sellPrice: 2,
+        buyPrice: undefined,
+        maxStack: 100,
+    },
     ii: { x: 8, y: 0 },
     ij: { x: 9, y: 0 },
     ik: { x: 10, y: 0 },
@@ -45,10 +112,9 @@ export const itemMap = {
     iz: { x: 1, y: 2 },
 }
 
-
 export const ITEMS = {
     LANTERN: 'ia',
     TORCH: 'ib',
     CANDLE: 'ic',
-    ROPE: 'id'
+    ROPE: 'id',
 }

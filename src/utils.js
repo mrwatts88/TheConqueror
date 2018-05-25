@@ -22,4 +22,3 @@ export const getRandomColor = () => {
 
 export const xScale = p5 => p5.width / origWidth
 export const yScale = p5 => p5.height / origHeight
-// export const mousePos = p5 => console.log(p5.mouseX, p5.mouseY)

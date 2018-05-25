@@ -34,7 +34,14 @@ module.exports = id => {
                     mapChoice: 0,
                     xpos: col * BS,
                     ypos: row * BS,
-                    inventory: [],
+                    inventory: [
+                        {
+                            width: BS,
+                            height: BS,
+                            color: 'yellow',
+                            type: 'ia',
+                        },
+                    ],
                     maxHealth: 100,
                     health: 100,
                     chatColor: utils.getRandomColor(),

@@ -1,0 +1,14 @@
+{
+    "liveServer.settings.donotShowInfoMsg": true,
+    "editor.minimap.enabled": false,
+    "editor.formatOnSave": true,
+    "window.zoomLevel": 0,
+    "git.enableSmartCommit": true,
+    "editor.tabSize": 4,
+    "prettier.singleQuote": true,
+    "prettier.eslintIntegration": true,
+    "prettier.semi": false,
+    "prettier.trailingComma": "es5",
+    "eslint.autoFixOnSave": true,
+    "workbench.iconTheme": "vscode-icons"
+}
