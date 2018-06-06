@@ -27,6 +27,18 @@ export const drawVisibleItems = (p5, image) => {
                     p5.fill('white')
                 }
             }
+
+            if (map[row][col] === 's') {
+                p5.fill('green')
+                p5.rect(
+                    (col - startCorner.col) * BS,
+                    (row - startCorner.row) * BS,
+                    BS,
+                    BS
+                )
+                p5.fill('white')
+            }
+
             // Draw items
             if (map[row][col] === 'i') {
                 const randomItem = Object.keys(itemMap)[

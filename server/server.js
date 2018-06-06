@@ -12,6 +12,7 @@ const updateEnemies = require('./updateEnemies')
 const updateGuy = require('./updateGuy')
 const initNewPlayer = require('./initNewPlayer')
 const updateHealth = require('./updateHealth')
+const dropItem = require('./dropItem')
 
 app.use(express.static(path.join(__dirname, '../dist')))
 
@@ -35,7 +36,7 @@ for (let row = 0; row < map.length; ++row) {
                 type: 'enemy',
                 speed: 1,
                 attack: 1,
-                prevDirection: 'left',
+                direction: 'left',
                 step: 0,
                 spriteChoice: Math.floor(Math.random() * 7),
             })
@@ -50,7 +51,7 @@ setState({ map })
 // Send updates to all connected clients
 setInterval(() => {
     updateEnemies(io)
-    updateHealth()
+    updateHealth(io)
     const { enemies, players } = getState()
     io.emit('update', { enemies, players })
 }, 10)
@@ -87,33 +88,14 @@ io.on('connection', socket => {
     })
 
     socket.on('dropitem', idIndexAnditem => {
-        const { id, index, item } = idIndexAnditem
+        const { id, index } = idIndexAnditem
         const { players } = getState()
         const p = players[id]
-
+        const item = p.inventory[index]
         const { map } = getState()
-        const row = Math.floor((p.ypos + 0.5 * BS) / BS)
-        const col = Math.floor((p.xpos + 0.5 * BS) / BS)
-        const item2 = p.inventory[index]
 
-        let canSplice = true
-        if (map[row - 1][col] === '0') map[row - 1][col] = item2.type
-        else if (map[row - 1][col + 1] === '0')
-            map[row - 1][col + 1] = item2.type
-        else if (map[row][col + 1] === '0') map[row][col + 1] = item2.type
-        else if (map[row + 1][col + 1] === '0')
-            map[row + 1][col + 1] = item2.type
-        else if (map[row + 1][col] === '0') map[row + 1][col] = item2.type
-        else if (map[row + 1][col - 1] === '0')
-            map[row + 1][col - 1] = item2.type
-        else if (map[row][col - 1] === '0') map[row][col - 1] = item2.type
-        else if (map[row - 1][col - 1] === '0')
-            map[row - 1][col - 1] = item2.type
-        else canSplice = false
-
-        if (canSplice) p.inventory.splice(index, 1)[0]
-
-        // Send updated map to all clients because it has changed
+        dropItem(io, map, p, item)
+        p.inventory.splice(index, 1)
         io.emit('mapupdate', { map })
     })
 

@@ -31,7 +31,7 @@ export const drawEnemies = (p5, image) => {
             // location of sprite within chosen character's sprites
             x += 32 * Math.floor(enemy.step)
 
-            switch (enemy.prevDirection) {
+            switch (enemy.direction) {
             case 'down':
                 break
             case 'left':

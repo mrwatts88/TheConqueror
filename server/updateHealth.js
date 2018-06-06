@@ -1,22 +1,26 @@
 const getState = require('./globalState').getState
 const setState = require('./globalState').setState
+const { BS } = require('./constants')
+const dropItem = require('./dropItem')
 
-module.exports = () => {
+module.exports = io => {
     const { players, enemies } = getState()
-
     for (const id in players) {
         const p = players[id]
-        for (let i = enemies.length - 1; i >= 0; --i) {
-            let yOverlaps =
-                Math.abs(p.ypos - enemies[i].ypos) <
-                p.height / 2 + enemies[i].height / 2
-            let xOverlaps =
-                Math.abs(p.xpos - enemies[i].xpos) <
-                p.width / 2 + enemies[i].width / 2
-            if (p.health === undefined) continue
-            if (p.health > 0 && yOverlaps && xOverlaps)
-                if (--enemies[i].health <= 0) enemies.splice(i, 1)
-                else if (--p.health <= 0) console.log('game over.')
+        for (let j = enemies.length - 1; j >= 0; --j) {
+            const e = enemies[j]
+            const fxn = a => b => 2 * Math.abs(p[a] - e[a]) < p[b] + e[b]
+            const overlaps = fxn('ypos')('height') && fxn('xpos')('width')
+            if (p.health === undefined) continue // First instance of the player
+            if (p.health > 0 && overlaps) {
+                if (--e.health <= 0) {
+                    enemies.splice(j, 1)[0]
+                    const { map } = getState()
+                    const i = e.inventory
+                    while (i.length > 0) dropItem(io, map, e, i.pop())
+                    io.emit('mapupdate', { map })
+                } else if (--p.health <= 0) console.log('game over.')
+            }
         }
     }
 }

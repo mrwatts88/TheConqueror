@@ -19,7 +19,7 @@ module.exports = io => {
         else if (dir < 0.4) goDown(enemy, map, io)
         else if (dir < 0.6) goLeft(enemy, map, io)
         else if (dir < 0.8) goRight(enemy, map, io)
-        else enemy.prevDirection = 'stay'
+        else enemy.direction = 'stay'
     }
 }
 
@@ -33,7 +33,7 @@ const goUp = (enemy, map, io) => {
         )
     ) {
         enemy.ypos -= enemy.speed
-        enemy.prevDirection = 'up'
+        enemy.direction = 'up'
     }
     advanceStep(enemy)
 }
@@ -48,7 +48,7 @@ const goDown = (enemy, map, io) => {
         )
     ) {
         enemy.ypos += enemy.speed
-        enemy.prevDirection = 'down'
+        enemy.direction = 'down'
     }
     advanceStep(enemy)
 }
@@ -63,7 +63,7 @@ const goLeft = (enemy, map, io) => {
         )
     ) {
         enemy.xpos -= enemy.speed
-        enemy.prevDirection = 'left'
+        enemy.direction = 'left'
     }
     advanceStep(enemy)
 }
@@ -78,30 +78,30 @@ const goRight = (enemy, map, io) => {
         )
     ) {
         enemy.xpos += enemy.speed
-        enemy.prevDirection = 'right'
+        enemy.direction = 'right'
     }
     advanceStep(enemy)
 }
 
 const goPrevDirection = (enemy, map, io) => {
-    switch (enemy.prevDirection) {
-        case 'stay':
-            break
-        case 'up':
-            goUp(enemy, map, io)
-            break
-        case 'down':
-            goDown(enemy, map, io)
-            break
-        case 'left':
-            goLeft(enemy, map, io)
-            break
-        case 'right':
-            goRight(enemy, map, io)
-            break
-        default:
-            goRight(enemy, map, io)
-            break
+    switch (enemy.direction) {
+    case 'stay':
+        break
+    case 'up':
+        goUp(enemy, map, io)
+        break
+    case 'down':
+        goDown(enemy, map, io)
+        break
+    case 'left':
+        goLeft(enemy, map, io)
+        break
+    case 'right':
+        goRight(enemy, map, io)
+        break
+    default:
+        goRight(enemy, map, io)
+        break
     }
 }
 

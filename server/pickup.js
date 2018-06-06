@@ -1,6 +1,5 @@
 const getState = require('./globalState').getState
-const constants = require('./constants')
-const { BS } = constants
+const { BS } = require('./constants')
 
 module.exports = (row, col, player, io) => {
     if (player.inventory.length >= 16) return
