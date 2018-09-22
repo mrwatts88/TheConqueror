@@ -5,9 +5,7 @@ import { initSocketListeners } from './socketListeners'
 import { createResizeObserver } from './graphicsHelpers'
 import { initState, setState } from './globalState'
 
-// const socket = io.connect('http://localhost:8080')
-
-const socket = io.connect('http://66.190.34.45:8080') // eslint-disable-line no-undef
+const socket = io.connect(`http://localhost:${process.env.PORT || 8080}`) // eslint-disable-line no-undef
 
 initState(socket)
 

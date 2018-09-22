@@ -122,9 +122,7 @@ export const initState = socket => {
                 right: p5 => xScale(p5) * 355,
                 top: p5 => yScale(p5) * 204,
                 bottom: p5 => yScale(p5) * 150,
-                action: () => {
-                    // console.log('item')
-                },
+                action: () => {},
             },
         },
     }

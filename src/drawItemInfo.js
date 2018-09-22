@@ -9,9 +9,7 @@ export const drawItemInfo = () => {
             right: p5 => xScale(p5) * 332,
             top: p5 => yScale(p5) * (118 + 2.5 * BS),
             bottom: p5 => yScale(p5) * (150 + 2.5 * BS),
-            action: () => {
-                // console.log('item')
-            }
-        }
+            action: () => {},
+        },
     })
 }

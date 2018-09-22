@@ -84,7 +84,6 @@ io.on('connection', socket => {
 
         if (item2.type === 'ii' || item2.type === 'ij' || item2.type === 'ik')
             p.health = Math.min(p.health + 25, p.maxHealth)
-        if (item2.type === 'ia') console.log('Received the lantern.')
     })
 
     socket.on('dropitem', idIndexAnditem => {
@@ -113,5 +112,5 @@ io.on('connection', socket => {
     })
 })
 
-const port = 8080
+const port = process.env.PORT || 8080
 server.listen(port, () => console.log(`Server listening on port ${port}`))

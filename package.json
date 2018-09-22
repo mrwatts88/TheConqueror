@@ -1,30 +1,34 @@
 {
-    "name": "theconqueror",
-    "version": "1.0.0",
-    "description": "",
-    "private": true,
-    "scripts": {
-        "build": "webpack --config webpack.config.js",
-        "watch": "webpack -d --watch --config webpack.config.js",
-        "serve": "babel-watch server/server.js",
-        "lint": " ./node_modules/.bin/eslint --quiet --fix ./src/*.js"
-    },
-    "pre-push": [
-        "lint"
-    ],
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "babel-core": "^6.26.3",
-        "babel-plugin-syntax-object-rest-spread": "^6.13.0",
-        "babel-preset-env": "^1.7.0",
-        "babel-watch": "^2.0.7",
-        "eslint": "^4.19.1",
-        "eslint-plugin-import": "^2.12.0",
-        "pre-push": "^0.1.1",
-        "webpack": "^4.8.1",
-        "webpack-cli": "^2.1.3"
-    },
-    "dependencies": {}
+  "name": "theconqueror",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "start": "node server/server.js",
+    "build": "webpack --config webpack.config.js",
+    "watch": "webpack -d --watch --config webpack.config.js",
+    "serve": "babel-watch server/server.js",
+    "lint": " ./node_modules/.bin/eslint --quiet --fix ./src/*.js"
+  },
+  "pre-push": [
+    "lint"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-watch": "^2.0.7",
+    "eslint": "^4.19.1",
+    "eslint-plugin-import": "^2.12.0",
+    "pre-push": "^0.1.1",
+    "webpack": "^4.8.1",
+    "webpack-cli": "^2.1.3"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "socket.io": "^2.1.0"
+  }
 }
