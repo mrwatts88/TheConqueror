@@ -1,5 +1,5 @@
 const getState = require('./globalState').getState
-const { BS } = require('./constants')
+const { UNIT_SIZE } = require('./constants')
 
 module.exports = (row, col, player, io) => {
     if (player.inventory.length >= 16) return
@@ -12,8 +12,8 @@ module.exports = (row, col, player, io) => {
     io.emit('mapupdate', { map })
 
     player.inventory.push({
-        width: BS,
-        height: BS,
+        width: UNIT_SIZE,
+        height: UNIT_SIZE,
         color: 'yellow',
         type,
     })

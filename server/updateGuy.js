@@ -3,7 +3,7 @@ const getState = require('./globalState').getState
 const setState = require('./globalState').setState
 const constants = require('./constants')
 
-const { BS } = constants
+const { UNIT_SIZE } = constants
 
 module.exports = (id, dir, io) => {
     const { players, map } = getState()
@@ -11,7 +11,7 @@ module.exports = (id, dir, io) => {
 
     if (dir.up) {
         p.direction = 'up'
-        if (processGuy(Math.floor((p.ypos - p.speed) / BS), undefined, p, io))
+        if (processGuy(Math.floor((p.ypos - p.speed) / UNIT_SIZE), undefined, p, io))
             p.ypos -= p.speed
         advanceStep(p)
     }
@@ -20,7 +20,7 @@ module.exports = (id, dir, io) => {
         p.direction = 'down'
         if (
             processGuy(
-                Math.floor((p.ypos + p.speed + BS - 1) / BS),
+                Math.floor((p.ypos + p.speed + UNIT_SIZE - 1) / UNIT_SIZE),
                 undefined,
                 p,
                 io
@@ -32,7 +32,7 @@ module.exports = (id, dir, io) => {
 
     if (dir.left) {
         p.direction = 'left'
-        if (processGuy(undefined, Math.floor((p.xpos - p.speed) / BS), p, io))
+        if (processGuy(undefined, Math.floor((p.xpos - p.speed) / UNIT_SIZE), p, io))
             p.xpos -= p.speed
         advanceStep(p)
     }
@@ -42,7 +42,7 @@ module.exports = (id, dir, io) => {
         if (
             processGuy(
                 undefined,
-                Math.floor((p.xpos + p.speed + BS - 1) / BS),
+                Math.floor((p.xpos + p.speed + UNIT_SIZE - 1) / UNIT_SIZE),
                 p,
                 io
             )

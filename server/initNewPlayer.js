@@ -3,7 +3,7 @@ const setState = require('./globalState').setState
 const mapUtils = require('./map')
 const utils = require('./utils')
 const constants = require('./constants')
-const { BS, WIDTH_UNITS, HEIGHT_UNITS } = constants
+const { UNIT_SIZE, CANVAS_WIDTH_IN_UNITS, CANVAS_HEIGHT_IN_UNITS } = constants // TODO: can we combine this with the require?
 
 module.exports = id => {
     mapUtils.addSpawnPoint()
@@ -18,26 +18,26 @@ module.exports = id => {
             if (map[row][col] === 'p') {
                 // Position view so that player is in the center, but constrain to size of map.
                 pRow = Math.min(
-                    map.length - HEIGHT_UNITS,
-                    Math.max(0, Math.floor(row - HEIGHT_UNITS / 2))
+                    map.length - CANVAS_HEIGHT_IN_UNITS,
+                    Math.max(0, Math.floor(row - CANVAS_HEIGHT_IN_UNITS / 2))
                 )
                 pCol = Math.min(
-                    map[0].length - WIDTH_UNITS,
-                    Math.max(0, Math.floor(col - WIDTH_UNITS / 2))
+                    map[0].length - CANVAS_WIDTH_IN_UNITS,
+                    Math.max(0, Math.floor(col - CANVAS_WIDTH_IN_UNITS / 2))
                 )
 
                 players[id] = {
                     name: 'Guest',
-                    width: BS,
-                    height: BS,
+                    width: UNIT_SIZE,
+                    height: UNIT_SIZE,
                     spriteChoice: 0,
                     mapChoice: 0,
-                    xpos: col * BS,
-                    ypos: row * BS,
+                    xpos: col * UNIT_SIZE,
+                    ypos: row * UNIT_SIZE,
                     inventory: [
                         {
-                            width: BS,
-                            height: BS,
+                            width: UNIT_SIZE,
+                            height: UNIT_SIZE,
                             color: 'yellow',
                             type: 'ia',
                         },

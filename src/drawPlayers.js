@@ -1,10 +1,10 @@
 import { getState } from './globalState'
-import { BS, ENV } from './constants'
+import { UNIT_SIZE, ENV } from './constants'
 
 export const drawPlayers = (p5, image) => {
     const { players, env, startCorner } = getState()
-    const screensLeft = startCorner.col * BS
-    const screensTop = startCorner.row * BS
+    const screensLeft = startCorner.col * UNIT_SIZE
+    const screensTop = startCorner.row * UNIT_SIZE
 
     for (const key in players) {
         const p = players[key]
@@ -26,17 +26,17 @@ export const drawPlayers = (p5, image) => {
             x += 32 * Math.floor(p.step)
 
             switch (p.direction) {
-            case 'down':
-                break
-            case 'left':
-                y += 32
-                break
-            case 'right':
-                y += 64
-                break
-            case 'up':
-                y += 96
-                break
+                case 'down':
+                    break
+                case 'left':
+                    y += 32
+                    break
+                case 'right':
+                    y += 64
+                    break
+                case 'up':
+                    y += 96
+                    break
             }
 
             p5.push()
@@ -45,7 +45,7 @@ export const drawPlayers = (p5, image) => {
             p5.textAlign(p5.CENTER, p5.BOTTOM)
             p5.textStyle(p5.BOLD)
             p5.textSize(10)
-            p5.text(p.name, p.xpos - screensLeft + BS / 2, p.ypos - screensTop)
+            p5.text(p.name, p.xpos - screensLeft + UNIT_SIZE / 2, p.ypos - screensTop)
             p5.pop()
             p5.fill('white')
 

@@ -1,5 +1,5 @@
 import { getState, setState } from './globalState'
-import { BS } from './constants'
+import { UNIT_SIZE } from './constants'
 import { xScale, yScale } from './utils'
 
 const canvasDiv = document.querySelector('#grid')
@@ -7,17 +7,17 @@ const canvasDiv = document.querySelector('#grid')
 export const createCharacterGrobs = startMenuGrobs => {
     for (let i = 0; i < 7; ++i) {
         startMenuGrobs['char' + i] = {
-            left: p5 => xScale(p5) * (2 + i) * BS,
-            right: p5 => xScale(p5) * (3 + i) * BS,
-            top: p5 => yScale(p5) * 5 * BS,
-            bottom: p5 => yScale(p5) * 6 * BS,
-            action: () => setState({ spriteChoice: i })
+            left: p5 => xScale(p5) * (2 + i) * UNIT_SIZE,
+            right: p5 => xScale(p5) * (3 + i) * UNIT_SIZE,
+            top: p5 => yScale(p5) * 5 * UNIT_SIZE,
+            bottom: p5 => yScale(p5) * 6 * UNIT_SIZE,
+            action: () => { setState({ spriteChoice: i }) }
         }
     }
 }
 
 export const drawCharacterGrobs = (p5, images) => {
-    let { startMenuGrobs } = getState()
+    let { startMenuGrobs, spriteChoice } = getState()
     let i = 0
     for (let key in startMenuGrobs) {
         if (key.substring(0, 4) != 'char') continue
@@ -32,7 +32,8 @@ export const drawCharacterGrobs = (p5, images) => {
             spriteX: x,
             spriteY: y,
             spriteWidth: 32,
-            spritHeight: 32
+            spritHeight: 32,
+            selected: spriteChoice === i
         }
 
         drawGrob(p5, opts)
@@ -48,8 +49,8 @@ export const drawBackground = (p5, mapImage) => {
         0,
         p5.width,
         p5.height,
-        (1 + startCorner.col) * BS,
-        (1 + startCorner.row) * BS,
+        (1 + startCorner.col) * UNIT_SIZE,
+        (1 + startCorner.row) * UNIT_SIZE,
         p5.width,
         p5.height
     )
@@ -84,13 +85,13 @@ export const lazyLoad = (p5, images) =>
 
 export const drawGrob = (p5, options) => {
     const width =
-    options.width !== undefined
-        ? options.width
-        : options.grob.right(p5) - options.grob.left(p5)
+        options.width !== undefined
+            ? options.width
+            : options.grob.right(p5) - options.grob.left(p5)
     const height =
-    options.height !== undefined
-        ? options.height
-        : options.grob.bottom(p5) - options.grob.top(p5)
+        options.height !== undefined
+            ? options.height
+            : options.grob.bottom(p5) - options.grob.top(p5)
 
     p5.image(
         options.image,
@@ -103,6 +104,15 @@ export const drawGrob = (p5, options) => {
         options.spriteWidth,
         options.spritHeight
     )
+
+    if (options.selected) {
+        p5.noFill()
+        p5.rect(options.grob.left(p5),
+            options.grob.top(p5),
+            width,
+            height)
+        p5.fill(255)
+    }
 }
 
 export const drawNameText = (p5, nameBox, name) => {

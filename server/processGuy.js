@@ -2,7 +2,7 @@ const pickUp = require('./pickup')
 const constants = require('./constants')
 const getState = require('./globalState').getState
 const setState = require('./globalState').setState
-const { BS } = constants
+const { UNIT_SIZE } = constants
 
 // Determine what type of blocks the player will be on after moving
 module.exports = (row, col, p, io) => {
@@ -14,20 +14,20 @@ module.exports = (row, col, p, io) => {
 
     const defaultPosition = [
         [
-            { row: Math.floor(ypos / BS), col: Math.floor(xpos / BS) },
+            { row: Math.floor(ypos / UNIT_SIZE), col: Math.floor(xpos / UNIT_SIZE) },
             {
-                row: Math.floor(ypos / BS),
-                col: Math.floor((xpos + BS - 1) / BS),
+                row: Math.floor(ypos / UNIT_SIZE),
+                col: Math.floor((xpos + UNIT_SIZE - 1) / UNIT_SIZE),
             },
         ],
         [
             {
-                row: Math.floor((ypos + BS - 1) / BS),
-                col: Math.floor((xpos + BS - 1) / BS),
+                row: Math.floor((ypos + UNIT_SIZE - 1) / UNIT_SIZE),
+                col: Math.floor((xpos + UNIT_SIZE - 1) / UNIT_SIZE),
             },
             {
-                row: Math.floor((ypos + BS - 1) / BS),
-                col: Math.floor(xpos / BS),
+                row: Math.floor((ypos + UNIT_SIZE - 1) / UNIT_SIZE),
+                col: Math.floor(xpos / UNIT_SIZE),
             },
         ],
     ]

@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, '../dist')))
 
 const map = mapUtils.getTheMap()
 const { enemies } = getState()
-const { BS } = constants
+const { UNIT_SIZE } = constants
 
 for (let row = 0; row < map.length; ++row) {
     for (let col = 0; col < map[0].length; ++col) {
@@ -26,10 +26,10 @@ for (let row = 0; row < map.length; ++row) {
         if (map[row][col] === 'm') {
             enemies.push({
                 inventory: [],
-                xpos: col * BS,
-                ypos: row * BS,
-                width: BS,
-                height: BS,
+                xpos: col * UNIT_SIZE,
+                ypos: row * UNIT_SIZE,
+                width: UNIT_SIZE,
+                height: UNIT_SIZE,
                 maxHealth: 25,
                 health: 25,
                 color: 'purple',

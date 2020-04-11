@@ -3,7 +3,7 @@ const getState = require('./globalState').getState
 const setState = require('./globalState').setState
 const constants = require('./constants')
 
-const { BS } = constants
+const { UNIT_SIZE } = constants
 
 module.exports = io => {
     const { enemies, map } = getState()
@@ -26,7 +26,7 @@ module.exports = io => {
 const goUp = (enemy, map, io) => {
     if (
         processGuy(
-            Math.floor((enemy.ypos - enemy.speed) / BS),
+            Math.floor((enemy.ypos - enemy.speed) / UNIT_SIZE),
             undefined,
             enemy,
             io
@@ -41,7 +41,7 @@ const goUp = (enemy, map, io) => {
 const goDown = (enemy, map, io) => {
     if (
         processGuy(
-            Math.floor((enemy.ypos + enemy.speed + BS - 1) / BS),
+            Math.floor((enemy.ypos + enemy.speed + UNIT_SIZE - 1) / UNIT_SIZE),
             undefined,
             enemy,
             io
@@ -57,7 +57,7 @@ const goLeft = (enemy, map, io) => {
     if (
         processGuy(
             undefined,
-            Math.floor((enemy.xpos - enemy.speed) / BS),
+            Math.floor((enemy.xpos - enemy.speed) / UNIT_SIZE),
             enemy,
             io
         )
@@ -72,7 +72,7 @@ const goRight = (enemy, map, io) => {
     if (
         processGuy(
             undefined,
-            Math.floor((enemy.xpos + enemy.speed + BS - 1) / BS),
+            Math.floor((enemy.xpos + enemy.speed + UNIT_SIZE - 1) / UNIT_SIZE),
             enemy,
             io
         )
@@ -85,23 +85,23 @@ const goRight = (enemy, map, io) => {
 
 const goPrevDirection = (enemy, map, io) => {
     switch (enemy.direction) {
-    case 'stay':
-        break
-    case 'up':
-        goUp(enemy, map, io)
-        break
-    case 'down':
-        goDown(enemy, map, io)
-        break
-    case 'left':
-        goLeft(enemy, map, io)
-        break
-    case 'right':
-        goRight(enemy, map, io)
-        break
-    default:
-        goRight(enemy, map, io)
-        break
+        case 'stay':
+            break
+        case 'up':
+            goUp(enemy, map, io)
+            break
+        case 'down':
+            goDown(enemy, map, io)
+            break
+        case 'left':
+            goLeft(enemy, map, io)
+            break
+        case 'right':
+            goRight(enemy, map, io)
+            break
+        default:
+            goRight(enemy, map, io)
+            break
     }
 }
 

@@ -1,6 +1,6 @@
 const getState = require('./globalState').getState
 const setState = require('./globalState').setState
-const { BS } = require('./constants')
+const { UNIT_SIZE } = require('./constants')
 const dropItem = require('./dropItem')
 
 module.exports = io => {

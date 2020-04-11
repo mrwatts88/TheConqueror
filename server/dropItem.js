@@ -1,9 +1,16 @@
-const { BS } = require('./constants')
+const { UNIT_SIZE } = require('./constants')
 
 module.exports = (io, map, entity, item) => {
-    const row = Math.floor((entity.ypos + 0.5 * BS) / BS)
-    const col = Math.floor((entity.xpos + 0.5 * BS) / BS)
+    // Calculate the row and column in the game grid that
+    // the entity (e.g. player) is on
+    const row = Math.floor((entity.ypos + 0.5 * UNIT_SIZE) / UNIT_SIZE)
+    const col = Math.floor((entity.xpos + 0.5 * UNIT_SIZE) / UNIT_SIZE)
 
+    // Try to drop the item in the squares around the entity
+    // If they are all filled already, move outwards until
+    // there is an open square to drop something in.
+    // TODO: Technically this could be an infinite loop
+    // if all the squares were filled, but unlikely
     let canDrop = false
     let distance = 0
     while (!canDrop) {

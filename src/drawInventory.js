@@ -1,5 +1,5 @@
 import { getState } from './globalState'
-import { BS, itemMap, ENV } from './constants'
+import { UNIT_SIZE, itemMap, ENV } from './constants'
 
 export const drawInventory = (p5, itemImage) => {
     const { players, id, env } = getState()
@@ -12,8 +12,8 @@ export const drawInventory = (p5, itemImage) => {
         const obj = inventory[i]
         const row = Math.floor(i / 4)
         const col = i % 4
-        const xPosition = baseX + col * (BS + 5)
-        const yPosition = baseY + row * (BS + 5)
+        const xPosition = baseX + col * (UNIT_SIZE + 5)
+        const yPosition = baseY + row * (UNIT_SIZE + 5)
 
         if (env === ENV.DEBUG) {
             p5.fill(obj.color)
@@ -28,12 +28,12 @@ export const drawInventory = (p5, itemImage) => {
                 itemImage,
                 xPosition,
                 yPosition,
-                BS,
-                BS,
-                x * BS,
-                y * BS,
-                BS,
-                BS
+                UNIT_SIZE,
+                UNIT_SIZE,
+                x * UNIT_SIZE,
+                y * UNIT_SIZE,
+                UNIT_SIZE,
+                UNIT_SIZE
             )
         }
     }

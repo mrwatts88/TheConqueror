@@ -1,5 +1,5 @@
 module.exports = {
-    BS: 32, // unit size in pixels
-    WIDTH_UNITS: 30, // width of canvas in units
-    HEIGHT_UNITS: 18, // height of canvas in units
+    UNIT_SIZE: 32, // pixels
+    CANVAS_WIDTH_IN_UNITS: 30,
+    CANVAS_HEIGHT_IN_UNITS: 18,
 }

@@ -1,4 +1,4 @@
-export const BS = 32 // unit size in pixels
+export const UNIT_SIZE = 32 // unit size in pixels
 export const origWidth = 900
 export const origHeight = 575
 

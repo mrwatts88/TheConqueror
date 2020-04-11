@@ -1,5 +1,5 @@
 import { getState } from './globalState'
-import { BS, itemMap, ENV } from './constants'
+import { UNIT_SIZE, itemMap, ENV } from './constants'
 
 // Draw the items that are in the field of view,
 // and add andy monsters that show up in the view
@@ -10,19 +10,19 @@ export const drawVisibleItems = (p5, image) => {
     // Resolving floating-point rounding issues
     const scr = Math.floor(Math.abs(startCorner.row))
     const scc = Math.floor(Math.abs(startCorner.col))
-    for (let row = scr; row < scr + p5.height / BS; ++row) {
+    for (let row = scr; row < scr + p5.height / UNIT_SIZE; ++row) {
         if (row > map.length - 1) continue
-        for (let col = scc; col < scc - 1 + p5.width / BS - 160 / BS; ++col) {
+        for (let col = scc; col < scc - 1 + p5.width / UNIT_SIZE - 160 / UNIT_SIZE; ++col) {
             if (col > map[0].length - 1) continue
             if (env === ENV.DEBUG) {
                 // Draw walls
                 if (map[row][col] === 'w') {
                     p5.fill('green')
                     p5.rect(
-                        (col - startCorner.col) * BS,
-                        (row - startCorner.row) * BS,
-                        BS,
-                        BS
+                        (col - startCorner.col) * UNIT_SIZE,
+                        (row - startCorner.row) * UNIT_SIZE,
+                        UNIT_SIZE,
+                        UNIT_SIZE
                     )
                     p5.fill('white')
                 }
@@ -31,10 +31,10 @@ export const drawVisibleItems = (p5, image) => {
             if (map[row][col] === 's') {
                 p5.fill('green')
                 p5.rect(
-                    (col - startCorner.col) * BS,
-                    (row - startCorner.row) * BS,
-                    BS,
-                    BS
+                    (col - startCorner.col) * UNIT_SIZE,
+                    (row - startCorner.row) * UNIT_SIZE,
+                    UNIT_SIZE,
+                    UNIT_SIZE
                 )
                 p5.fill('white')
             }
@@ -51,10 +51,10 @@ export const drawVisibleItems = (p5, image) => {
                 if (env === ENV.DEBUG) {
                     p5.fill('yellow')
                     p5.rect(
-                        (col - startCorner.col) * BS,
-                        (row - startCorner.row) * BS,
-                        BS,
-                        BS
+                        (col - startCorner.col) * UNIT_SIZE,
+                        (row - startCorner.row) * UNIT_SIZE,
+                        UNIT_SIZE,
+                        UNIT_SIZE
                     )
                     p5.fill('white')
                 } else if (env === ENV.PRODUCTION) {
@@ -64,14 +64,14 @@ export const drawVisibleItems = (p5, image) => {
 
                     p5.image(
                         image,
-                        (col - startCorner.col) * BS,
-                        (row - startCorner.row) * BS,
-                        BS,
-                        BS,
-                        x * BS,
-                        y * BS,
-                        BS,
-                        BS
+                        (col - startCorner.col) * UNIT_SIZE,
+                        (row - startCorner.row) * UNIT_SIZE,
+                        UNIT_SIZE,
+                        UNIT_SIZE,
+                        x * UNIT_SIZE,
+                        y * UNIT_SIZE,
+                        UNIT_SIZE,
+                        UNIT_SIZE
                     )
                 }
             }

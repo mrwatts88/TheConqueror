@@ -1,5 +1,5 @@
 import { getState, setState } from './globalState'
-import { BS, GAMESTATE } from './constants'
+import { UNIT_SIZE, GAMESTATE } from './constants'
 
 // Perform the correct action based on what was clicked
 export const performClickAction = p5 => {
@@ -16,8 +16,8 @@ export const performClickAction = p5 => {
         if (
             xpos >= baseX &&
             ypos >= baseY &&
-            xpos <= baseX + 4 * (BS + 5) &&
-            ypos <= baseY + 4 * (BS + 5)
+            xpos <= baseX + 4 * (UNIT_SIZE + 5) &&
+            ypos <= baseY + 4 * (UNIT_SIZE + 5)
         ) {
             const index = getClickedInventoryIndex(xpos, ypos, baseX, baseY)
             if (p.inventory[index] !== undefined)
@@ -39,8 +39,8 @@ const superAction = grob => {
 }
 
 const getClickedInventoryIndex = (xpos, ypos, baseX, baseY) => {
-    const xIndex = Math.floor((xpos - baseX) / (BS + 5))
-    const yIndex = Math.floor((ypos - baseY) / (BS + 5))
+    const xIndex = Math.floor((xpos - baseX) / (UNIT_SIZE + 5))
+    const yIndex = Math.floor((ypos - baseY) / (UNIT_SIZE + 5))
     return yIndex * 4 + xIndex
 }
 

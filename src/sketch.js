@@ -1,4 +1,4 @@
-import { origWidth, origHeight, GAMESTATE, itemMap, BS } from './constants'
+import { origWidth, origHeight, GAMESTATE, itemMap, UNIT_SIZE } from './constants'
 import { drawEnemies } from './drawEnemies'
 import { drawPlayers } from './drawPlayers'
 import { drawHealth } from './drawHealth'
@@ -32,6 +32,7 @@ const images = {
 }
 
 export const initSketch = socket => p5 => {
+    window.p5 = p5;
     p5.preload = () => {
         images.startMenuImage = p5.loadImage('startMenu.png')
         images.mapImage = p5.loadImage('map.png')
@@ -168,12 +169,12 @@ export const initSketch = socket => p5 => {
             images.itemImage,
             xScale(p5) * 300,
             yScale(p5) * 200,
-            2 * BS,
-            2 * BS,
-            x * BS,
-            y * BS,
-            BS,
-            BS
+            2 * UNIT_SIZE,
+            2 * UNIT_SIZE,
+            x * UNIT_SIZE,
+            y * UNIT_SIZE,
+            UNIT_SIZE,
+            UNIT_SIZE
         )
 
         //Draw Item Description

@@ -1,6 +1,6 @@
 import * as p5 from './p5'
-import { BS } from './constants'
-const bs = BS
+import { UNIT_SIZE } from './constants'
+const bs = UNIT_SIZE
 const beginBtn = document.querySelector('#begin-btn')
 const mapHeight = document.querySelector('#map-height')
 const mapWidth = document.querySelector('#map-width')
