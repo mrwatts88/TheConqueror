@@ -7,12 +7,14 @@ module.exports = io => {
     const { players, enemies } = getState()
     for (const id in players) {
         const p = players[id]
+        if (p.health === undefined) continue // First instance of the player
         for (let j = enemies.length - 1; j >= 0; --j) {
             const e = enemies[j]
             const fxn = a => b => 2 * Math.abs(p[a] - e[a]) < p[b] + e[b]
             const overlaps = fxn('ypos')('height') && fxn('xpos')('width')
-            if (p.health === undefined) continue // First instance of the player
-            if (p.health > 0 && overlaps) {
+            const areInSameMap = p => e => p.mapChoice === e.mapChoice
+            const inSameMap = areInSameMap(p)(e)
+            if (p.health > 0 && overlaps && inSameMap) {
                 if (--e.health <= 0) {
                     enemies.splice(j, 1)[0]
                     const { maps } = getState()
