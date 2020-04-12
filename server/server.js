@@ -16,37 +16,42 @@ const dropItem = require('./dropItem')
 
 app.use(express.static(path.join(__dirname, '../dist')))
 
-const map = mapUtils.getTheMap()
-const { enemies } = getState()
-const { UNIT_SIZE } = constants
+for (let i = 0; i < 2; i++) {
+    const map = mapUtils.getTheMap(i)
+    const { enemies } = getState()
+    const { UNIT_SIZE } = constants
 
-for (let row = 0; row < map.length; ++row) {
-    for (let col = 0; col < map[0].length; ++col) {
-        // Draw initial monsters and add them to the enemies array
-        if (map[row][col] === 'm') {
-            enemies.push({
-                inventory: [],
-                xpos: col * UNIT_SIZE,
-                ypos: row * UNIT_SIZE,
-                width: UNIT_SIZE,
-                height: UNIT_SIZE,
-                maxHealth: 25,
-                health: 25,
-                color: 'purple',
-                type: 'enemy',
-                speed: 1,
-                attack: 1,
-                direction: 'left',
-                step: 0,
-                spriteChoice: Math.floor(Math.random() * 7),
-            })
+    for (let row = 0; row < map.length; ++row) {
+        for (let col = 0; col < map[0].length; ++col) {
+            // Draw initial monsters and add them to the enemies array
+            if (map[row][col] === 'm') {
+                enemies.push({
+                    inventory: [],
+                    xpos: col * UNIT_SIZE,
+                    ypos: row * UNIT_SIZE,
+                    width: UNIT_SIZE,
+                    height: UNIT_SIZE,
+                    maxHealth: 25,
+                    health: 25,
+                    color: 'purple',
+                    type: 'enemy',
+                    speed: 1,
+                    attack: 1,
+                    direction: 'left',
+                    step: 0,
+                    spriteChoice: Math.floor(Math.random() * 7),
+                    mapChoice: i
+                })
 
-            map[row][col] = '0'
+                map[row][col] = '0'
+            }
         }
     }
+
+    const { maps } = getState()
+    maps[i] = map
 }
 
-setState({ map })
 
 // Send updates to all connected clients
 setInterval(() => {
@@ -63,12 +68,11 @@ io.on('connection', socket => {
     })
 
     socket.on('startgame', data => {
-        const { map, enemies, players } = getState()
-        const { name, spriteChoice, mapChoice } = data
-        players[socket.id].name = name
-        players[socket.id].spriteChoice = spriteChoice
-        players[socket.id].mapChoice = mapChoice
-        socket.emit('initialdata', { map, enemies, players })
+        // data = { name, spriteChoice, mapChoice }
+
+        initNewPlayer(socket.id, data)
+        const { maps, enemies, players } = getState()
+        socket.emit('initialdata', { maps, enemies, players })
     })
 
     socket.on('disconnect', reason => {
@@ -91,11 +95,12 @@ io.on('connection', socket => {
         const { players } = getState()
         const p = players[id]
         const item = p.inventory[index]
-        const { map } = getState()
+        const { maps } = getState()
+        const map = maps[p.mapChoice]
 
         dropItem(io, map, p, item)
         p.inventory.splice(index, 1)
-        io.emit('mapupdate', { map })
+        io.emit('mapupdate', { maps })
     })
 
     socket.on('chatmsg', idNameAndText => {

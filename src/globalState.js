@@ -2,6 +2,7 @@ import { xScale, yScale } from './utils'
 import { GAMESTATE, ENV, itemMap } from './constants'
 
 let state = {}
+window.state = state
 
 export const initState = socket => {
     state = {
@@ -14,7 +15,6 @@ export const initState = socket => {
         players: {},
         enemies: [],
         map: [],
-        mapChoice: 0,
         startCorner: undefined,
         next: undefined,
         superMoveY: undefined,
@@ -90,7 +90,9 @@ export const initState = socket => {
                 bottom: p5 => yScale(p5) * 512,
                 action: () => {
                     const { name, spriteChoice, mapChoice } = getState()
-                    if (name !== '')
+                    if (!!name.trim() &&
+                        mapChoice !== undefined &&
+                        !spriteChoice !== undefined)
                         socket.emit('startgame', {
                             name,
                             spriteChoice,

@@ -8,7 +8,8 @@ const { UNIT_SIZE } = constants
 module.exports = (row, col, p, io) => {
     const { xpos, ypos } = p
     if (xpos == undefined) return
-    const { map } = getState()
+    const { maps } = getState()
+    const map = maps[p.mapChoice]
     const cornerBlocks = {}
     let r, c
 
@@ -51,7 +52,7 @@ module.exports = (row, col, p, io) => {
                     if (map[r + x][c + y] !== '0') return false
                     map[r + x][c + y] = 's'
                     map[r][c] = '0'
-                    io.emit('mapupdate', { map })
+                    io.emit('mapupdate', { maps })
                     return true
                 }
 

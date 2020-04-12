@@ -15,10 +15,11 @@ module.exports = io => {
             if (p.health > 0 && overlaps) {
                 if (--e.health <= 0) {
                     enemies.splice(j, 1)[0]
-                    const { map } = getState()
+                    const { maps } = getState()
+                    const map = maps[p.mapChoice]
                     const i = e.inventory
                     while (i.length > 0) dropItem(io, map, e, i.pop())
-                    io.emit('mapupdate', { map })
+                    io.emit('mapupdate', { maps })
                 } else if (--p.health <= 0) console.log('game over.')
             }
         }

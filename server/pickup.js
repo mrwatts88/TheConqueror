@@ -3,13 +3,13 @@ const { UNIT_SIZE } = require('./constants')
 
 module.exports = (row, col, player, io) => {
     if (player.inventory.length >= 16) return
-    const { map } = getState()
-    const type = map[row][col]
+    const { maps } = getState()
+    const type = maps[player.mapChoice][row][col]
 
-    map[row][col] = '0'
+    maps[player.mapChoice][row][col] = '0'
 
     // Send updated map to all clients because it has changed
-    io.emit('mapupdate', { map })
+    io.emit('mapupdate', { maps })
 
     player.inventory.push({
         width: UNIT_SIZE,

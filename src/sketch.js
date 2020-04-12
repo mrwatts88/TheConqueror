@@ -96,6 +96,9 @@ export const initSketch = socket => p5 => {
             drawGrobs(startMenuGrobs)
 
         } else if (gameState === PLAY || gameState === GLIDE) {
+            const { players, id } = getState()
+
+            if (!players[id].xpos) return // We haven't gotten position data from the server yet
             if (gameState === PLAY) shiftView(p5)
             const { startCorner, next, mapChoice } = getState()
             if (
