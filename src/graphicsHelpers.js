@@ -7,11 +7,23 @@ const canvasDiv = document.querySelector('#grid')
 export const createCharacterGrobs = startMenuGrobs => {
     for (let i = 0; i < 7; ++i) {
         startMenuGrobs['char' + i] = {
-            left: p5 => xScale(p5) * (2 + i) * UNIT_SIZE,
-            right: p5 => xScale(p5) * (3 + i) * UNIT_SIZE,
+            left: p5 => xScale(p5) * i * (UNIT_SIZE + 10) + UNIT_SIZE * 2,
+            right: p5 => xScale(p5) * i * (UNIT_SIZE + 10) + UNIT_SIZE * 3,
             top: p5 => yScale(p5) * 5 * UNIT_SIZE,
             bottom: p5 => yScale(p5) * 6 * UNIT_SIZE,
             action: () => { setState({ spriteChoice: i }) }
+        }
+    }
+}
+
+export const createMapGrobs = startMenuGrobs => {
+    for (let i = 0; i < 1; ++i) {
+        startMenuGrobs['map' + i] = {
+            left: p5 => xScale(p5) * 450,
+            right: p5 => xScale(p5) * 850,
+            top: p5 => yScale(p5) * i * (160 + 10) + 125,
+            bottom: p5 => yScale(p5) * i * (160 + 10) + 125 + 160,
+            action: () => setState({ mapChoice: i }),
         }
     }
 }
@@ -27,13 +39,32 @@ export const drawCharacterGrobs = (p5, images) => {
         const opts = {
             image: images,
             grob: char,
-            width: undefined,
-            height: undefined,
             spriteX: x,
             spriteY: y,
             spriteWidth: 32,
             spritHeight: 32,
             selected: spriteChoice === i
+        }
+
+        drawGrob(p5, opts)
+        ++i
+    }
+}
+
+export const drawMaps = mapImages => {
+    let { startMenuGrobs, mapChoice } = getState()
+
+    let i = 0
+    for (const key in startMenuGrobs) {
+        if (key.substring(0, 3) != 'map') continue
+        const opts = {
+            image: mapImages[i],
+            grob: startMenuGrobs[key],
+            spriteX: 200,
+            spriteY: 465,
+            spriteWidth: 400,
+            spritHeight: 160,
+            selected: mapChoice === i
         }
 
         drawGrob(p5, opts)
@@ -83,6 +114,14 @@ export const lazyLoad = (p5, images) =>
         })
     })
 
+export const drawGrob_v2 = grob => {
+    // todo: store options info on grob object
+    const p5 = window.p5
+
+    const options = {}
+    drawGrob(p5, options)
+}
+
 export const drawGrob = (p5, options) => {
     const width =
         options.width !== undefined
@@ -107,10 +146,10 @@ export const drawGrob = (p5, options) => {
 
     if (options.selected) {
         p5.noFill()
-        p5.rect(options.grob.left(p5),
-            options.grob.top(p5),
-            width,
-            height)
+        p5.rect(options.grob.left(p5) - 5,
+            options.grob.top(p5) - 5,
+            width + 10,
+            height + 10)
         p5.fill(255)
     }
 }

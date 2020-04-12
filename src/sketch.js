@@ -15,6 +15,8 @@ import { xScale, yScale } from './utils'
 import {
     createCharacterGrobs,
     drawCharacterGrobs,
+    createMapGrobs,
+    drawMaps,
     drawBackground,
     lazyLoad,
     drawGrob,
@@ -24,7 +26,7 @@ import {
 const { GLIDE, STARTMENU, PLAY, LOADING } = GAMESTATE
 const images = {
     startMenuImage: null,
-    mapImage: null,
+    mapImages: [],
     playerImage: null,
     itemImage: null,
     enemyImage: null,
@@ -35,8 +37,8 @@ export const initSketch = socket => p5 => {
     window.p5 = p5;
     p5.preload = () => {
         images.startMenuImage = p5.loadImage('startMenu.png')
-        images.mapImage = p5.loadImage('map.png')
-        images.playerImage = p5.loadImage('sprites1.png')
+        images.mapImages = [p5.loadImage('map.png'), p5.loadImage('map.png')]
+        images.playerImage = p5.loadImage('sprites3.png')
     }
 
     p5.setup = () => {
@@ -47,6 +49,7 @@ export const initSketch = socket => p5 => {
         p5.fill('white')
         const { startMenuGrobs } = getState()
         createCharacterGrobs(startMenuGrobs, p5)
+        createMapGrobs(startMenuGrobs)
     }
 
     p5.keyPressed = () => {
@@ -93,20 +96,12 @@ export const initSketch = socket => p5 => {
             p5.image(images.startMenuImage, 0, 0, p5.width, p5.height)
             drawCharacterGrobs(p5, images.playerImage)
             drawNameText(p5, startMenuGrobs.nameBox, name)
+            drawMaps(images.mapImages)
 
-            const opts = {
-                image: images.mapImage,
-                grob: getState().startMenuGrobs.map1,
-                spriteX: 200,
-                spriteY: 465,
-                spriteWidth: 400,
-                spritHeight: 160,
-            }
 
-            drawGrob(p5, opts)
         } else if (gameState === PLAY || gameState === GLIDE) {
             if (gameState === PLAY) shiftView(p5)
-            const { startCorner, next } = getState()
+            const { startCorner, next, mapChoice } = getState()
             if (
                 gameState === PLAY &&
                 (startCorner.col !== next.col || startCorner.row !== next.row)
@@ -118,7 +113,7 @@ export const initSketch = socket => p5 => {
                 })
             }
             if (gameState === GLIDE) glide()
-            drawBackground(p5, images.mapImage)
+            drawBackground(p5, images.mapImages[mapChoice])
             drawVisibleItems(p5, images.itemImage)
             drawPlayers(p5, images.playerImage)
             drawEnemies(p5, images.enemyImage)

@@ -105,14 +105,7 @@ export const initState = socket => {
                 top: p5 => yScale(p5) * 98,
                 bottom: p5 => yScale(p5) * 111,
                 action: () => setState({ name: '' }),
-            },
-            map1: {
-                left: p5 => xScale(p5) * 450,
-                right: p5 => xScale(p5) * 850,
-                top: p5 => yScale(p5) * 125,
-                bottom: p5 => yScale(p5) * 285,
-                action: () => setState({ mapChoice: 1 }),
-            },
+            }
         },
 
         itemInfoGrobs: {
@@ -122,7 +115,7 @@ export const initState = socket => {
                 right: p5 => xScale(p5) * 355,
                 top: p5 => yScale(p5) * 204,
                 bottom: p5 => yScale(p5) * 150,
-                action: () => {},
+                action: () => { },
             },
         },
     }
