@@ -28,7 +28,7 @@ export const drawLayout = (p5, buttonsImage) => {
         spriteX: 255,
         spriteY: 70,
         spriteWidth: 175,
-        spritHeight: 75
+        spriteHeight: 75
     }
 
     drawGrob(p5, opts)

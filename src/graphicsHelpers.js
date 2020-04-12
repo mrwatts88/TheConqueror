@@ -4,71 +4,50 @@ import { xScale, yScale } from './utils'
 
 const canvasDiv = document.querySelector('#grid')
 
-export const createCharacterGrobs = startMenuGrobs => {
+export const createCharacterGrobs = characterImage => {
+    let { startMenuGrobs } = getState()
     for (let i = 0; i < 7; ++i) {
+        const x = (i % 4) * 32 * 3
+        const y = Math.floor(i / 4) * 32 * 4
+
         startMenuGrobs['char' + i] = {
             left: p5 => xScale(p5) * i * (UNIT_SIZE + 10) + UNIT_SIZE * 2,
             right: p5 => xScale(p5) * i * (UNIT_SIZE + 10) + UNIT_SIZE * 3,
             top: p5 => yScale(p5) * 5 * UNIT_SIZE,
             bottom: p5 => yScale(p5) * 6 * UNIT_SIZE,
-            action: () => { setState({ spriteChoice: i }) }
+            action: () => setState({ spriteChoice: i }),
+            image: characterImage,
+            spriteX: x,
+            spriteY: y,
+            spriteWidth: 32,
+            spriteHeight: 32,
+            selected: () => getState().spriteChoice === i
         }
     }
 }
 
-export const createMapGrobs = startMenuGrobs => {
-    for (let i = 0; i < 1; ++i) {
+export const createMapGrobs = mapImages => {
+    let { startMenuGrobs } = getState()
+    for (let i = 0; i < mapImages.length; ++i) {
         startMenuGrobs['map' + i] = {
             left: p5 => xScale(p5) * 450,
             right: p5 => xScale(p5) * 850,
             top: p5 => yScale(p5) * i * (160 + 10) + 125,
             bottom: p5 => yScale(p5) * i * (160 + 10) + 125 + 160,
             action: () => setState({ mapChoice: i }),
-        }
-    }
-}
-
-export const drawCharacterGrobs = (p5, images) => {
-    let { startMenuGrobs, spriteChoice } = getState()
-    let i = 0
-    for (let key in startMenuGrobs) {
-        if (key.substring(0, 4) != 'char') continue
-        const x = (i % 4) * 32 * 3
-        const y = Math.floor(i / 4) * 32 * 4
-        const char = startMenuGrobs[key]
-        const opts = {
-            image: images,
-            grob: char,
-            spriteX: x,
-            spriteY: y,
-            spriteWidth: 32,
-            spritHeight: 32,
-            selected: spriteChoice === i
-        }
-
-        drawGrob(p5, opts)
-        ++i
-    }
-}
-
-export const drawMaps = mapImages => {
-    let { startMenuGrobs, mapChoice } = getState()
-
-    let i = 0
-    for (const key in startMenuGrobs) {
-        if (key.substring(0, 3) != 'map') continue
-        const opts = {
             image: mapImages[i],
-            grob: startMenuGrobs[key],
             spriteX: 200,
             spriteY: 465,
             spriteWidth: 400,
-            spritHeight: 160,
-            selected: mapChoice === i
+            spriteHeight: 160,
+            selected: () => getState().mapChoice === i
         }
+    }
+}
 
-        drawGrob(p5, opts)
-        ++i
+export const drawGrobs = grobs => {
+    for (const grob of Object.values(grobs)) {
+        drawGrob_v2(grob)
     }
 }
 
@@ -115,10 +94,20 @@ export const lazyLoad = (p5, images) =>
     })
 
 export const drawGrob_v2 = grob => {
-    // todo: store options info on grob object
     const p5 = window.p5
 
-    const options = {}
+    const options = {
+        grob,
+        image: grob.image,
+        width: grob.width,
+        height: grob.height,
+        spriteX: grob.spriteX,
+        spriteY: grob.spriteY,
+        spriteWidth: grob.spriteWidth,
+        spriteHeight: grob.spriteHeight,
+        selected: grob.selected
+    }
+
     drawGrob(p5, options)
 }
 
@@ -132,19 +121,21 @@ export const drawGrob = (p5, options) => {
             ? options.height
             : options.grob.bottom(p5) - options.grob.top(p5)
 
-    p5.image(
-        options.image,
-        options.grob.left(p5),
-        options.grob.top(p5),
-        width,
-        height,
-        options.spriteX,
-        options.spriteY,
-        options.spriteWidth,
-        options.spritHeight
-    )
+    if (options.image) {
+        p5.image(
+            options.image,
+            options.grob.left(p5),
+            options.grob.top(p5),
+            width,
+            height,
+            options.spriteX,
+            options.spriteY,
+            options.spriteWidth,
+            options.spriteHeight
+        )
+    }
 
-    if (options.selected) {
+    if (options.selected && options.selected()) {
         p5.noFill()
         p5.rect(options.grob.left(p5) - 5,
             options.grob.top(p5) - 5,
@@ -155,8 +146,11 @@ export const drawGrob = (p5, options) => {
 }
 
 export const drawNameText = (p5, nameBox, name) => {
+    p5.push()
+    p5.fill(0)
     const { left, top } = nameBox
     p5.text(name, left(p5), top(p5))
     if (p5.frameCount % 60 < 30)
         p5.text('|', left(p5) + p5.textWidth(name), top(p5) - 2)
+    p5.pop()
 }

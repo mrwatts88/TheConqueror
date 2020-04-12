@@ -15,16 +15,15 @@ export const initChat = socket => {
         else chatBox.style.right = '0px'
     })
 
+    chatTextArea.addEventListener('keypress', event => {
+        if (event.which === 13 && !event.shiftKey) {
+            sendMessageToServer()
+        }
+    })
+
     // Handle chat box messages (Send to server)
     chatSendBtn.addEventListener('click', () => {
-        const { id, players } = getState()
-        const text = chatTextArea.value
-        chatTextArea.value = ''
-        socket.emit('chatmsg', {
-            id,
-            name: players[id].name,
-            text,
-        })
+        sendMessageToServer()
     })
 
     // Chat box will always scroll to the bottom when new content is added
@@ -52,6 +51,19 @@ export const initChat = socket => {
         nameNode.appendChild(nameTextNode)
         msgNode.appendChild(nameNode)
         msgNode.appendChild(msgTextNode)
+        msgNode.style.whiteSpace = 'pre-line'
         chatUl.appendChild(msgNode)
     })
+
+    const sendMessageToServer = () => {
+        const { id, players } = getState()
+        const text = chatTextArea.value.trim()
+        socket.emit('chatmsg', {
+            id,
+            name: players[id].name,
+            text,
+        })
+
+        chatTextArea.value = ''
+    }
 }

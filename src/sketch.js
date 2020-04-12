@@ -14,13 +14,12 @@ import { glide } from './glide'
 import { xScale, yScale } from './utils'
 import {
     createCharacterGrobs,
-    drawCharacterGrobs,
     createMapGrobs,
-    drawMaps,
     drawBackground,
     lazyLoad,
     drawGrob,
-    drawNameText,
+    drawGrobs,
+    drawNameText
 } from './graphicsHelpers'
 
 const { GLIDE, STARTMENU, PLAY, LOADING } = GAMESTATE
@@ -34,11 +33,11 @@ const images = {
 }
 
 export const initSketch = socket => p5 => {
-    window.p5 = p5;
+    window.p5 = p5
     p5.preload = () => {
         images.startMenuImage = p5.loadImage('startMenu.png')
         images.mapImages = [p5.loadImage('map.png'), p5.loadImage('map.png')]
-        images.playerImage = p5.loadImage('sprites3.png')
+        images.playerImage = p5.loadImage('sprites1.png')
     }
 
     p5.setup = () => {
@@ -47,9 +46,8 @@ export const initSketch = socket => p5 => {
         p5.textAlign(p5.LEFT, p5.TOP)
         p5.textSize(16)
         p5.fill('white')
-        const { startMenuGrobs } = getState()
-        createCharacterGrobs(startMenuGrobs, p5)
-        createMapGrobs(startMenuGrobs)
+        createCharacterGrobs(images.playerImage)
+        createMapGrobs(images.mapImages)
     }
 
     p5.keyPressed = () => {
@@ -92,12 +90,10 @@ export const initSketch = socket => p5 => {
             )
                 setState({ activeGrob: {} })
 
-            p5.background('#009955')
+            p5.background('#f7da00')
             p5.image(images.startMenuImage, 0, 0, p5.width, p5.height)
-            drawCharacterGrobs(p5, images.playerImage)
             drawNameText(p5, startMenuGrobs.nameBox, name)
-            drawMaps(images.mapImages)
-
+            drawGrobs(startMenuGrobs)
 
         } else if (gameState === PLAY || gameState === GLIDE) {
             if (gameState === PLAY) shiftView(p5)
@@ -146,7 +142,7 @@ export const initSketch = socket => p5 => {
             spriteX: 445,
             spriteY: 40,
             spriteWidth: 110,
-            spritHeight: 110,
+            spriteHeight: 110,
         }
 
         drawGrob(p5, closeOpts)
@@ -193,7 +189,7 @@ export const initSketch = socket => p5 => {
             spriteX: 12,
             spriteY: 280,
             spriteWidth: 205,
-            spritHeight: 75,
+            spriteHeight: 75,
         }
 
         drawGrob(p5, useOpts)
