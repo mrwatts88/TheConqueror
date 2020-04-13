@@ -36,11 +36,12 @@ export const initSketch = socket => p5 => {
     window.p5 = p5
     p5.preload = () => {
         images.startMenuImage = p5.loadImage('startMenu.png')
-        images.mapImages = [p5.loadImage('map.png'), p5.loadImage('map.png')]
+        images.mapImages = [p5.loadImage('map0.png'), p5.loadImage('map1.jpg')]
         images.playerImage = p5.loadImage('sprites1.png')
     }
 
     p5.setup = () => {
+        images.mapImages[1].resize(2500, 0)
         const can = p5.createCanvas(origWidth, origHeight)
         can.mousePressed(() => performClickAction(p5, socket))
         p5.textAlign(p5.LEFT, p5.TOP)

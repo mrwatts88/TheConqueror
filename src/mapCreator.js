@@ -75,11 +75,16 @@ const playGame = () => {
 
 const sketch = p5 => {
     p5.preload = () => {
-        image = p5.loadImage('map.png')
+        image = p5.loadImage('map1.jpg')
     }
 
     p5.setup = () => {
-        const can = p5.createCanvas(bs * width + 1, bs * height + 1)
+        image.resize(2500, 0)
+        height = Math.floor(image.height / bs)
+        width = Math.floor(image.width / bs)
+
+        // const can = p5.createCanvas(bs * width + 1, bs * height + 1)
+        const can = p5.createCanvas(image.width, image.height)
 
         can.mousePressed(() => {
             startRow = Math.floor(p5.mouseY / bs)
@@ -144,7 +149,8 @@ const sketch = p5 => {
         }
 
         p5.tint(255, 100)
-        p5.image(image, 0, 0, p5.width, p5.height, 32, 32, p5.width, p5.height)
+        // p5.image(image, 0, 0, p5.width, p5.height, 32, 32, p5.width, p5.height)
+        p5.image(image, 0, 0)
         p5.noTint()
     }
 }

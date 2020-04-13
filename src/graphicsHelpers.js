@@ -52,15 +52,16 @@ export const drawGrobs = grobs => {
 }
 
 export const drawBackground = (p5, mapImage) => {
-    const { startCorner } = getState()
+    const { startCorner, mapChoice } = getState()
+    const offset = mapChoice === 0 ? 1 : 0 // todo: fix this
     p5.image(
         mapImage,
         0,
         0,
         p5.width,
         p5.height,
-        (1 + startCorner.col) * UNIT_SIZE,
-        (1 + startCorner.row) * UNIT_SIZE,
+        (offset + startCorner.col) * UNIT_SIZE,
+        (offset + startCorner.row) * UNIT_SIZE,
         p5.width,
         p5.height
     )
